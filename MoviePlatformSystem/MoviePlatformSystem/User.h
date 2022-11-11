@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <optional>
 
 class User
 {
@@ -9,16 +10,16 @@ private:
 	std::string m_username;
 	std::string m_password;
 	int m_userInfoId; // FK
-	int m_userPreferencesId; // FK
-	std::string m_watchedId; // FK
-	std::string m_wishlistId; // FK
+	std::optional<std::string> m_userPreferencesId; // FK
+	std::optional<std::string> m_watchedId; // FK
+	std::optional<std::string> m_wishlistId; // FK
 
 
 
 public:
 	User(); // no parameters constr.
-	User(int id, std::string username, std::string password, int userInfoId, int userPreferencesId, std::string watchedId,
-		std::string wishlistId);
+	User(int id, std::string username, std::string password, int userInfoId, std::optional<std::string> userPreferencesId, std::optional<std::string> watchedId,
+		std::optional<std::string> wishlistId);
 	~User();
 
 	//setters
@@ -26,9 +27,9 @@ public:
 	void setUsername(const std::string& username);
 	void setPassword(const std::string& password);
 	void setUserInfoId(const int& userInfoId);
-	void setUserPreferencesId(const int& userPreferencesId);
-	void setWatchedId(const std::string& watchedId);
-	void setWishlistId(const std::string& wishlistId);
+	void setUserPreferencesId(const std::optional<std::string>& userPreferencesId);
+	void setWatchedId(const std::optional<std::string>& watchedId);
+	void setWishlistId(const std::optional<std::string>& wishlistId);
 
 
 	//getters
@@ -36,9 +37,9 @@ public:
 	std::string getUsername() const;
 	std::string getPassword() const;
 	int getUserInfoId() const;
-	int getUserPreferencesId() const;
-	std::string getWatchedId() const;
-	std::string getWishlistId() const;
+	std::optional<std::string> getUserPreferencesId() const;
+	std::optional<std::string> getWatchedId() const;
+	std::optional<std::string> getWishlistId() const;
 
 
 };
