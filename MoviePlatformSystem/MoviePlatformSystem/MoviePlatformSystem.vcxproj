@@ -143,12 +143,14 @@
     <ClInclude Include="Movie.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserWatched.h" />
+    <ClInclude Include="UserWishlist.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserWatched.cpp" />
+    <ClCompile Include="UserWishlist.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

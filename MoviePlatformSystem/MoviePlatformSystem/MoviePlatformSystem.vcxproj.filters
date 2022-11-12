@@ -24,6 +24,9 @@
     <ClInclude Include="UserWatched.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserWishlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserWatched.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserWishlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
