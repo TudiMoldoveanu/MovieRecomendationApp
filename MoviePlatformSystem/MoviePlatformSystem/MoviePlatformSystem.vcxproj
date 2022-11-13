@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h" />
+    <ClInclude Include="Rating.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="UserPreferences.h" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Movie.cpp" />
+    <ClCompile Include="Rating.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserInfo.cpp" />
