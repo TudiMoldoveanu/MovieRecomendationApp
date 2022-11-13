@@ -1,6 +1,7 @@
 #define SQLITE_ORM_OPTIONAL_SUPPORTED
 #define SQLITE_ORM_OMITS_CODECVT
 
+#include <fstream>
 #include "sqlite_orm/sqlite_orm.h"
 #include "iostream"
 #include "Movie.h"
@@ -10,7 +11,6 @@
 #include "UserWishlist.h"
 #include "UserWatched.h"
 #include "Rating.h"
-
 
 
 
@@ -282,6 +282,82 @@ int main(int, char**)
 	platformDatabase.sync_schema(true);
 
 	// testing..
+
+	//PRINT MOVIE DATA
+
+	//display no. of movies in .prodb
+	std::ofstream file("movies.prodb");
+	auto allMovies = platformDatabase.get_all<Movie>();
+	file << "allMovies (" << allMovies.size() << "):" << std::endl;
+
+	//display all movies in .prodb
+	for (auto& movie : platformDatabase.iterate<Movie>()) {
+		file << platformDatabase.dump(movie) << std::endl;
+	}
+
+	//USER TABLE CRUD OPERATIONS
+	
+	//insert
+	platformDatabase.replace(User("1", "user1Name", "password1","1", "1", "1", "1"));
+	platformDatabase.replace(User("2", "user2Name", "password2", "2", "2", "2", "2"));
+	platformDatabase.replace(User("3", "user3Name", "password3", "3", "3", "3", "3"));
+	//delete
+	platformDatabase.remove<User>("1");
+
+	//update
+	auto userId1 = platformDatabase.get<User>("2");
+	userId1.setId("1");
+	platformDatabase.update(userId1);
+
+	//display
+	for (auto& user : platformDatabase.iterate<User>()) {
+		std::cout << platformDatabase.dump(user) << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	//USER INFO TABLE CRUD OPERATIONS
+	
+	//insert
+	platformDatabase.replace(UserInfo("1", "1", "fullName1", "age1"));
+	platformDatabase.replace(UserInfo("2", "2", "fullName2", "age2"));
+	platformDatabase.replace(UserInfo("3", "3", "fullName3", "age3"));
+
+	//delete
+	platformDatabase.remove<UserInfo>("1");
+
+	//update
+	auto userInfo1 = platformDatabase.get<UserInfo>("2");
+	userInfo1.setId("1");
+	platformDatabase.update(userInfo1);
+
+	//display
+	for (auto& userInfo : platformDatabase.iterate<UserInfo>()) {
+		std::cout << platformDatabase.dump(userInfo) << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	//USER WATCHED TABLE CRUD OPERATIONS
+
+	//insert
+	platformDatabase.replace(UserWatched("1", "1", "1"));
+	platformDatabase.replace(UserWatched("2", "2", "2"));
+	platformDatabase.replace(UserWatched("3", "3", "3"));
+
+	//delete
+	platformDatabase.remove<UserWatched>("1");
+
+	//update
+	auto userWatched1 = platformDatabase.get<UserWatched>("2");
+	userWatched1.setId("1");
+	platformDatabase.update(userWatched1);
+
+	//display
+	for (auto& userWatched : platformDatabase.iterate<UserWatched>()) {
+		std::cout << platformDatabase.dump(userWatched) << std::endl;
+	}
+
 	
 	//WISHLIST TABLE CRUD OPERATIONS
 	// 
