@@ -18,9 +18,9 @@ public:
 	void setFullName(const std::string& fullName);
 	void setAge(const std::string& age);
 
-	std::string getId()const;
-	std::string getUserId()const;
-	std::string getFullName()const;
-	std::string getAge()const;
+	std::string getId() const;
+	std::string getUserId() const;
+	std::string getFullName() const;
+	std::string getAge() const;
 };
 
