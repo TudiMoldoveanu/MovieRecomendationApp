@@ -3,7 +3,7 @@
 User::User()
 {}
 
-User::User(int id, std::string username, std::string password, int userInfoId,
+User::User(std::string id, std::string username, std::string password, std::string userInfoId,
 	std::optional<std::string> userPreferencesId, std::optional<std::string> watchedId,std::optional<std::string> wishlistId)
 	:m_id{ id }, m_username{ std::move(username) }, m_password{ std::move(password) }, m_userInfoId{ userInfoId }, m_userPreferencesId{ userPreferencesId }, m_watchedId{ std::move(watchedId) },
 	m_wishlistId{ std::move(wishlistId) }
@@ -13,7 +13,7 @@ User::~User()
 {}
 
 //setters
-void User::setId(const int& id)
+void User::setId(const std::string& id)
 {
 	m_id = id;
 }
@@ -28,7 +28,7 @@ void User::setPassword(const std::string& password)
 	m_password = std::move(password);
 }
 
-void User::setUserInfoId(const int& userInfoId)
+void User::setUserInfoId(const std::string& userInfoId)
 {
 	m_userInfoId = userInfoId;
 }
@@ -50,7 +50,7 @@ void User::setWishlistId(const std::optional<std::string>& wishlistId)
 
 
 //getters
-int User::getId() const
+std::string User::getId() const
 {
 	return m_id;
 }
@@ -65,7 +65,7 @@ std::string User::getPassword() const
 	return m_password;
 }
 
-int User::getUserInfoId() const
+std::string User::getUserInfoId() const
 {
 	return m_userInfoId;
 }

@@ -2,19 +2,19 @@
 
 Movie::Movie() {}
 
-Movie::Movie(std::string show_id, std::optional<std::string> type, std::optional<std::string> title, std::optional<std::string> director,
-    std::optional<std::string> cast, std::optional<std::string> country, std::optional<std::string> date_added,
-    std::optional<std::string> release_year, std::optional<std::string> rating, std::optional<std::string> duration,
-    std::optional<std::string> listed_in, std::optional<std::string> description)
-    : m_show_id{ std::move(show_id) }, m_type{ std::move(type) }, m_title{ std::move(title) },
+Movie::Movie(std::string showId, std::optional<std::string> type, std::optional<std::string> title, std::optional<std::string> director,
+    std::optional<std::string> cast, std::optional<std::string> country, std::optional<std::string> dateAdded,
+    std::optional<std::string> releaseYear, std::optional<std::string> rating, std::optional<std::string> duration,
+    std::optional<std::string> listedIn, std::optional<std::string> description)
+    : m_showId{ std::move(showId) }, m_type{ std::move(type) }, m_title{ std::move(title) },
     m_director{ std::move(director) }, m_cast{ std::move(cast) }, m_country{ std::move(country) },
-    m_date_added{ std::move(date_added) }, m_release_year{ std::move(release_year) }, m_rating{ std::move(rating) },
-    m_duration{ std::move(duration) }, m_listed_in{ std::move(listed_in) }, m_description{ std::move(description) } {}
+    m_dateAdded{ std::move(dateAdded) }, m_releaseYear{ std::move(releaseYear) }, m_rating{ std::move(rating) },
+    m_duration{ std::move(duration) }, m_listedIn{ std::move(listedIn) }, m_description{ std::move(description) } {}
 
 Movie::~Movie() {}
 
-void Movie::setId(const std::string& show_id) {
-    m_show_id = std::move(show_id);
+void Movie::setId(const std::string& showId) {
+    m_showId = std::move(showId);
 }
 
 
@@ -41,13 +41,13 @@ void Movie::setCountry(const std::optional<std::string>& country) {
 }
 
 
-void Movie::setDateAdded(const std::optional<std::string>& date_added) {
-    m_date_added = std::move(date_added);
+void Movie::setDateAdded(const std::optional<std::string>& dateAdded) {
+    m_dateAdded = std::move(dateAdded);
 }
 
 
-void Movie::setReleaseYear(const std::optional<std::string>& release_year) {
-    m_release_year = std::move(release_year);
+void Movie::setReleaseYear(const std::optional<std::string>& releaseYear) {
+    m_releaseYear = std::move(releaseYear);
 }
 
 void Movie::setRating(const std::optional<std::string>& rating) {
@@ -60,8 +60,8 @@ void Movie::setDuration(const std::optional<std::string>& duration) {
 }
 
 
-void Movie::setListedIn(const std::optional<std::string>& listed_in) {
-    m_listed_in = std::move(listed_in);
+void Movie::setListedIn(const std::optional<std::string>& listedIn) {
+    m_listedIn = std::move(listedIn);
 }
 
 
@@ -71,7 +71,7 @@ void Movie::setDescription(const std::optional<std::string>& description) {
 
 std::string Movie::getId() const
 {
-    return m_show_id;
+    return m_showId;
 }
 
 std::optional<std::string> Movie::getType() const {
@@ -95,11 +95,11 @@ std::optional<std::string> Movie::getCountry() const {
 }
 
 std::optional<std::string> Movie::getDateAdded() const {
-    return m_date_added;
+    return m_dateAdded;
 }
 
 std::optional<std::string> Movie::getReleaseYear() const {
-    return m_release_year;
+    return m_releaseYear;
 }
 
 std::optional<std::string> Movie::getRating() const {
@@ -111,7 +111,7 @@ std::optional<std::string> Movie::getDuration() const {
 }
 
 std::optional<std::string> Movie::getListedIn() const {
-    return m_listed_in;
+    return m_listedIn;
 }
 
 std::optional<std::string> Movie::getDescription() const {
