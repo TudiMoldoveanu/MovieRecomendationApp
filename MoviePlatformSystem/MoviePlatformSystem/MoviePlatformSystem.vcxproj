@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +143,8 @@
   <ItemGroup>
     <ClInclude Include="Movie.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="UserInfo.h" />
+    <ClInclude Include="UserPreferences.h" />
     <ClInclude Include="UserWatched.h" />
     <ClInclude Include="UserWishlist.h" />
   </ItemGroup>
@@ -149,6 +152,8 @@
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserInfo.cpp" />
+    <ClCompile Include="UserPreferences.cpp" />
     <ClCompile Include="UserWatched.cpp" />
     <ClCompile Include="UserWishlist.cpp" />
   </ItemGroup>

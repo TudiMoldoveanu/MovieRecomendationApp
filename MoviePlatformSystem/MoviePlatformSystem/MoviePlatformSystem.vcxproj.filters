@@ -27,6 +27,12 @@
     <ClInclude Include="UserWishlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserPreferences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserWishlist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserPreferences.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
