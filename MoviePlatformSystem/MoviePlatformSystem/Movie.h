@@ -27,18 +27,18 @@ public:
 		std::optional<std::string> listedIn, std::optional<std::string> description);
 	~Movie();
 
-	void setId(const std::string& showId);
-	void setType(const std::optional<std::string>& type);
-	void setTitle(const std::optional<std::string>& title);
-	void setDirector(const std::optional<std::string>& director);
-	void setCast(const std::optional<std::string>& cast);
-	void setCountry(const std::optional<std::string>& country);
-	void setDateAdded(const std::optional<std::string>& dateAdded);
-	void setReleaseYear(const std::optional<std::string>& releaseYear);
-	void setRating(const std::optional<std::string>& rating);
-	void setDuration(const std::optional<std::string>& duration);
-	void setListedIn(const std::optional<std::string>& listedIn);
-	void setDescription(const std::optional<std::string>& description);
+	void setId(std::string showId);
+	void setType(std::optional<std::string> type);
+	void setTitle(std::optional<std::string> title);
+	void setDirector(std::optional<std::string> director);
+	void setCast(std::optional<std::string> cast);
+	void setCountry(std::optional<std::string> country);
+	void setDateAdded(std::optional<std::string> dateAdded);
+	void setReleaseYear(std::optional<std::string> releaseYear);
+	void setRating(std::optional<std::string> rating);
+	void setDuration(std::optional<std::string> duration);
+	void setListedIn(std::optional<std::string> listedIn);
+	void setDescription(std::optional<std::string> description);
 
 	std::string getId() const;
 	std::optional<std::string> getType() const;

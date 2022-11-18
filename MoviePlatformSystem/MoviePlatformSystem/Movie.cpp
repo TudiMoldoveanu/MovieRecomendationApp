@@ -13,59 +13,59 @@ Movie::Movie(std::string showId, std::optional<std::string> type, std::optional<
 
 Movie::~Movie() {}
 
-void Movie::setId(const std::string& showId) {
+void Movie::setId(std::string showId) {
     m_showId = std::move(showId);
 }
 
 
-void Movie::setType(const std::optional<std::string>& type) {
+void Movie::setType(std::optional<std::string> type) {
     m_type = std::move(type);
 }
 
 
-void Movie::setTitle(const std::optional<std::string>& title) {
+void Movie::setTitle(std::optional<std::string> title) {
     m_title = std::move(title);
 }
 
-void Movie::setDirector(const std::optional<std::string>& director) {
+void Movie::setDirector(std::optional<std::string> director) {
     m_director = std::move(director);
 }
 
 
-void Movie::setCast(const std::optional<std::string>& cast) {
+void Movie::setCast(std::optional<std::string> cast) {
     m_cast = std::move(cast);
 }
 
-void Movie::setCountry(const std::optional<std::string>& country) {
+void Movie::setCountry(std::optional<std::string> country) {
     m_country = std::move(country);
 }
 
 
-void Movie::setDateAdded(const std::optional<std::string>& dateAdded) {
+void Movie::setDateAdded(std::optional<std::string> dateAdded) {
     m_dateAdded = std::move(dateAdded);
 }
 
 
-void Movie::setReleaseYear(const std::optional<std::string>& releaseYear) {
+void Movie::setReleaseYear(std::optional<std::string> releaseYear) {
     m_releaseYear = std::move(releaseYear);
 }
 
-void Movie::setRating(const std::optional<std::string>& rating) {
+void Movie::setRating(std::optional<std::string> rating) {
     m_rating = std::move(rating);
 }
 
 
-void Movie::setDuration(const std::optional<std::string>& duration) {
+void Movie::setDuration(std::optional<std::string> duration) {
     m_duration = std::move(duration);
 }
 
 
-void Movie::setListedIn(const std::optional<std::string>& listedIn) {
+void Movie::setListedIn(std::optional<std::string> listedIn) {
     m_listedIn = std::move(listedIn);
 }
 
 
-void Movie::setDescription(const std::optional<std::string>& description) {
+void Movie::setDescription(std::optional<std::string> description) {
     m_description = std::move(description);
 }
 
