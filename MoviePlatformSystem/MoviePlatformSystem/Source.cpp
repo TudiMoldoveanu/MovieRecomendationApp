@@ -39,7 +39,11 @@ int main(int, char** argv)
 
 	dataBaseMovie.deleteFromUser(2);
 
-	dataBaseMovie.updateAUser(3,6)
+	dataBaseMovie.updateAUser(3, 6);
+	UserInfo userInfo{ 1,"Dobre Andrei", "19" };
+	dataBaseMovie.insertIntoUserInfo(userInfo);
+	Rating rating{ "s1", 1, 7.5 };
+	dataBaseMovie.insertIntoRating(rating);
 	/*platformDatabase.replace(UserInfo({ 1, "Ana Maria Prodan", "32" }));*/
 
 	// COMMENTED TESTS FROM PREVIOUS STORAGE ARE DOWN BELOW
