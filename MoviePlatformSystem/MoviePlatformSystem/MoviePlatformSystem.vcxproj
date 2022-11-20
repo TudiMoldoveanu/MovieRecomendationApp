@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataBase.h" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="Rating.h" />
     <ClInclude Include="User.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="UserWishlist.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Rating.cpp" />

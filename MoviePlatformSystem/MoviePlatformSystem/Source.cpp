@@ -1,14 +1,13 @@
 #include <fstream>
 #include "dbEngine.cpp"
-
+#include"DataBase.h"
 
 int main(int, char** argv)
 
 {
-	namespace sql = sqlite_orm;
-	using Storage = decltype(initStorage(""));
-	Storage platformDatabase = initStorage("moviePlatform.sqlite");
-	platformDatabase.sync_schema(true);
+	
+	Database dataBaseMovie;
+	Storage moviePlatformStorage = dataBaseMovie.getStorage();
 
 	// testing..
 
@@ -16,20 +15,20 @@ int main(int, char** argv)
 
 	//display no. of movies in .prodb
 	std::ofstream file("movies.prodb");
-	auto allMovies = platformDatabase.get_all<Movie>();
+	auto allMovies = moviePlatformStorage.get_all<Movie>();
 	file << "allMovies (" << allMovies.size() << "):" << std::endl;
 
 	//display all movies in .prodb
-	for (auto& movie : platformDatabase.iterate<Movie>()) {
-		file << platformDatabase.dump(movie) << std::endl;
+	for (auto& movie : moviePlatformStorage.iterate<Movie>()) {
+		file << moviePlatformStorage.dump(movie) << std::endl;
 	}
 
 	/*USER TABLE CRUD OPERATIONS*/
 
 	// a little example of insert
 	User user{ -1, "anamaria", "pass" }; // i think the id really doesn't matter bcs we have the autoincrement that starts from 1
-	platformDatabase.insert(user);
-	platformDatabase.replace(UserInfo({ 1, "Ana Maria Prodan", "32" }));
+	dataBaseMovie.insertIntoUser(user);
+	/*platformDatabase.replace(UserInfo({ 1, "Ana Maria Prodan", "32" }));*/
 
 	// COMMENTED TESTS FROM PREVIOUS STORAGE ARE DOWN BELOW
 
@@ -75,65 +74,65 @@ int main(int, char** argv)
 	////USER WATCHED TABLE CRUD OPERATIONS
 
 	//insert
-	platformDatabase.replace(UserWatched(1, "s1"));
-	platformDatabase.replace(UserWatched(1, "s2"));
+	moviePlatformStorage.replace(UserWatched(1, "s1"));
+	moviePlatformStorage.replace(UserWatched(1, "s2"));
 
 	//delete
-	platformDatabase.remove<UserWatched>(1, "s1");
+	moviePlatformStorage.remove<UserWatched>(1, "s1");
 
 	//update
-	auto userWatched1 = platformDatabase.get<UserWatched>(1, "s2");
+	auto userWatched1 = moviePlatformStorage.get<UserWatched>(1, "s2");
 	userWatched1.setShowId("s3");
-	platformDatabase.update(userWatched1);
+	moviePlatformStorage.update(userWatched1);
 
 	//display
-	auto watched = platformDatabase.get_all<UserWatched>();
+	auto watched = moviePlatformStorage.get_all<UserWatched>();
 	std::cout << "Watched Size: (" << watched.size() << "):" << std::endl;
-	for (auto& userWatched : platformDatabase.iterate<UserWatched>()) {
-		std::cout << platformDatabase.dump(userWatched) << std::endl;
+	for (auto& userWatched : moviePlatformStorage.iterate<UserWatched>()) {
+		std::cout << moviePlatformStorage.dump(userWatched) << std::endl;
 	}
 
 	//
 	////WISHLIST TABLE CRUD OPERATIONS
 	// 
 	//insert
-	platformDatabase.replace(UserWishlist(1, "s1"));
-	platformDatabase.replace(UserWishlist(1, "s2"));
+	moviePlatformStorage.replace(UserWishlist(1, "s1"));
+	moviePlatformStorage.replace(UserWishlist(1, "s2"));
 
 	//delete
-	platformDatabase.remove<UserWishlist>(1, "s1");
+	moviePlatformStorage.remove<UserWishlist>(1, "s1");
 
 	//update
-	auto userWishlist = platformDatabase.get<UserWishlist>(1, "s2");
+	auto userWishlist = moviePlatformStorage.get<UserWishlist>(1, "s2");
 	userWishlist.setShowId("s4");
-	platformDatabase.update(user);
+	moviePlatformStorage.update(user);
 
 	//display
-	auto wishlist = platformDatabase.get_all<UserWishlist>();
+	auto wishlist = moviePlatformStorage.get_all<UserWishlist>();
 	std::cout << "Wishlist Size: (" << wishlist.size() << "):" << std::endl;
 	for (auto& movie : wishlist) {
-		std::cout << platformDatabase.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
+		std::cout << moviePlatformStorage.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
 	}
 
 	////USER PREFERENCES TABLE CRUD OPERATIONS
 	//// 
 	////insert
-	platformDatabase.replace(UserPreferences(1, "s1"));
-	platformDatabase.replace(UserPreferences(1, "s2"));
+	moviePlatformStorage.replace(UserPreferences(1, "s1"));
+	moviePlatformStorage.replace(UserPreferences(1, "s2"));
 
 	//delete
-	platformDatabase.remove<UserPreferences>(1, "s1");
+	moviePlatformStorage.remove<UserPreferences>(1, "s1");
 
 	//update
-	auto userPreferences = platformDatabase.get<UserPreferences>(1, "s2");
+	auto userPreferences = moviePlatformStorage.get<UserPreferences>(1, "s2");
 	userPreferences.setShowId("s4");
-	platformDatabase.update(userPreferences);
+	moviePlatformStorage.update(userPreferences);
 
 	//display
-	auto preferences = platformDatabase.get_all<UserPreferences>();
+	auto preferences = moviePlatformStorage.get_all<UserPreferences>();
 	std::cout << "User Preferences Size: (" << preferences.size() << "):" << std::endl;
 	for (auto& movie : preferences) {
-		std::cout << platformDatabase.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
+		std::cout << moviePlatformStorage.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
 	}
 
 	////RATING TABLE CRUD OPERATIONS

@@ -233,3 +233,4 @@ inline auto initStorage(const std::string& path)
 
 
 }
+using Storage = decltype(initStorage(""));
