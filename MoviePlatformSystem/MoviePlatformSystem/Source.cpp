@@ -93,26 +93,25 @@ int main(int, char** argv)
 
 	//
 	////WISHLIST TABLE CRUD OPERATIONS
-	//// 
-	////insert
-	//platformDatabase.replace(UserWishlist("1", "1", "s1"));
-	//platformDatabase.replace(UserWishlist("2", "1", "s2"));
-	//platformDatabase.replace(UserWishlist("3", "1", "s3"));
+	// 
+	//insert
+	platformDatabase.replace(UserWishlist(1, "s1"));
+	platformDatabase.replace(UserWishlist(1, "s2"));
 
-	////delete
-	//platformDatabase.remove<UserWishlist>("1");
+	//delete
+	platformDatabase.remove<UserWishlist>(1, "s1");
 
-	////update
-	//auto user = platformDatabase.get<UserWishlist>("2");
-	//user.setShowId("s4");
-	//platformDatabase.update(user);
+	//update
+	auto userWishlist = platformDatabase.get<UserWishlist>(1, "s2");
+	userWishlist.setShowId("s4");
+	platformDatabase.update(user);
 
-	////display
-	//auto wishlist = platformDatabase.get_all<UserWishlist>();
-	//std::cout << "Wishlist Size: (" << wishlist.size() << "):" << std::endl;
-	//for (auto& movie : wishlist) {
-	//	std::cout << platformDatabase.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
-	//}
+	//display
+	auto wishlist = platformDatabase.get_all<UserWishlist>();
+	std::cout << "Wishlist Size: (" << wishlist.size() << "):" << std::endl;
+	for (auto& movie : wishlist) {
+		std::cout << platformDatabase.dump(movie) << std::endl; //  dump returns std::string with json-like style object info. For example: { id : '1', first_name : 'Jonh', last_name : 'Doe', birth_date : '664416000', image_url : 'https://cdn1.iconfinder.com/data/icons/man-icon-set/100/man_icon-21-512.png', type_id : '3' }
+	}
 
 	////USER PREFERENCES TABLE CRUD OPERATIONS
 	//// 
