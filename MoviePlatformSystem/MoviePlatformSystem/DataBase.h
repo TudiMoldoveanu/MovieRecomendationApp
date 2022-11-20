@@ -10,5 +10,6 @@ public:
 	void insertIntoUser(const User& user);
 	void deleteFromUser(const int& id);
 	void updateAUser(const int& id,const int&newId);
+	void insertIntoUserInfo(const UserInfo& userInfo);
 };
 

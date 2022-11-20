@@ -22,3 +22,9 @@ void Database::updateAUser(const int& id,const int& newId)
 	user.setId(newId);
 	getStorage().update(user);
 }
+
+void Database::insertIntoUserInfo(const UserInfo& userInfo)
+{
+	getStorage().insert(userInfo);
+}
+
