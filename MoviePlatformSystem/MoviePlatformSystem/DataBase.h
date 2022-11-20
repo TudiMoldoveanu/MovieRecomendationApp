@@ -11,5 +11,6 @@ public:
 	void deleteFromUser(const int& id);
 	void updateAUser(const int& id,const int&newId);
 	void insertIntoUserInfo(const UserInfo& userInfo);
+	void insertIntoRating(const Rating& rating);
 };
 

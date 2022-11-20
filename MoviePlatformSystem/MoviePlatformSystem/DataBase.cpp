@@ -28,3 +28,8 @@ void Database::insertIntoUserInfo(const UserInfo& userInfo)
 	getStorage().insert(userInfo);
 }
 
+void Database::insertIntoRating(const Rating& rating)
+{
+	getStorage().insert(rating);
+}
+
