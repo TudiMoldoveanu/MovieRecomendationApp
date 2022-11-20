@@ -36,6 +36,10 @@ int main(int, char** argv)
 	dataBaseMovie.insertIntoUser(user2);
 	dataBaseMovie.insertIntoUser(user3);
 	dataBaseMovie.insertIntoUser(user4);
+
+	dataBaseMovie.deleteFromUser(2);
+
+	dataBaseMovie.updateAUser(3,6)
 	/*platformDatabase.replace(UserInfo({ 1, "Ana Maria Prodan", "32" }));*/
 
 	// COMMENTED TESTS FROM PREVIOUS STORAGE ARE DOWN BELOW

@@ -8,6 +8,7 @@ private:
 public:
 	Storage getStorage();
 	void insertIntoUser(const User& user);
-
+	void deleteFromUser(const int& id);
+	void updateAUser(const int& id,const int&newId);
 };
 
