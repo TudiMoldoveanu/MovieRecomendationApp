@@ -27,7 +27,15 @@ int main(int, char** argv)
 
 	// a little example of insert
 	User user{ -1, "anamaria", "pass" }; // i think the id really doesn't matter bcs we have the autoincrement that starts from 1
+	User user1{ 1,"tudor","castravete" };
+	User user2{ 2,"sleek","sleek24" };
+	User user3{ 3,"maria","gigel_e_tare" };
+	User user4{ 4,"ana","ananuaremere" };
 	dataBaseMovie.insertIntoUser(user);
+	dataBaseMovie.insertIntoUser(user1);
+	dataBaseMovie.insertIntoUser(user2);
+	dataBaseMovie.insertIntoUser(user3);
+	dataBaseMovie.insertIntoUser(user4);
 	/*platformDatabase.replace(UserInfo({ 1, "Ana Maria Prodan", "32" }));*/
 
 	// COMMENTED TESTS FROM PREVIOUS STORAGE ARE DOWN BELOW
