@@ -74,23 +74,22 @@ int main(int, char** argv)
 
 	////USER WATCHED TABLE CRUD OPERATIONS
 
-	////insert
-	//platformDatabase.replace(UserWatched("1", "1", "1"));
-	//platformDatabase.replace(UserWatched("2", "2", "2"));
-	//platformDatabase.replace(UserWatched("3", "3", "3"));
+	//insert
+	platformDatabase.replace(UserWatched(1, "s1"));
+	platformDatabase.replace(UserWatched(1, "s2"));
 
-	////delete
-	//platformDatabase.remove<UserWatched>("1");
+	//delete
+	platformDatabase.remove<UserWatched>(1, "s1");
 
-	////update
-	//auto userWatched1 = platformDatabase.get<UserWatched>("2");
-	//userWatched1.setId("1");
-	//platformDatabase.update(userWatched1);
+	//update
+	auto userWatched1 = platformDatabase.get<UserWatched>(1, "s2");
+	userWatched1.setShowId("s3");
+	platformDatabase.update(userWatched1);
 
-	////display
-	//for (auto& userWatched : platformDatabase.iterate<UserWatched>()) {
-	//	std::cout << platformDatabase.dump(userWatched) << std::endl;
-	//}
+	//display
+	for (auto& userWatched : platformDatabase.iterate<UserWatched>()) {
+		std::cout << platformDatabase.dump(userWatched) << std::endl;
+	}
 
 	//
 	////WISHLIST TABLE CRUD OPERATIONS
