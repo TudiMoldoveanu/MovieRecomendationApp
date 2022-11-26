@@ -321,6 +321,9 @@ border-up-right-radius:10px;
       <bold>true</bold>
      </font>
     </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
    <widget class="QLineEdit" name="nameLineEdit">
     <property name="geometry">
@@ -406,6 +409,12 @@ border-radius:10px;
     <property name="text">
      <string>Create account!</string>
     </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -414,7 +423,7 @@ border-radius:10px;
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

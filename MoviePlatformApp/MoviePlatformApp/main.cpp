@@ -4,9 +4,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    LogInPage logInPage;
+    //LogInPage logInPage;
     RegisterPage registerPage;
-    logInPage.show(); 
+    //logInPage.show(); 
     registerPage.show();
     return a.exec();
 }
