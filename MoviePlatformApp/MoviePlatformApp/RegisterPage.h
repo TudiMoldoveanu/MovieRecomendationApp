@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include "ui_RegisterPage.h"
+#include "DataBase.h"
 
 enum ErrorCodes : uint8_t {
 	EmptyFields,
@@ -9,7 +10,7 @@ enum ErrorCodes : uint8_t {
 	WeakPassword,
 };
 
-class RegisterPage : public QMainWindow
+class RegisterPage : public QMainWindow, public Database
 {
 	Q_OBJECT
 

@@ -57,9 +57,9 @@ void RegisterPage::on_pushButton_clicked() {
 		User user{ -1, username, password };
 		UserInfo userInfo{ user.getId(), fullname, age };
 
-		Database* db = new Database;
-		db->insertIntoUser(user);
-		db->insertIntoUserInfo(userInfo);
+		//insert
+		Database::insertIntoUser(user);
+		Database::insertIntoUserInfo(userInfo);
 	}
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));
