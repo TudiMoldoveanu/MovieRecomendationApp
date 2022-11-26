@@ -9,6 +9,7 @@ LogInPage::LogInPage(QWidget *parent)
 
 LogInPage::~LogInPage()
 {}
+<<<<<<< HEAD
 
 bool LogInPage::verifiyLogin(std::string username, std::string password)
 {
@@ -31,3 +32,12 @@ void LogInPage::on_logInButton_clicked() {
     }
 }
 
+=======
+void LogInPage::on_registerButton_clicked()
+{
+    
+    registerPage = new RegisterPage(this);
+    registerPage->show();
+    
+ }
+>>>>>>> origin/develop
