@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>add-contact (1).png</file>
+  </qresource>
+</RCC>

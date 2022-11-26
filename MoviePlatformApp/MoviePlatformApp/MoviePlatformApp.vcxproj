@@ -87,23 +87,27 @@
   <ItemGroup>
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Rating.cpp" />
+    <ClCompile Include="RegisterPage.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserInfo.cpp" />
     <ClCompile Include="UserPreferences.cpp" />
     <ClCompile Include="UserWatched.cpp" />
     <ClCompile Include="UserWishlist.cpp" />
     <QtRcc Include="LogInPage.qrc" />
+    <QtRcc Include="RegistetPage.qrc" />
     <QtUic Include="LogInPage.ui" />
     <QtMoc Include="LogInPage.h" />
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="RegisterPage.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="Rating.h" />
+    <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="UserPreferences.h" />
