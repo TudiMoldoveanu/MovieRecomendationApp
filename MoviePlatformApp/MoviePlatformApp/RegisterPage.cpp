@@ -64,4 +64,5 @@ void RegisterPage::on_pushButton_clicked() {
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));
 	}
+	
 }
