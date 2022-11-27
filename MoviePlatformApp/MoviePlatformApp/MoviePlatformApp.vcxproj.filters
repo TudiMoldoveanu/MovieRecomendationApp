@@ -112,5 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="movies_dataset.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ RegisterPage::~RegisterPage()
 bool RegisterPage::validateRegisterForm(std::string username, std::string password, std::string fullname, std::string age)
 {
 	//Minimum eight characters, at least one letter and one number:
-	std::regex pass_rule("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
+	std::regex pass_rule("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	//
 	if (username.empty() || password.empty() || fullname.empty() || age.empty()) {
 		m_errorCode = ErrorCodes::EmptyFields;

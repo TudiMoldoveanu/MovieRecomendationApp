@@ -4,15 +4,19 @@ class Database //Singleton
 {
 private:
 	std::unique_ptr<Storage> m_storage; 
+
+private:
 	Database();
 	Database(const Database&) = delete;			// the object can't be copied
 	void operator=(const Database&) = delete;
 	~Database() = delete;						// the object can't be deleted
-	
-public:
 
+private:
 	// instantiate the database
 	static Database* getInstance();
+	void PopulateStorage(const std::string& dataFilePath);
+	
+public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
 
@@ -36,6 +40,8 @@ public:
 	{
 		m_storage->remove<T>(id);
 	}
+public:
+	static const int k_movieTableSize = 13;
 };
 
 

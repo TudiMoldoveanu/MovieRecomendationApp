@@ -4,6 +4,7 @@
 #define SQLITE_ORM_OPTIONAL_SUPPORTED
 #define SQLITE_ORM_OMITS_CODECVT
 #include<string>
+#include <fstream>
 #include "sqlite_orm/sqlite_orm.h"
 #include "iostream"
 #include "Movie.h"
@@ -28,7 +29,9 @@ inline auto initStorage(const std::string& path)
 				"show_id",
 				&Movie::getId,
 				&Movie::setId,
+				sql::autoincrement(),
 				sql::primary_key()
+
 			),
 			sql::make_column
 			(
@@ -95,6 +98,12 @@ inline auto initStorage(const std::string& path)
 				"description",
 				&Movie::getDescription,
 				&Movie::setDescription
+			),
+			sql::make_column
+			(
+				"poster_url",
+				&Movie::getPosterUrl,
+				&Movie::setPosterUrl
 			)
 		),
 		sql::make_table

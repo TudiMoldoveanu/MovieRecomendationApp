@@ -2,19 +2,19 @@
 
 Movie::Movie() {}
 
-Movie::Movie(std::string showId, std::optional<std::string> type, std::optional<std::string> title, std::optional<std::string> director,
+Movie::Movie(int showId, std::optional<std::string> type, std::optional<std::string> title, std::optional<std::string> director,
     std::optional<std::string> cast, std::optional<std::string> country, std::optional<std::string> dateAdded,
-    std::optional<std::string> releaseYear, std::optional<std::string> rating, std::optional<std::string> duration,
-    std::optional<std::string> listedIn, std::optional<std::string> description)
-    : m_showId{ std::move(showId) }, m_type{ std::move(type) }, m_title{ std::move(title) },
+    std::optional<int> releaseYear, std::optional<std::string> rating, std::optional<std::string> duration,
+    std::optional<std::string> listedIn, std::optional<std::string> description, std::optional<std::string> posterUrl)
+    : m_showId{ showId }, m_type{ std::move(type) }, m_title{ std::move(title) },
     m_director{ std::move(director) }, m_cast{ std::move(cast) }, m_country{ std::move(country) },
-    m_dateAdded{ std::move(dateAdded) }, m_releaseYear{ std::move(releaseYear) }, m_rating{ std::move(rating) },
-    m_duration{ std::move(duration) }, m_listedIn{ std::move(listedIn) }, m_description{ std::move(description) } {}
+    m_dateAdded{ std::move(dateAdded) }, m_releaseYear{ releaseYear }, m_rating{ std::move(rating) },
+    m_duration{ std::move(duration) }, m_listedIn{ std::move(listedIn) }, m_description{ std::move(description) }, m_posterUrl(posterUrl) {}
 
 Movie::~Movie() {}
 
-void Movie::setId(std::string showId) {
-    m_showId = std::move(showId);
+void Movie::setId(int showId) {
+    m_showId = showId;
 }
 
 
@@ -46,8 +46,8 @@ void Movie::setDateAdded(std::optional<std::string> dateAdded) {
 }
 
 
-void Movie::setReleaseYear(std::optional<std::string> releaseYear) {
-    m_releaseYear = std::move(releaseYear);
+void Movie::setReleaseYear(std::optional<int> releaseYear) {
+    m_releaseYear = releaseYear;
 }
 
 void Movie::setRating(std::optional<std::string> rating) {
@@ -69,7 +69,12 @@ void Movie::setDescription(std::optional<std::string> description) {
     m_description = std::move(description);
 }
 
-std::string Movie::getId() const
+void Movie::setPosterUrl(std::optional<std::string> posterUrl)
+{
+    m_posterUrl = std::move(posterUrl);
+}
+
+int Movie::getId() const
 {
     return m_showId;
 }
@@ -98,7 +103,7 @@ std::optional<std::string> Movie::getDateAdded() const {
     return m_dateAdded;
 }
 
-std::optional<std::string> Movie::getReleaseYear() const {
+std::optional<int> Movie::getReleaseYear() const {
     return m_releaseYear;
 }
 
@@ -116,4 +121,9 @@ std::optional<std::string> Movie::getListedIn() const {
 
 std::optional<std::string> Movie::getDescription() const {
     return m_description;
+}
+
+std::optional<std::string> Movie::getPosterUrl() const
+{
+    return m_posterUrl;
 }

@@ -75,6 +75,8 @@
   <ItemGroup>
     <None Include="movies.prodb">
       <Filter>Resource Files</Filter>
+	  <None Include="movies_dataset.csv">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

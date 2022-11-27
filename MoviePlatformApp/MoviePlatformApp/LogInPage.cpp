@@ -31,7 +31,7 @@ void LogInPage::on_logInButton_clicked() {
         QMessageBox::information(this, "Login", "Logat cu succes");
     }
 
-    //TODO: add else where the pass and username doesn't match
+    //TODO: add else case in where the pass and username doesn't match
 
     //TODO: add functionality on register button
 }
