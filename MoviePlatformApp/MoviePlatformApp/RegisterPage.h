@@ -10,7 +10,7 @@ enum ErrorCodes : uint8_t {
 	WeakPassword,
 };
 
-class RegisterPage : public QMainWindow, public Database
+class RegisterPage : public QMainWindow
 {
 	Q_OBJECT
 

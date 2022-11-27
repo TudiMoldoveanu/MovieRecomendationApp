@@ -5,7 +5,7 @@
 #include "ui_LogInPage.h"
 #include "DataBase.h"
 
-class LogInPage : public QMainWindow, public Database
+class LogInPage : public QMainWindow
 {
     Q_OBJECT
 

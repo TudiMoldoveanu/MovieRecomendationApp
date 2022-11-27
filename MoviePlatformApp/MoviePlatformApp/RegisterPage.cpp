@@ -58,8 +58,8 @@ void RegisterPage::on_pushButton_clicked() {
 		UserInfo userInfo{ user.getId(), fullname, age };
 
 		//insert
-		Database::insertIntoUser(user);
-		Database::insertIntoUserInfo(userInfo);
+		/*Database::insertIntoUser(user);
+		Database::insertIntoUserInfo(userInfo);*/
 	}
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));

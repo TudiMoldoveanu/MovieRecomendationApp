@@ -1,16 +1,23 @@
 #pragma once
 #include"dbEngine.cpp"
-class Database
+class Database //Singleton
 {
 private:
-	Storage m_storage = initStorage("moviePlatform.sqlite");
-
+	std::unique_ptr<Storage> m_storage; 
+	Database();
+	Database(const Database&) = delete;			// the object can't be copied
+	void operator=(const Database&) = delete;
+	~Database() = delete;						// the object can't be deleted
+	
 public:
-	Storage getStorage();
-	void insertIntoUser(const User& user);
-	void deleteFromUser(const int& id);
-	void updateAUser(const int& id,const int&newId);
-	void insertIntoUserInfo(const UserInfo& userInfo);
-	void insertIntoRating(const Rating& rating);
+
+	// instantiate the database
+	static Database* getInstance();
+	// sync the instantiated database and return a pointer to it
+	static Database* connect();
 };
+
+
+
+
 

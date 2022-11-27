@@ -1,35 +1,25 @@
 #include "Database.h"
 
-
-Storage Database::getStorage()
+Database::Database()
 {
-	return m_storage;
+	 m_storage = std::make_unique<Storage>(initStorage("moviePlatform.sqlite"));
+	 std::cout << "Database connected!" << std::endl;
+
 }
 
-void Database::insertIntoUser(const User& user)
+Database* Database::getInstance()
 {
-	getStorage().insert(user);
+	static Database* database;
+	if (database == nullptr)
+	{
+		database = new Database();
+	}
+	return database;
 }
 
-void Database::deleteFromUser(const int& id)
+Database* Database::connect()
 {
-	getStorage().remove<User>(id);
+	auto* instance = getInstance();
+	instance->m_storage->sync_schema();
+	return instance;
 }
-
-void Database::updateAUser(const int& id,const int& newId)
-{
-	auto user = getStorage().get<User>(id);
-	user.setId(newId);
-	getStorage().update(user);
-}
-
-void Database::insertIntoUserInfo(const UserInfo& userInfo)
-{
-	getStorage().insert(userInfo);
-}
-
-void Database::insertIntoRating(const Rating& rating)
-{
-	getStorage().insert(rating);
-}
-
