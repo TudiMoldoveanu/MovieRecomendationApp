@@ -20,6 +20,28 @@ public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
 
+	bool isRegistered(std::string username)
+	{
+		using namespace sqlite_orm;
+		auto commited = m_storage->transaction([&]() mutable {
+			auto userCount = m_storage->get_all<User>(where(c(&User::getUsername) == username));
+			if (userCount.size() > 0) {  //  dummy condition for test
+				return false;
+				//  exits lambda and calls ROLLBACK
+			}
+			return true;        //  exits lambda and calls COMMIT
+			});
+		if (commited)
+		{
+			return false;
+		}
+		else {
+			return true;
+			std::cout << "User already has account";
+		}
+	}
+
+
 	// template useful functions
 	template <class T>
 	auto getAll()
