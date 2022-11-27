@@ -1,23 +1,23 @@
-#pragma once
+﻿#pragma once
 #include<string>
 class Rating
 {
 private:
 	std::string m_showId;//fk to Movies
 	int m_userId;//fk to User
-	double m_rating;
+	int m_numberOfStars; // (☆☆☆) from 0 to 5
 public:
 	Rating();
-	Rating(std::string showId, int userId, double rating);
+	Rating(std::string showId, int userId, int numberOfStars);
 	~Rating();
 
 	void setShowId(std::string showId);
 	void setUserId(int userId);
-	void setRating(double rating);
+	void setRating(int numberOfStars);
 
 	std::string getShowId() const;
 	int getUserId() const;
-	double getRating() const;
+	int getRating() const;
 
 };
 

@@ -15,6 +15,27 @@ public:
 	static Database* getInstance();
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
+
+	// template useful functions
+	template <class T>
+	auto getAll()
+	{
+		auto allRecords = m_storage->get_all<T>();
+		return allRecords;
+	}
+
+	// template CRUD functions
+	template <class T>
+	void insert(const T& instance)
+	{
+		m_storage->insert(instance);
+	}
+
+	template <class T>
+	void deleteId(const int& id)
+	{
+		m_storage->remove<T>(id);
+	}
 };
 
 

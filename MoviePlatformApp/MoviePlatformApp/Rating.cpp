@@ -4,8 +4,8 @@ Rating::Rating()
 {
 }
 
-Rating::Rating(std::string showId, int userId, double rating)
-	: m_showId{ showId }, m_userId{ userId }, m_rating{rating} {}
+Rating::Rating(std::string showId, int userId, int numberOfStars)
+	: m_showId{ showId }, m_userId{ userId }, m_numberOfStars{numberOfStars} {}
 
 Rating::~Rating()
 {
@@ -19,9 +19,9 @@ void Rating::setUserId(int userId)
 {
 	m_userId = userId;
 }
-void Rating::setRating(double rating)
+void Rating::setRating(int numberOfStars)
 {
-	m_rating = rating;
+	m_numberOfStars = numberOfStars;
 }
 
 
@@ -33,8 +33,8 @@ int Rating::getUserId() const
 {
 	return m_userId;
 }
-double Rating::getRating() const
+int Rating::getRating() const
 {
-	return m_rating;
+	return m_numberOfStars;
 }
 

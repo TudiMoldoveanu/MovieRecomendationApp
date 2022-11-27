@@ -27,6 +27,7 @@ private slots:
 	void on_pushButton_clicked();
 
 private:
+	Database* database = Database::connect(); // connecting the DB where using it (being singleton it will use the already instantiated object)
 	Ui::RegisterPageClass ui;
 	ErrorCodes m_errorCode;
 };

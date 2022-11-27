@@ -7,6 +7,7 @@
 RegisterPage::RegisterPage(QWidget* parent)
 	: QMainWindow(parent)
 {
+	
 	ui.setupUi(this);
 }
 
@@ -58,8 +59,8 @@ void RegisterPage::on_pushButton_clicked() {
 		UserInfo userInfo{ user.getId(), fullname, age };
 
 		//insert
-		/*Database::insertIntoUser(user);
-		Database::insertIntoUserInfo(userInfo);*/
+		database->insert(user);
+		database->insert(userInfo);
 	}
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));
