@@ -27,6 +27,7 @@ public:
 		auto allRecords = m_storage->get_all<T>();
 		return allRecords;
 	}
+	
 
 	// template CRUD functions
 	template <class T>

@@ -70,6 +70,9 @@
     <ClCompile Include="DataBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PreferencesPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -104,9 +107,15 @@
     <QtMoc Include="RegisterPage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="PreferencesPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="RegisterPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="PreferencesPage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

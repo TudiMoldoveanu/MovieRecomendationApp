@@ -10,9 +10,6 @@ private:
 	std::string m_username;
 	std::string m_password;
 
-
-
-
 public:
 	User(); // no parameters constr.
 
@@ -28,7 +25,6 @@ public:
 	int getId() const;
 	std::string getUsername() const;
 	std::string getPassword() const;
-
 
 };
 

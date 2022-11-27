@@ -1,4 +1,5 @@
 #include "User.h"
+#include <iostream>
 
 User::User()
 {}
@@ -46,4 +47,6 @@ std::string User::getPassword() const
 {
 	return m_password;
 }
+
+
 

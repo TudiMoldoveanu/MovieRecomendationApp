@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -58,6 +58,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -87,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Movie.cpp" />
+    <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
     <ClCompile Include="User.cpp" />
@@ -101,11 +107,13 @@
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="PreferencesPage.ui" />
     <QtUic Include="RegisterPage.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Movie.h" />
+    <QtMoc Include="PreferencesPage.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="User.h" />

@@ -34,6 +34,7 @@ bool RegisterPage::validateRegisterForm(std::string username, std::string passwo
 	return true;
 }
 
+
 const char* RegisterPage::errorCodeToString(const ErrorCodes& type)
 {
 	switch (type) {
