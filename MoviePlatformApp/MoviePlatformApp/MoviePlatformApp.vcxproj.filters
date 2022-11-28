@@ -35,6 +35,9 @@
     <QtRcc Include="RegistetPage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="PreferencesPage.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

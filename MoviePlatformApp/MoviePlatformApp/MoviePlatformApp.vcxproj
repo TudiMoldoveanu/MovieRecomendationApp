@@ -60,7 +60,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -102,6 +107,7 @@
     <ClCompile Include="UserWatched.cpp" />
     <ClCompile Include="UserWishlist.cpp" />
     <QtRcc Include="LogInPage.qrc" />
+    <QtRcc Include="PreferencesPage.qrc" />
     <QtRcc Include="RegistetPage.qrc" />
     <QtUic Include="LogInPage.ui" />
     <QtMoc Include="LogInPage.h" />
