@@ -22,7 +22,7 @@ private slots:
 
 private:
     Database* database = Database::connect(); // connecting the DB where using it (being singleton it will use the already instantiated object)
-    Ui::LogInPageClass ui;
+    Ui::LogInPage ui;
     RegisterPage *registerPage;
 };
 
