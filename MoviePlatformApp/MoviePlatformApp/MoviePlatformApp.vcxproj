@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.4.1_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;network;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Movie.cpp" />
+    <ClCompile Include="MovieDashboard.cpp" />
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="MovieDashboard.ui" />
     <QtUic Include="PreferencesPage.ui" />
     <QtUic Include="RegisterPage.ui" />
   </ItemGroup>
@@ -114,8 +116,10 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Movie.h" />
     <QtMoc Include="PreferencesPage.h" />
+    <QtMoc Include="MovieDashboard.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="UserPreferences.h" />
@@ -125,6 +129,9 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="movies_dataset.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MoviePlatformApp.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

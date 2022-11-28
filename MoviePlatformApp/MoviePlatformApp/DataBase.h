@@ -49,8 +49,19 @@ public:
 		auto allRecords = m_storage->get_all<T>();
 		return allRecords;
 	}
-	
 
+	template <class T>
+	auto getById(const T& id)
+	{
+		return m_storage->get<T>(id);
+	}
+
+	template <class T>
+	auto dump(const T& instance)
+	{
+		std::cout<< m_storage->dump(instance);
+	}
+	
 	// template CRUD functions
 	template <class T>
 	void insert(const T& instance)
