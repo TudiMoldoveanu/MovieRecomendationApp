@@ -9,6 +9,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QStandardItemModel>
 
 class MovieDashboard : public QMainWindow
 {
@@ -18,11 +19,19 @@ public:
 	MovieDashboard(QWidget *parent = nullptr);
 	~MovieDashboard();
 
-	void loadMovieData();
-	QPixmap download_from(const std::string& poster_url);
+	void loadMovieData(int fromIndex, int toIndex, std::string optiune);
+	QPixmap downloadFrom(const std::string& poster_url, const std::string& title);
+	std::string whitespaceReplace(std::string& s);
+	void setHeader();
+
+private slots:
+	void on_searchButton_clicked();
+	void on_loadMoreButton_clicked();
 
 private:
 	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
-	QPixmap m_poster;
+	std::vector<Movie, std::allocator<Movie>> allMovies;
+	int movieIndex;
+	QStandardItemModel* model;
 };
