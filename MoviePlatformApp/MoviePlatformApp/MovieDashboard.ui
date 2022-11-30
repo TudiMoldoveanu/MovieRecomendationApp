@@ -116,10 +116,35 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="Wishlist">
+     <attribute name="title">
+      <string>Wishlisted</string>
+     </attribute>
+     <widget class="QTableView" name="tableView_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1321</width>
+        <height>621</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Watched</string>
      </attribute>
+     <widget class="QTableView" name="tableView_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1321</width>
+        <height>621</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

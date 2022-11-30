@@ -36,8 +36,8 @@
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt 6.4.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>6.4.1_msvc2019_64</QtInstall>
+    <QtModules>core;gui;network;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -98,6 +98,7 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="MovieDashboard.cpp" />
+    <ClCompile Include="MovieView.cpp" />
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="MovieDashboard.ui" />
+    <QtUic Include="MovieView.ui" />
     <QtUic Include="PreferencesPage.ui" />
     <QtUic Include="RegisterPage.ui" />
   </ItemGroup>
@@ -123,6 +125,7 @@
     <ClInclude Include="Movie.h" />
     <QtMoc Include="PreferencesPage.h" />
     <QtMoc Include="MovieDashboard.h" />
+    <QtMoc Include="MovieView.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="resource.h" />

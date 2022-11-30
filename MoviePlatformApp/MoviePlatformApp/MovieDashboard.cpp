@@ -18,6 +18,13 @@ MovieDashboard::MovieDashboard(QWidget *parent)
 	setHeader();
 
 	loadMovieData(0, PAGINATE_NR, "dashboard");
+
+	//signal for displaying individual movie page on double click
+	connect(ui.tableView,
+		SIGNAL(doubleClicked(const QModelIndex&)),
+		this,
+		SLOT(onMovieDoubleClick(const QModelIndex&)),
+		Qt::QueuedConnection);
 }
 
 MovieDashboard::~MovieDashboard()
@@ -31,7 +38,7 @@ void MovieDashboard::setHeader() {
 
 void MovieDashboard::loadMovieData(int fromIndex, int toIndex, std::string optiune)
 {
-	model->removeRows(0, 0);
+	//model->removeRows(0, 0);
 
 	//add 10 items to the table
 	for (int line = fromIndex; line < toIndex; line++) {
@@ -42,7 +49,7 @@ void MovieDashboard::loadMovieData(int fromIndex, int toIndex, std::string optiu
 		std::string moviePoster = std::move(*allMovies[line].getPosterUrl());
 		std::string movieTitle = std::move(*allMovies[line].getTitle());
 
-		QPixmap pm = downloadFrom(moviePoster, movieTitle);
+		QPixmap pm = downloadFrom(moviePoster, movieTitle, "92");
 		newItem->setData(QVariant(pm), Qt::DecorationRole);
 
 		//add rest of the infos
@@ -80,10 +87,42 @@ void MovieDashboard::loadMovieData(int fromIndex, int toIndex, std::string optiu
 	}
 
 	//set size for cells
+	ui.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+	ui.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui.tableView->verticalHeader()->setDefaultSectionSize(140);
 	ui.tableView->horizontalHeader()->setDefaultSectionSize(92);
 	ui.tableView->setModel(model);
 	ui.tableView->show();
+}
+
+void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
+{
+	// Get all selections
+	QModelIndexList indexes = ui.tableView->selectionModel()->selection().indexes();
+
+	//get selected movie id
+	int selectedIndexMovie = indexes.at(0).row() + 1;
+	//std::cout << selectedIndexMovie << "\n";
+
+	//individual movie page
+	MovieView* movieView = new MovieView();
+
+	Movie movie = database->getById<Movie>(selectedIndexMovie);
+
+	//add movie poster
+	std::string moviePoster = std::move(*movie.getPosterUrl());
+	std::string movieTitle = std::move(*movie.getTitle());
+
+	QPixmap pm = downloadFrom(moviePoster, movieTitle, "200");
+
+	movieView->setMoviePoster(pm);
+	movieView->setMovieTitle(QString::fromStdString(movieTitle));
+
+	movieView->setVisible(true);
+
+	//display individual page
+	//Movie movie = allMovies[selectedIndexMovie];
 }
 
 std::string MovieDashboard::whitespaceReplace(std::string& s)
@@ -94,7 +133,7 @@ std::string MovieDashboard::whitespaceReplace(std::string& s)
 	return s;
 }
 
-QPixmap MovieDashboard::downloadFrom(const std::string& poster_url, const std::string& title) {
+QPixmap MovieDashboard::downloadFrom(const std::string& poster_url, const std::string& title, const std::string& size) {
 
 	//check is poster is null
 	QUrl url;
@@ -109,7 +148,9 @@ QPixmap MovieDashboard::downloadFrom(const std::string& poster_url, const std::s
 	}
 	else {
 		//concatenate url from database
-		std::string URL_STRING = "https://image.tmdb.org/t/p/w92" + poster_url;
+		std::string URL_STRING = "https://image.tmdb.org/t/p/w";
+		URL_STRING.append(size);
+		URL_STRING.append(poster_url);
 		const char* URL_CHAR = URL_STRING.c_str();
 		url = QUrl(URL_CHAR);
 	}

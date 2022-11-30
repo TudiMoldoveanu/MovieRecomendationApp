@@ -3,17 +3,14 @@
 Database::Database()
 {
 	 m_storage = std::make_unique<Storage>(initStorage("moviePlatform.sqlite"));
-//<<<<<<< Updated upstream
-	 std::cout << "Database connected!" << std::endl;
 
 	 this->m_storage->sync_schema();
 
 	 auto initMoviesCount = this->m_storage->count<Movie>();
 	 if (initMoviesCount == 0)
 		 this->PopulateStorage("movies_dataset.csv");
-//=======
+
 	 std::cout << "Database connected!" << std::endl; 
-//>>>>>>> Stashed changes
 }
 
 Database* Database::getInstance()

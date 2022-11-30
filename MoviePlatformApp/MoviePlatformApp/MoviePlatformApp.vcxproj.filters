@@ -79,6 +79,9 @@
     <ClCompile Include="MovieDashboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MovieView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -122,6 +125,9 @@
     <QtMoc Include="MovieDashboard.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="MovieView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="RegisterPage.ui">
@@ -131,6 +137,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MovieDashboard.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MovieView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

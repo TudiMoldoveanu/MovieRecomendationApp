@@ -51,7 +51,7 @@ public:
 	}
 
 	template <class T>
-	auto getById(const T& id)
+	auto getById(const int& id)
 	{
 		return m_storage->get<T>(id);
 	}
