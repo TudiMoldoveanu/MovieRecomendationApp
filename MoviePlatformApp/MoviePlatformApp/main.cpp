@@ -9,8 +9,10 @@ int main(int argc, char *argv[])
     //logInPage.show(); 
     //PreferencesPage preferencesPage;
     //preferencesPage.show();
+    RegisterPage registerPage;
+    registerPage.show();
 
-    MovieDashboard movieDashboard;
-    movieDashboard.show();
+    //MovieDashboard movieDashboard;
+    //movieDashboard.show();
     return a.exec();
 }

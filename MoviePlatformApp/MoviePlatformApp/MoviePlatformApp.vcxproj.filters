@@ -21,6 +21,9 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\GUILayer">
+      <UniqueIdentifier>{f0821a88-47d9-4743-bfc0-d3b3c2c57aee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="LogInPage.qrc">
@@ -29,9 +32,6 @@
     <QtUic Include="LogInPage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <ClCompile Include="LogInPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <QtRcc Include="RegistetPage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
@@ -67,20 +67,23 @@
     <ClCompile Include="UserWishlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RegisterPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DataBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PreferencesPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MovieDashboard.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="LogInPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="PreferencesPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
     </ClCompile>
     <ClCompile Include="MovieView.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,20 +116,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LogInPage.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="RegisterPage.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="PreferencesPage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
     </QtMoc>
     <QtMoc Include="MovieDashboard.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="RegisterPage.h">
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="LogInPage.h">
+      <Filter>Source Files\GUILayer</Filter>
     </QtMoc>
     <QtMoc Include="MovieView.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -14,8 +14,18 @@ RegisterPage::RegisterPage(QWidget* parent)
 RegisterPage::~RegisterPage()
 {}
 
+
+
+
 bool RegisterPage::validateRegisterForm(std::string username, std::string password, std::string fullname, std::string age)
 {
+
+	// check if account already exists
+	if (database->isRegistered(username))
+	{
+		m_errorCode = ErrorCodes::UsernameExists;
+		return false;
+	}
 	//Minimum eight characters, at least one letter and one number:
 	std::regex pass_rule("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	//
@@ -27,7 +37,7 @@ bool RegisterPage::validateRegisterForm(std::string username, std::string passwo
 		m_errorCode = ErrorCodes::UsernameSize;
 		return false;
 	}
-	if (regex_match(password, pass_rule)){
+	if (!regex_match(password, pass_rule)){
 		m_errorCode = ErrorCodes::WeakPassword;
 		return false;
 	}
@@ -43,7 +53,9 @@ const char* RegisterPage::errorCodeToString(const ErrorCodes& type)
 	case 1:
 		return "Username too short.";
 	case 2:
-		return "Password is too weak.(Use at least eight characters, one number and one letter)";
+		return "Password is too weak. Use at least eight characters, one number and one letter.";
+	case 3:
+		return "Username already exists, try another one.";
 	default:
 		return "none";
 	}

@@ -29,6 +29,25 @@ Database* Database::connect()
 	return instance;
 }
 
+bool Database::isRegistered(std::string username)
+{
+	using namespace sqlite_orm;
+	auto commited = m_storage->transaction([&]() mutable {
+		auto userCount = m_storage->get_all<User>(where(c(&User::getUsername) == username));
+	if (userCount.size() > 0) {  //  dummy condition for test
+		return false;
+		//  exits lambda and calls ROLLBACK
+	}
+	return true;        //  exits lambda and calls COMMIT
+		});
+	if (commited)
+	{
+		return false;
+	}
+	else {
+		return true;
+	}
+}
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
 {
 	std::array<std::optional<std::string>, Database::k_movieTableSize> result;
