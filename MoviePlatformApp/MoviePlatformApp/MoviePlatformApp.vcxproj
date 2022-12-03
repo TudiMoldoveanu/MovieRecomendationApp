@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -102,6 +102,9 @@
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
+    <ClCompile Include="stardelegate.cpp" />
+    <ClCompile Include="stareditor.cpp" />
+    <ClCompile Include="starrating.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserInfo.cpp" />
     <ClCompile Include="UserPreferences.cpp" />
@@ -129,6 +132,9 @@
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="resource.h" />
+    <QtMoc Include="stardelegate.h" />
+    <QtMoc Include="stareditor.h" />
+    <ClInclude Include="starrating.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="UserPreferences.h" />

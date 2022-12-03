@@ -113,11 +113,27 @@ void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 	//add movie poster
 	std::string moviePoster = std::move(*movie.getPosterUrl());
 	std::string movieTitle = std::move(*movie.getTitle());
+	std::string movieDirector = std::move(*movie.getDirector());
+	std::string movieCast = std::move(*movie.getCast());
+	std::string movieCountry = std::move(*movie.getCountry());
+	std::string movieReleaseYear = std::to_string(std::move(*movie.getReleaseYear()));
+	std::string movieDescription = std::move(*movie.getDescription());
+	std::string movieListedIn = std::move(*movie.getListedIn());
+	std::string movieType = std::move(*movie.getType());
+	std::string movieDuration = std::move(*movie.getDuration());
 
 	QPixmap pm = downloadFrom(moviePoster, movieTitle, "200");
 
 	movieView->setMoviePoster(pm);
 	movieView->setMovieTitle(QString::fromStdString(movieTitle));
+	movieView->setMovieRating();
+	movieView->setMovieDirector(QString::fromStdString(movieDirector));
+	movieView->setMovieCast(QString::fromStdString(movieCast));
+	movieView->setMovieCountry(QString::fromStdString(movieCountry));
+	movieView->setMovieReleaseYear(QString::fromStdString(movieReleaseYear));
+	movieView->setMovieDescription(QString::fromStdString(movieDescription));
+	movieView->setMovieListedIn(QString::fromStdString(movieListedIn));
+	movieView->setMovieTypeAndDuration(QString::fromStdString(movieType), QString::fromStdString(movieDuration));
 
 	movieView->setVisible(true);
 
