@@ -18,10 +18,17 @@ bool LogInPage::verifiyLogin(std::string username, std::string password)
 
     for (const auto& user : allUsers) {
         if (user.getUsername() == username && user.getPassword() == password) {
+            if (!loggedUser.has_value())
+                loggedUser = user;
             return true;
         }
     }
     return false;
+}
+
+const std::optional<User>& LogInPage::getLoggedUser()
+{
+    return loggedUser;
 }
 
 
@@ -32,7 +39,8 @@ void LogInPage::on_logInButton_clicked()
 
     if (verifiyLogin(username, password)) 
     {
-        movieDashboard = new MovieDashboard(this);
+
+        movieDashboard = new MovieDashboard(loggedUser, this);
         movieDashboard->show();
     }
     else
@@ -54,5 +62,7 @@ void LogInPage::on_pushButton_clicked()
         ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
          ui.passLineEdit->setText(pass); 
 }
+
+std::optional<User> LogInPage::loggedUser;
 
 //TODO: add else case in where the pass and username doesn't match

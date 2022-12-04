@@ -11,7 +11,7 @@ class MovieView : public QMainWindow
 	Q_OBJECT
 
 public:
-	MovieView(QWidget *parent = nullptr);
+	MovieView(std::optional<User> loggedUser, int MovieId, QWidget *parent = nullptr);
 	~MovieView();
 	void setMoviePoster(QPixmap image);
 	void setMovieTitle(QString title);
@@ -24,7 +24,13 @@ public:
 	void setMovieListedIn(QString listed_in);
 	void setMovieTypeAndDuration(QString type, QString duration);
 
+private slots:
+	void on_watchedButton_clicked();
+	void on_wishlistButton_clicked();
+
 private:
 	Ui::MovieViewClass ui;
 	Database* database = Database::connect();
+	std::optional<User> m_loggedUser;
+	int m_selectedMovieId;
 };

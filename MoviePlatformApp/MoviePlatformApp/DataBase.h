@@ -51,6 +51,13 @@ public:
 	}
 
 	template <class T>
+	void replace(const T& instance)
+	{
+		m_storage->replace(instance);
+	}
+
+
+	template <class T>
 	void deleteId(const int& id)
 	{
 		m_storage->remove<T>(id);

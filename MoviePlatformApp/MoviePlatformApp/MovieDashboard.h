@@ -17,7 +17,7 @@ class MovieDashboard : public QMainWindow
 	Q_OBJECT
 
 public:
-	MovieDashboard(QWidget *parent = nullptr);
+	MovieDashboard(std::optional<User> loggedUser, QWidget* parent = nullptr);
 	~MovieDashboard();
 
 	void loadMovieData(int fromIndex, int toIndex, std::string optiune);
@@ -30,10 +30,12 @@ private slots:
 	void on_loadMoreButton_clicked();
 	void onMovieDoubleClick(const QModelIndex&);
 
+
 private:
 	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
 	std::vector<Movie, std::allocator<Movie>> allMovies;
 	int movieIndex;
 	QStandardItemModel* model;
+	std::optional<User> m_loggedUser;
 };

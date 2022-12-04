@@ -4,7 +4,7 @@
 
 const int PAGINATE_NR = 20;
 
-MovieDashboard::MovieDashboard(QWidget *parent)
+MovieDashboard::MovieDashboard(std::optional<User> loggedUser, QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -25,6 +25,8 @@ MovieDashboard::MovieDashboard(QWidget *parent)
 		this,
 		SLOT(onMovieDoubleClick(const QModelIndex&)),
 		Qt::QueuedConnection);
+	
+	m_loggedUser = loggedUser;
 }
 
 MovieDashboard::~MovieDashboard()
@@ -111,7 +113,7 @@ void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 	//std::cout << selectedIndexMovie << "\n";
 
 	//individual movie page
-	MovieView* movieView = new MovieView();
+	MovieView* movieView = new MovieView(m_loggedUser, selectedIndexMovie);
 
 	Movie movie = database->getById<Movie>(selectedIndexMovie);
 

@@ -3,10 +3,12 @@
 #include "starrating.h"
 #include <QTableWidget>
 
-MovieView::MovieView(QWidget *parent)
+MovieView::MovieView(std::optional<User> loggedUser, int selectedMovieId, QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+    m_loggedUser = loggedUser;
+    m_selectedMovieId = selectedMovieId;
 }
 
 MovieView::~MovieView()
@@ -123,3 +125,13 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
         ui.movieType->setText(type + " (" + duration + ")");
     }
 }
+
+void MovieView::on_watchedButton_clicked()
+{
+    int userId = m_loggedUser.value().getId();
+    UserWatched userWatched(userId, m_selectedMovieId);
+    database->replace(userWatched);
+}
+
+void MovieView::on_wishlistButton_clicked()
+{}

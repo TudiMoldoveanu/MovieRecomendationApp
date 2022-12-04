@@ -14,6 +14,7 @@ public:
     ~LogInPage();
     
     bool verifiyLogin(std::string username, std::string password);
+    static const std::optional<User>& getLoggedUser();
 
 private slots:
     void on_logInButton_clicked();
@@ -25,6 +26,7 @@ private:
     Ui::LogInPageClass ui;
     RegisterPage *registerPage;
     MovieDashboard* movieDashboard;
+    static std::optional<User> loggedUser;
 };
 
 
