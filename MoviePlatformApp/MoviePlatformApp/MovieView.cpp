@@ -34,7 +34,7 @@ void MovieView::setMovieRating()
 
     ui.tableWidget->setColumnCount(1);
     ui.tableWidget->setRowCount(1);
-    ui.tableWidget->setItemDelegate(new StarDelegate);
+    ui.tableWidget->setItemDelegate(new StarDelegate(m_loggedUser, m_selectedMovieId));
     ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked
         | QAbstractItemView::SelectedClicked);
     ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -128,10 +128,19 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 
 void MovieView::on_watchedButton_clicked()
 {
+
     int userId = m_loggedUser.value().getId();
     UserWatched userWatched(userId, m_selectedMovieId);
     database->replace(userWatched);
+    ui.watchedButton->setEnabled(false);
+    ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
 }
 
 void MovieView::on_wishlistButton_clicked()
-{}
+{
+    int userId = m_loggedUser.value().getId();
+    UserWishlist userWishlist(userId, m_selectedMovieId);
+    database->replace(userWishlist);
+    ui.wishlistButton->setEnabled(false);
+    ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+}

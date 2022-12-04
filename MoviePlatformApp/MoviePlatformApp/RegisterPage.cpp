@@ -19,6 +19,24 @@ RegisterPage::~RegisterPage()
 
 bool RegisterPage::validateRegisterForm(std::string username, std::string password, std::string fullname, std::string age)
 {
+	if (username.empty() || password.empty() || fullname.empty() || age.empty()) {
+		m_errorCode = ErrorCodes::EmptyFields;
+		return false;
+	}
+
+	if (username.size() < 3) {
+		m_errorCode = ErrorCodes::UsernameSize;
+		return false;
+	}
+
+	//Minimum eight characters, at least one letter and one number:
+	std::regex pass_rule("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+	//
+
+	if (!regex_match(password, pass_rule)) {
+		m_errorCode = ErrorCodes::WeakPassword;
+		return false;
+	}
 
 	// check if account already exists
 	if (database->isRegistered(username))
@@ -26,21 +44,7 @@ bool RegisterPage::validateRegisterForm(std::string username, std::string passwo
 		m_errorCode = ErrorCodes::UsernameExists;
 		return false;
 	}
-	//Minimum eight characters, at least one letter and one number:
-	std::regex pass_rule("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-	//
-	if (username.empty() || password.empty() || fullname.empty() || age.empty()) {
-		m_errorCode = ErrorCodes::EmptyFields;
-		return false;
-	}
-	if (username.size() < 3) {
-		m_errorCode = ErrorCodes::UsernameSize;
-		return false;
-	}
-	if (!regex_match(password, pass_rule)){
-		m_errorCode = ErrorCodes::WeakPassword;
-		return false;
-	}
+	
 	return true;
 }
 
@@ -75,6 +79,7 @@ void RegisterPage::on_pushButton_clicked() {
 		database->insert(user);
 		database->insert(userInfo);
 		prefPage = new PreferencesPage(this);
+		this->setVisible(false);
 		prefPage->show();
 	}
 	else {

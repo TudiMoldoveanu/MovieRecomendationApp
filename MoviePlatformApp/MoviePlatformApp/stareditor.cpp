@@ -4,11 +4,13 @@
 #include <QtWidgets>
 
 //! [0]
-StarEditor::StarEditor(QWidget *parent)
+StarEditor::StarEditor(std::optional<User> loggedUser, int selectedMovieId, QWidget *parent)
     : QWidget(parent)
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
+    m_loggedUser = loggedUser;
+    m_selectedMovieId = selectedMovieId;
 }
 //! [0]
 
@@ -44,6 +46,9 @@ void StarEditor::mouseReleaseEvent(QMouseEvent *event)
 {
     emit editingFinished();
     QWidget::mouseReleaseEvent(event);
+    int userId = m_loggedUser.value().getId();
+    Rating myRating{ m_selectedMovieId, userId, myStarRating.starCount()};
+    database->replace(myRating);
 }
 //! [3]
 

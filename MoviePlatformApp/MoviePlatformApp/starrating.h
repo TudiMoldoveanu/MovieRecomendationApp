@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <QPolygonF>
 #include <QSize>
+#include "Database.h"
+#include "User.h"
 
 //! [0]
 class StarRating

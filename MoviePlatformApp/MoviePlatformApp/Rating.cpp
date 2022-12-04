@@ -4,16 +4,16 @@ Rating::Rating()
 {
 }
 
-Rating::Rating(std::string showId, int userId, int numberOfStars)
+Rating::Rating(int showId, int userId, int numberOfStars)
 	: m_showId{ showId }, m_userId{ userId }, m_numberOfStars{numberOfStars} {}
 
 Rating::~Rating()
 {
 }
 
-void Rating::setShowId(std::string showId)
+void Rating::setShowId(int showId)
 {
-	m_showId = std::move(showId);
+	m_showId = showId;
 }
 void Rating::setUserId(int userId)
 {
@@ -25,7 +25,7 @@ void Rating::setRating(int numberOfStars)
 }
 
 
-std::string Rating::getShowId() const
+int Rating::getShowId() const
 {
 	return m_showId;
 }

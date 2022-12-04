@@ -4,6 +4,12 @@
 #include "stareditor.h"
 #include "starrating.h"
 
+StarDelegate::StarDelegate(std::optional<User> loggedUser, int selectedMovieId)
+{
+    m_loggedUser = loggedUser;
+    m_selectedMovieId = selectedMovieId;
+}
+
 //! [0]
 void StarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                          const QModelIndex &index) const
@@ -41,7 +47,7 @@ QWidget *StarDelegate::createEditor(QWidget *parent,
 
 {
     if (index.data().canConvert<StarRating>()) {
-        StarEditor *editor = new StarEditor(parent);
+        StarEditor *editor = new StarEditor(m_loggedUser, m_selectedMovieId, parent);
         connect(editor, &StarEditor::editingFinished,
                 this, &StarDelegate::commitAndCloseEditor);
         return editor;

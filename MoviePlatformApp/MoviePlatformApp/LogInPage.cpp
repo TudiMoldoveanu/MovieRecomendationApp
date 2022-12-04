@@ -41,6 +41,7 @@ void LogInPage::on_logInButton_clicked()
     {
 
         movieDashboard = new MovieDashboard(loggedUser, this);
+        this->setVisible(false);
         movieDashboard->show();
     }
     else
@@ -52,6 +53,7 @@ void LogInPage::on_logInButton_clicked()
 void LogInPage::on_registerButton_clicked()
 {
     registerPage = new RegisterPage(this);
+    this->setVisible(false);
     registerPage->show();
     
 }
