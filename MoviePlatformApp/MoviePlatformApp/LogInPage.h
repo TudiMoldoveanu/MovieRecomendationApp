@@ -4,7 +4,7 @@
 #include "ui_LogInPage.h"
 #include "DataBase.h"
 #include "RegisterPage.h"
-
+#include "MovieDashboard.h"
 class LogInPage : public QMainWindow
 {
     Q_OBJECT
@@ -22,8 +22,9 @@ private slots:
 
 private:
     Database* database = Database::connect(); // connecting the DB where using it (being singleton it will use the already instantiated object)
-    Ui::LogInPage ui;
+    Ui::LogInPageClass ui;
     RegisterPage *registerPage;
+    MovieDashboard* movieDashboard;
 };
 
 

@@ -30,8 +30,14 @@ void LogInPage::on_logInButton_clicked()
     std::string username = ui.userLineEdit->text().toStdString();
     std::string  password = ui.passLineEdit->text().toStdString();
 
-    if (verifiyLogin(username, password)) {
-        QMessageBox::information(this, "Login", "Logat cu succes");
+    if (verifiyLogin(username, password)) 
+    {
+        movieDashboard = new MovieDashboard(this);
+        movieDashboard->show();
+    }
+    else
+    {
+        QMessageBox::warning(this, "Warning!", "Account does not exist! Please check your username and password!");
     }
 }
 
