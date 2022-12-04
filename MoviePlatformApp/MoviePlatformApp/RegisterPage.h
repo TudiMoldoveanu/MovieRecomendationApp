@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include "ui_RegisterPage.h"
 #include "DataBase.h"
-
+#include "PreferencesPage.h"
 enum ErrorCodes : uint8_t {
 	EmptyFields,
 	UsernameSize,
@@ -32,4 +32,5 @@ private:
 	Database* database = Database::connect(); // connecting the DB where using it (being singleton it will use the already instantiated object)
 	Ui::RegisterPageClass ui;
 	ErrorCodes m_errorCode;
+	PreferencesPage *prefPage;
 };

@@ -203,7 +203,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QTableView {
+       <string notr="true">QTableView QTableCornerButton::section{
     background: #073d69;
     
 }

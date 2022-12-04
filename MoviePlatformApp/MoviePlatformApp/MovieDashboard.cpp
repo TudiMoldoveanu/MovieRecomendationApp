@@ -93,6 +93,11 @@ void MovieDashboard::loadMovieData(int fromIndex, int toIndex, std::string optiu
 	ui.tableView->verticalHeader()->setDefaultSectionSize(140);
 	ui.tableView->horizontalHeader()->setDefaultSectionSize(92);
 	ui.tableView->setModel(model);
+	ui.tableView->setStyleSheet
+	(
+	 "QHeaderView::section { background-color:#073d69}\n"
+     "QTableView QTableCornerButton::section { background-color:#073d69}"
+	);
 	ui.tableView->show();
 }
 

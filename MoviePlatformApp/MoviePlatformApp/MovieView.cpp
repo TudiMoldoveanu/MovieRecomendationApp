@@ -41,10 +41,6 @@ void MovieView::setMovieRating()
     ui.tableWidget->setFrameStyle(QFrame::NoFrame);
     ui.tableWidget->setShowGrid(false);
     //hide highlight
-    setStyleSheet("QTableWidget {background-color: transparent;}"
-        "QHeaderView::section {background-color: transparent;}"
-        "QHeaderView {background-color: transparent;}"
-        "QTableCornerButton::section {background-color: transparent;}");
     ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
     //populate

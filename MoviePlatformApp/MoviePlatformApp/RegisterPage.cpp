@@ -74,6 +74,8 @@ void RegisterPage::on_pushButton_clicked() {
 		//insert
 		database->insert(user);
 		database->insert(userInfo);
+		prefPage = new PreferencesPage(this);
+		prefPage->show();
 	}
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));
