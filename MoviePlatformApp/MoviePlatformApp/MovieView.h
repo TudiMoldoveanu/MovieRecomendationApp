@@ -13,6 +13,7 @@ class MovieView : public QMainWindow
 public:
 	MovieView(std::optional<User> loggedUser, int MovieId, QWidget *parent = nullptr);
 	~MovieView();
+	void setMovieView(QList<QString> movieInfo, QPixmap moviePoster);
 	void setMoviePoster(QPixmap image);
 	void setMovieTitle(QString title);
 	void setMovieRating();

@@ -20,22 +20,27 @@ public:
 	MovieDashboard(std::optional<User> loggedUser, QWidget* parent = nullptr);
 	~MovieDashboard();
 
-	void loadMovieData(int fromIndex, int toIndex, std::string optiune);
-	QPixmap downloadFrom(const std::string& poster_url, const std::string& title, const std::string& size);
-	std::string whitespaceReplace(std::string& s);
-	void setHeader();
+	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
+	QList<QString> getMovieInfo(const int& id);
+	QPixmap getMoviePoster(const int& id, const std::string& size);
+	QPixmap downloadMoviePoster(QUrl url);
+	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
+
+	std::string whiteSpaceReplace(std::string& s);
+	void setHeader(QStandardItemModel* tableHeader);
+
+	void setMovieDashboardData(const int& fromId, const int& toId);
 
 private slots:
 	void on_searchButton_clicked();
-	void on_loadMoreButton_clicked();
 	void onMovieDoubleClick(const QModelIndex&);
-
+	void on_nextPage_clicked();
+	void on_previousPage_clicked();
 
 private:
 	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
-	std::vector<Movie, std::allocator<Movie>> allMovies;
-	int movieIndex;
-	QStandardItemModel* model;
+	int m_movieIndex;
 	std::optional<User> m_loggedUser;
+	QStandardItemModel* tableData;
 };

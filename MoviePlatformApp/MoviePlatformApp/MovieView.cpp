@@ -14,6 +14,19 @@ MovieView::MovieView(std::optional<User> loggedUser, int selectedMovieId, QWidge
 MovieView::~MovieView()
 {}
 
+void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
+    setMovieRating();
+    setMoviePoster(moviePoster);
+    setMovieTitle(movieInfo[1]);
+    setMovieDirector(movieInfo[2]);
+    setMovieCast(movieInfo[3]);
+    setMovieCountry(movieInfo[4]);
+    setMovieReleaseYear(movieInfo[6]);
+    setMovieDescription(movieInfo[10]);
+    setMovieListedIn(movieInfo[9]);
+    setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
+}
+
 void MovieView::setMoviePoster(QPixmap image)
 {
 	ui.posterImage->setPixmap(image);
@@ -35,21 +48,18 @@ void MovieView::setMovieRating()
     ui.tableWidget->setColumnCount(1);
     ui.tableWidget->setRowCount(1);
     ui.tableWidget->setItemDelegate(new StarDelegate(m_loggedUser, m_selectedMovieId));
-    ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked
-        | QAbstractItemView::SelectedClicked);
+    ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
     ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidget->horizontalHeader()->hide();
     ui.tableWidget->verticalHeader()->hide();
     ui.tableWidget->setFrameStyle(QFrame::NoFrame);
     ui.tableWidget->setShowGrid(false);
-    //hide highlight
     ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
     //populate
     QTableWidgetItem* rating = new QTableWidgetItem;
     rating->setData(0, QVariant::fromValue(StarRating(staticData[0].rating)));
     ui.tableWidget->setItem(0, 0, rating);
-
     ui.tableWidget->resizeColumnsToContents();
     ui.tableWidget->show();
 }
