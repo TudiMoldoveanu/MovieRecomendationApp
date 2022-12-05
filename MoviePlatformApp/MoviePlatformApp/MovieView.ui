@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MovieViewClass</class>
+ <widget class="QMainWindow" name="MovieViewClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>989</width>
+    <height>648</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MovieView</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*-----QWidget-----*/
+QWidget
+{
+	background-color: #175282;
+	color: #fff;
+	border-color: #000000;
+
+}
+
+
+/*-----QLabel-----*/
+QLabel
+{
+	background-color: transparent;
+	color: #fff;
+	font-weight: bold;
+	border-color: #000000;
+
+}
+
+
+/*-----QPushButton-----*/
+QPushButton
+{
+	background-color: #e8a813;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 10px;
+	padding: 5px;
+
+}
+
+
+QPushButton::hover
+{
+	background-color: #fcba21;
+	color: #fff;
+
+}
+
+
+QPushButton::pressed
+{
+	background-color: #fcba21;
+	color: #fff;
+
+}
+
+
+/*-----QToolButton-----*/
+QToolButton
+{
+	background-color: transparent;
+	color: #000000;
+	border-style: solid;
+	border-color: #000000;
+
+}
+
+
+QToolButton::hover
+{
+	background-color: #d10000;
+	color: #000000;
+	border-radius: 15px;
+	border-color: #d10000;
+
+}
+
+
+QToolButton::pressed
+{
+	background-color: #d10000;
+	color: #000000;
+	border-style: solid;
+	border-width: 0px;
+
+}
+
+
+/*-----QLineEdit-----*/
+QLineEdit{
+	background-color: #4d4d4d;
+	color: #fff;
+	font-weight: bold;
+	border-style: solid;
+	border-radius: 10px;
+	padding: 5px;
+
+}
+
+
+/*-----QCheckBox-----*/
+QCheckBox
+{
+	background-color: transparent;
+	color: #b9b9bb;
+	font-weight: bold;
+
+}
+
+
+QCheckBox::indicator
+{
+    color: #b1b1b1;
+    background-color: #00111d;
+    border: 1px solid #d10000;
+    width: 12px;
+    height: 12px;
+
+}
+
+
+QCheckBox::indicator:checked
+{
+    image:url(&quot;./ressources/check.png&quot;); /*To replace*/
+	background-color: #d10000;
+    border: 1px solid #d10000;
+
+}
+
+
+QCheckBox::indicator:unchecked:hover
+{
+    border: 1px solid #ff0000;
+
+}
+
+
+QCheckBox::disabled
+{
+	color: #656565;
+
+}
+
+
+QCheckBox::indicator:disabled
+{
+	background-color: #656565;
+	color: #656565;
+    border: 1px solid #656565;
+
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="posterImage">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>191</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>721</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="movieTitle">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>561</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Movie Title</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>120</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Director:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>140</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cast:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>160</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Country:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieDirector">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>120</y>
+       <width>211</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieCast">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>140</y>
+       <width>381</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieCountry">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>160</y>
+       <width>211</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>180</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Release Year:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieReleaseYear">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>180</y>
+       <width>211</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Description:</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="movieDescription">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>256</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="midLineWidth">
+      <number>0</number>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAsNeeded</enum>
+     </property>
+     <property name="overwriteMode">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>200</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Genre:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieListedIn">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>200</y>
+       <width>371</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="movieType">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>161</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <italic>true</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>dirValue</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="watchedButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>280</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+border-radius:10px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Mark as Watched</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="wishlistButton">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>280</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+border-radius:10px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Add to Wishlist</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>941</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Similar Movies</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>989</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>700</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,8 +41,7 @@ QPushButton
 	background-color: #e8a813;
 	color: #fff;
 	font-weight: bold;
-	border: 1px solid #e8a813;  
-	border-radius: 2px;
+	border-radius: 10px;
 	padding: 5px;
 
 }
@@ -50,7 +49,7 @@ QPushButton
 
 QPushButton::hover
 {
-	background-color: #ad0000;
+	background-color: #fcba21;
 	color: #fff;
 
 }
@@ -58,7 +57,7 @@ QPushButton::hover
 
 QPushButton::pressed
 {
-	background-color: #e00000;
+	background-color: #fcba21;
 	color: #fff;
 
 }
@@ -158,28 +157,10 @@ QCheckBox::indicator:disabled
     border: 1px solid #656565;
 
 }
-
 QSpinBox
 {
 background-color: #4d4d4d;
-color:#fff;
-borderline:none;
-border-radius:10px;
-}
-
-QSpinBox::up-button
-{
-color: #e8a813;
-border-up-right-radius:10px;
-}
-
-QSpinBox::down-button
-{
-color: #e8a813;
-border-up-right-radius:10px;
-}
-
-</string>
+}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="textLabel">
@@ -324,6 +305,9 @@ border-up-right-radius:10px;
     <property name="text">
      <string/>
     </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
    </widget>
    <widget class="QLineEdit" name="nameLineEdit">
     <property name="geometry">
@@ -383,6 +367,9 @@ border-up-right-radius:10px;
     <property name="buttonSymbols">
      <enum>QAbstractSpinBox::UpDownArrows</enum>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
@@ -423,7 +410,7 @@ border-radius:10px;
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

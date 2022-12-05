@@ -6,17 +6,17 @@ class UserWishlist
 {
 private:
 	int m_userId; // FK
-	std::string m_showId; // FK
+	int m_showId; // FK
 
 public:
 	UserWishlist();
-	UserWishlist(int userId, std::string showId);
+	UserWishlist(int userId, int showId);
 	~UserWishlist();
 
-	void setShowId(std::string showId);
+	void setShowId(int showId);
 	void setUserId(int userId);
 
-	std::string getShowId() const;
+	int getShowId() const;
 	int getUserId() const;
 };
 

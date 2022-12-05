@@ -44,7 +44,6 @@ QPushButton
 	background-color: #e8a813;
 	color: #fff;
 	font-weight: bold;
-	border: 1px solid #e8a813;  
 	border-radius: 2px;
 	padding: 5px;
 
@@ -53,7 +52,7 @@ QPushButton
 
 QPushButton::hover
 {
-	background-color: #ad0000;
+	background-color: #fcba21;
 	color: #fff;
 
 }
@@ -61,7 +60,7 @@ QPushButton::hover
 
 QPushButton::pressed
 {
-	background-color: #e00000;
+	background-color: #fcba21;
 	color: #fff;
 
 }

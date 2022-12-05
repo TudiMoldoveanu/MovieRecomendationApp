@@ -4,17 +4,17 @@ UserWatched::UserWatched()
 {
 }
 
-UserWatched::UserWatched(int userId, std::string showId)
-	: m_userId{ userId }, m_showId{ std::move(showId) } {}
+UserWatched::UserWatched(int userId, int showId)
+	: m_userId{ userId }, m_showId{ showId } {}
 
 UserWatched::~UserWatched()
 {
 }
 
 
-void UserWatched::setShowId(std::string showId)
+void UserWatched::setShowId(int showId)
 {
-	m_showId = std::move(showId);
+	m_showId = showId;
 }
 
 void UserWatched::setUserId(int userId)
@@ -22,7 +22,7 @@ void UserWatched::setUserId(int userId)
 	m_userId = userId;
 }
 
-std::string UserWatched::getShowId() const
+int UserWatched::getShowId() const
 {
 	return m_showId;
 }

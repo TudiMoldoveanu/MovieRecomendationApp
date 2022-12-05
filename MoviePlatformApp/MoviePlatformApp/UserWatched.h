@@ -8,17 +8,17 @@ class UserWatched
 
 private:
 	int m_userId; // FK
-	std::string m_showId; // FK
+	int m_showId; // FK
 
 public:
 	UserWatched();
-	UserWatched(int userId, std::string showId);
+	UserWatched(int userId, int showId);
 	~UserWatched();
 
-	void setShowId(std::string showId);
+	void setShowId(int showId);
 	void setUserId(int userId);
 
-	std::string getShowId() const;
+	int getShowId() const;
 	int getUserId() const;
 };
 

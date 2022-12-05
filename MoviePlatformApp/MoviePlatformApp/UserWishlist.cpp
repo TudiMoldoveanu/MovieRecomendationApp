@@ -4,16 +4,16 @@ UserWishlist::UserWishlist()
 {
 }
 
-UserWishlist::UserWishlist(int userId, std::string showId)
+UserWishlist::UserWishlist(int userId, int showId)
 	: m_userId{ std::move(userId) },m_showId{ std::move(showId) } {}
 
 UserWishlist::~UserWishlist()
 {
 }
 
-void UserWishlist::setShowId(std::string showId)
+void UserWishlist::setShowId(int showId)
 {
-	m_showId = std::move(showId);
+	m_showId =showId;
 }
 
 void UserWishlist::setUserId(int userId)
@@ -21,7 +21,7 @@ void UserWishlist::setUserId(int userId)
 	m_userId = userId;
 }
 
-std::string UserWishlist::getShowId() const
+int UserWishlist::getShowId() const
 {
 	return m_showId;
 }

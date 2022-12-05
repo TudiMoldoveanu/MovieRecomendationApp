@@ -21,6 +21,12 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\GUILayer">
+      <UniqueIdentifier>{f0821a88-47d9-4743-bfc0-d3b3c2c57aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUILayer\StarComponent">
+      <UniqueIdentifier>{03658ea9-705e-43f9-b474-73ae2075f310}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="LogInPage.qrc">
@@ -29,10 +35,10 @@
     <QtUic Include="LogInPage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <ClCompile Include="LogInPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <QtRcc Include="RegistetPage.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="PreferencesPage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>
@@ -64,14 +70,32 @@
     <ClCompile Include="UserWishlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RegisterPage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DataBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MovieDashboard.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="LogInPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
     <ClCompile Include="PreferencesPage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MovieView.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="stardelegate.cpp">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="stareditor.cpp">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="starrating.cpp">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +106,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UserPreferences.h">
@@ -99,16 +120,37 @@
     <ClInclude Include="DataBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starrating.h">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LogInPage.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="PreferencesPage.h">
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="MovieDashboard.h">
+      <Filter>Source Files\GUILayer</Filter>
     </QtMoc>
     <QtMoc Include="RegisterPage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\GUILayer</Filter>
     </QtMoc>
-    <QtMoc Include="PreferencesPage.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="LogInPage.h">
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="MovieView.h">
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="stardelegate.h">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
+    </QtMoc>
+    <QtMoc Include="stareditor.h">
+      <Filter>Source Files\GUILayer\StarComponent</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +160,22 @@
     <QtUic Include="PreferencesPage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="MovieDashboard.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MovieView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="movies_dataset.csv">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MoviePlatformApp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

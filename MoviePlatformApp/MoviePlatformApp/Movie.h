@@ -55,5 +55,4 @@ public:
 	std::optional<std::string> getListedIn() const;
 	std::optional<std::string> getDescription() const;
 	std::optional<std::string> getPosterUrl() const;
-
 };
