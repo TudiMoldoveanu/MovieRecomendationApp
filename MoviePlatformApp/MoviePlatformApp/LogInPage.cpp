@@ -36,10 +36,19 @@ void LogInPage::on_logInButton_clicked()
 {
     std::string username = ui.userLineEdit->text().toStdString();
     std::string  password = ui.passLineEdit->text().toStdString();
+    if (username == "" | password == "")
+    {
+        QMessageBox::warning(this, "Warning!", "Please fill the empty fields!");
+        return;
+    }
 
     if (verifiyLogin(username, password)) 
     {
-
+       
+        ui.loaderLabel->show();
+        ui.loaderMovie->start();
+        ui.logInButton->setEnabled(false);
+        ui.logInButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
         movieDashboard = new MovieDashboard(loggedUser, this);
         this->setVisible(false);
         movieDashboard->show();
