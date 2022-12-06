@@ -1,5 +1,5 @@
 #pragma once
-#include <QtWidgets/QMainWindow>
+#include <QtWidgets>
 #include <QMessageBox>
 #include "ui_LogInPage.h"
 #include "DataBase.h"
@@ -24,7 +24,7 @@ private slots:
 
 private:
     Database* database = Database::connect(); // connecting the DB where using it (being singleton it will use the already instantiated object)
-    Ui::LogInPageClass ui;
+    Ui::LogInPage ui;
     RegisterPage *registerPage;
     MovieDashboard* movieDashboard;
     static std::optional<User> loggedUser;

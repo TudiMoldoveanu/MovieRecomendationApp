@@ -446,10 +446,10 @@ border-radius:10px;
    <widget class="QLineEdit" name="passLineEdit">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>470</y>
+      <x>220</x>
+      <y>380</y>
       <width>240</width>
-      <height>50</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -511,11 +511,78 @@ border-radius:10px;
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="hidePass">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>480</y>
+      <x>470</x>
+      <y>380</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+border-radius:10px;
+background-image:url(:/LogInPage/12417494831642659861-128.png)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="LogInPage.qrc">
+      <normaloff>:/LogInPage/1785693471618134422-128.png</normaloff>:/LogInPage/1785693471618134422-128.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="loaderLabel">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>460</y>
+      <width>81</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="LogInPage.qrc">:/LogInPage/loader2.gif</pixmap>
+    </property>
+    <property name="openExternalLinks">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="showPass">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>380</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -563,6 +630,7 @@ background-image:url(:/LogInPage/12417494831642659861-128.png)
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="LogInPage.qrc"/>
+  <include location="../../../../../../../../.designer/backup/LogInPage.qrc"/>
  </resources>
  <connections/>
 </ui>

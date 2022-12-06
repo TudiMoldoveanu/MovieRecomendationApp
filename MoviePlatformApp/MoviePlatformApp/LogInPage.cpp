@@ -8,6 +8,9 @@ LogInPage::LogInPage(QWidget *parent)
     ui.setupUi(this);
     connect(ui.showPass, SIGNAL(clicked()), SLOT(on_showPass_clicked()));
     connect(ui.hidePass, SIGNAL(clicked()), SLOT(on_hidePass_clicked()));
+
+    // hide loader label
+    ui.loaderLabel->setVisible(false);
 }
 
 LogInPage::~LogInPage()
@@ -35,29 +38,42 @@ const std::optional<User>& LogInPage::getLoggedUser()
 
 void LogInPage::on_logInButton_clicked()
 {
+    // made the button unclickable in order to prevent multi clicks
+    ui.logInButton->setEnabled(false);
+    ui.logInButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+
     std::string username = ui.userLineEdit->text().toStdString();
     std::string  password = ui.passLineEdit->text().toStdString();
+
     if (username == "" | password == "")
     {
-        QMessageBox::warning(this, "Warning!", "Please fill the empty fields!");
-        return;
-    }
-
-    if (verifiyLogin(username, password)) 
-    {
-       
-        ui.loaderLabel->show();
-        ui.loaderMovie->start();
-        ui.logInButton->setEnabled(false);
-        ui.logInButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
-        movieDashboard = new MovieDashboard(loggedUser, this);
-        this->setVisible(false);
-        movieDashboard->show();
+        QMessageBox::warning(this, "Warning!", "Please fill the empty fields!");  
     }
     else
     {
-        QMessageBox::warning(this, "Warning!", "Account does not exist! Please check your username and password!");
+        if (verifiyLogin(username, password))
+        {
+            QMovie* loaderMovie = new QMovie("loader2.gif");
+            ui.loaderLabel->setMovie(loaderMovie);
+            ui.loaderLabel->show();
+            loaderMovie->start();
+
+            movieDashboard = new MovieDashboard(loggedUser, this);
+            this->setVisible(false);
+            movieDashboard->show();
+        }
+        else
+        {
+            QMessageBox::warning(this, "Warning!", "Account does not exist! Please check your username and password!");
+        }
     }
+
+    // reset the button afterwards
+    ui.logInButton->setEnabled(true);
+    ui.logInButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+        "{\n"
+        "border-radius:10px;\n"
+        "}"));
 }
 
 void LogInPage::on_registerButton_clicked()

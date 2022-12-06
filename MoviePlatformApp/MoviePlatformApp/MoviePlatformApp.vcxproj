@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt 6.4.1</QtInstall>
+    <QtInstall>6.4.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;network;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -113,11 +113,11 @@
     <QtRcc Include="LogInPage.qrc" />
     <QtRcc Include="PreferencesPage.qrc" />
     <QtRcc Include="RegistetPage.qrc" />
-    <QtUic Include="LogInPage.ui" />
     <QtMoc Include="LogInPage.h" />
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="LogInPage.ui" />
     <QtUic Include="MovieDashboard.ui" />
     <QtUic Include="MovieView.ui" />
     <QtUic Include="PreferencesPage.ui" />
