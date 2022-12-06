@@ -11,6 +11,9 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QStandardItemModel>
+#include <QList>
+#include "Movie.h"
+#include "UserWishlist.h"
 
 class MovieDashboard : public QMainWindow
 {
@@ -30,17 +33,23 @@ public:
 	void setHeader(QStandardItemModel* tableHeader);
 
 	void setMovieDashboardData(const int& fromId, const int& toId);
+	void setMovieWishlistData();
+	void setMovieWatchedData();
 
 private slots:
 	void on_searchButton_clicked();
 	void onMovieDoubleClick(const QModelIndex&);
-	void on_nextPage_clicked();
-	void on_previousPage_clicked();
+	void on_loadMore_clicked();
+	void on_refreshWishlist_clicked();
+	void on_refreshWatched_clicked();
 
 private:
 	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
 	int m_movieIndex;
+	std::vector<Movie> m_allMovies;
 	std::optional<User> m_loggedUser;
-	QStandardItemModel* tableData;
+	QStandardItemModel* m_dashboardTableData;
+	QStandardItemModel* m_wishlistTableData;
+	QStandardItemModel* m_watchedTableData;
 };

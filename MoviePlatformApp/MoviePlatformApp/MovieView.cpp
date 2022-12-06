@@ -138,7 +138,6 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 
 void MovieView::on_watchedButton_clicked()
 {
-
     int userId = m_loggedUser.value().getId();
     UserWatched userWatched(userId, m_selectedMovieId);
     database->replace(userWatched);

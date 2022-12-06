@@ -5,6 +5,7 @@
 #include "DataBase.h"
 #include "Movie.h"
 #include "User.h"
+#include "MovieDashboard.h"
 
 class MovieView : public QMainWindow
 {
