@@ -189,16 +189,16 @@ background-color: #4d4d4d;
    <widget class="QLabel" name="userLabel">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>250</y>
-      <width>151</width>
-      <height>41</height>
+      <x>100</x>
+      <y>260</y>
+      <width>121</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>18</pointsize>
+      <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
     </property>
@@ -209,16 +209,16 @@ background-color: #4d4d4d;
    <widget class="QLabel" name="passLabel">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>304</y>
-      <width>141</width>
-      <height>41</height>
+      <x>100</x>
+      <y>310</y>
+      <width>111</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>18</pointsize>
+      <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
     </property>
@@ -229,16 +229,16 @@ background-color: #4d4d4d;
    <widget class="QLabel" name="nameLabel">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>100</x>
       <y>420</y>
-      <width>151</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>18</pointsize>
+      <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
     </property>
@@ -249,16 +249,16 @@ background-color: #4d4d4d;
    <widget class="QLabel" name="ageLabel">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>160</x>
       <y>480</y>
-      <width>61</width>
+      <width>51</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>18</pointsize>
+      <pointsize>14</pointsize>
       <bold>true</bold>
      </font>
     </property>
@@ -429,9 +429,9 @@ border-radius:10px;
    <widget class="QLabel" name="passLabel_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>360</y>
-      <width>191</width>
+      <width>201</width>
       <height>31</height>
      </rect>
     </property>
@@ -443,7 +443,7 @@ border-radius:10px;
      </font>
     </property>
     <property name="text">
-     <string>Retype Password:</string>
+     <string>Confirm Password:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="hidePass">
@@ -460,7 +460,7 @@ border-radius:10px;
     </property>
     <property name="icon">
      <iconset resource="RegistetPage.qrc">
-      <normaloff>:/newPrefix/1785693471618134422-128.png</normaloff>:/newPrefix/1785693471618134422-128.png</iconset>
+      <normaloff>:/newPrefix/12417494831642659861-128.png</normaloff>:/newPrefix/12417494831642659861-128.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -486,7 +486,7 @@ border-radius:10px;
     </property>
     <property name="icon">
      <iconset resource="RegistetPage.qrc">
-      <normaloff>:/newPrefix/12417494831642659861-128.png</normaloff>:/newPrefix/12417494831642659861-128.png</iconset>
+      <normaloff>:/newPrefix/1785693471618134422-128.png</normaloff>:/newPrefix/1785693471618134422-128.png</iconset>
     </property>
     <property name="iconSize">
      <size>

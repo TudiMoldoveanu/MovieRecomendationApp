@@ -8,7 +8,8 @@ enum ErrorCodes : uint8_t {
 	EmptyFields,
 	UsernameSize,
 	WeakPassword,
-	UsernameExists
+	UsernameExists,
+	PassNotMatchRetype
 };
 
 class RegisterPage : public QMainWindow
@@ -20,7 +21,7 @@ public:
 	~RegisterPage();
 
 	bool validateRegisterForm(std::string username, std::string password,
-		std::string fullname, std::string age);
+		std::string fullname, std::string age,std::string retypePass);
 
 
 	const char* errorCodeToString(const ErrorCodes& type);
