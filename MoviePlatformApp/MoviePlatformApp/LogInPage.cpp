@@ -6,7 +6,8 @@ LogInPage::LogInPage(QWidget *parent)
 {
 
     ui.setupUi(this);
-    connect(ui.pushButton, SIGNAL(clicked()), SLOT(on_pushButton_clicked()));
+    connect(ui.showPass, SIGNAL(clicked()), SLOT(on_showPass_clicked()));
+    connect(ui.hidePass, SIGNAL(clicked()), SLOT(on_hidePass_clicked()));
 }
 
 LogInPage::~LogInPage()
@@ -67,11 +68,26 @@ void LogInPage::on_registerButton_clicked()
     
 }
 
-void LogInPage::on_pushButton_clicked()
+void LogInPage::on_showPass_clicked()
 {
-        QString pass = ui.passLineEdit->text();
-        ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
-         ui.passLineEdit->setText(pass); 
+    QString pass = ui.passLineEdit->text();
+    ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
+    ui.passLineEdit->setText(pass);
+    ui.showPass->setEnabled(false);
+    ui.showPass->setVisible(false);
+    ui.hidePass->setVisible(true);
+    ui.hidePass->setEnabled(true);
+}
+
+void LogInPage::on_hidePass_clicked()
+{
+    QString pass = ui.passLineEdit->text();
+    ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
+    ui.passLineEdit->setText(pass);
+    ui.hidePass->setEnabled(false);
+    ui.hidePass->setVisible(false);
+    ui.showPass->setEnabled(true);
+    ui.showPass->setVisible(true);
 }
 
 std::optional<User> LogInPage::loggedUser;

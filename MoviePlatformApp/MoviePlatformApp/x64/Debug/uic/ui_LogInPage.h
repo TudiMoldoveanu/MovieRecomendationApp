@@ -37,7 +37,8 @@ public:
     QLineEdit* passLineEdit;
     QLabel* errorLabel;
     QLabel* avatarLabel;
-    QPushButton* pushButton;
+    QPushButton* showPass;
+    QPushButton* hidePass;
     QMenuBar* menuBar;
     QToolBar* mainToolBar;
     QStatusBar* statusBar;
@@ -416,18 +417,34 @@ public:
         avatarLabel->setStyleSheet(QString::fromUtf8("background-image: url(:/newPrefix/8-account-outline.png)"));
         avatarLabel->setPixmap(QPixmap(QString::fromUtf8(":/LogInPage/8-account-outline.png")));
         avatarLabel->setScaledContents(true);
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(500, 380, 41, 31));
-        pushButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+        ///
+        hidePass = new QPushButton(centralWidget);
+        hidePass->setObjectName("pushButton");
+        hidePass->setGeometry(QRect(500, 380, 41, 31));
+        hidePass->setStyleSheet(QString::fromUtf8("QPushButton\n"
             "{\n"
             "border-radius:10px;\n"
             "background-image:url(:/LogInPage/12417494831642659861-128.png)\n"
             "}"));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/LogInPage/12417494831642659861-128.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon);
-        pushButton->setIconSize(QSize(40, 40));
+        hidePass->setIcon(icon);
+        hidePass->setIconSize(QSize(40, 40));
+        ///
+        showPass = new QPushButton(centralWidget);
+        showPass->setObjectName("pushButton");
+        showPass->setGeometry(QRect(500, 380, 41, 31));
+        showPass->setStyleSheet(QString::fromUtf8("QPushButton\n"
+            "{\n"
+            "border-radius:10px;\n"
+            "background-image:url(:/LogInPage/1785693471618134422-128.png)\n"
+            "}"));
+        //QIcon icon;
+        icon.addFile(QString::fromUtf8(":/LogInPage/1785693471618134422-128.png"), QSize(), QIcon::Normal, QIcon::Off);
+        showPass->setIcon(icon);
+        showPass->setIconSize(QSize(40, 40));
+
+
         LogInPage->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LogInPage);
         menuBar->setObjectName("menuBar");
@@ -457,7 +474,8 @@ public:
         passLineEdit->setText(QString());
         errorLabel->setText(QString());
         avatarLabel->setText(QString());
-        pushButton->setText(QString());
+        showPass->setText(QString());
+        hidePass->setText(QString());
     } // retranslateUi
 
 };
