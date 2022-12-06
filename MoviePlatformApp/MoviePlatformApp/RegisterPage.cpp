@@ -9,6 +9,8 @@ RegisterPage::RegisterPage(QWidget* parent)
 {
 	
 	ui.setupUi(this);
+	connect(ui.showPass, SIGNAL(clicked()), SLOT(on_showPass_clicked()));
+	connect(ui.hidePass, SIGNAL(clicked()), SLOT(on_hidePass_clicked()));
 }
 
 RegisterPage::~RegisterPage()
@@ -64,7 +66,32 @@ const char* RegisterPage::errorCodeToString(const ErrorCodes& type)
 		return "none";
 	}
 }
+void RegisterPage::on_showPass_clicked()
+{
 
+	QString pass = ui.passLineEdit->text();
+	ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
+	ui.passLineEdit->setText(pass);
+	ui.passLineEdit_2->setEchoMode(QLineEdit::EchoMode::Normal);
+	ui.passLineEdit_2->setText(pass);
+	ui.showPass->setEnabled(false);
+	ui.showPass->setVisible(false);
+	ui.hidePass->setVisible(true);
+	ui.hidePass->setEnabled(true);
+}
+
+void RegisterPage::on_hidePass_clicked()
+{
+	QString pass = ui.passLineEdit->text();
+	ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
+	ui.passLineEdit->setText(pass);
+	ui.passLineEdit_2->setEchoMode(QLineEdit::EchoMode::Password);
+	ui.passLineEdit_2->setText(pass);
+	ui.hidePass->setEnabled(false);
+	ui.hidePass->setVisible(false);
+	ui.showPass->setEnabled(true);
+	ui.showPass->setVisible(true);
+}
 void RegisterPage::on_pushButton_clicked() {
 	std::string username = ui.userLineEdit->text().toStdString();
 	std::string  password = ui.passLineEdit->text().toStdString();
