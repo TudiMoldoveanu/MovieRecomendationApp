@@ -2,13 +2,12 @@
 
 const int PAGINATE_NR = 5;
 
-MovieDashboard::MovieDashboard(std::optional<User> loggedUser, QWidget* parent)
+MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	m_movieIndex = PAGINATE_NR;
 	m_allMovies = database->getAll<Movie>();
-	m_loggedUser = loggedUser;
 	m_dashboardTableData = new QStandardItemModel();
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
@@ -43,7 +42,7 @@ void MovieDashboard::setMovieWishlistData()
 	setHeader(m_watchedTableData);
 
 	std::vector<int> wishlistedMovieIds = 
-		database->getSavedMovies<UserWishlist>(m_loggedUser.value().getId());
+		database->getSavedMovies<UserWishlist>(loggedUser->getId());
 
 	for (int i = 0; i < wishlistedMovieIds.size(); i++) {
 		setMovieData(i, wishlistedMovieIds[i], m_wishlistTableData);
@@ -57,7 +56,7 @@ void MovieDashboard::setMovieWatchedData()
 	setHeader(m_wishlistTableData);
 
 	std::vector<int> watchedMovieIds =
-		database->getSavedMovies<UserWatched>(m_loggedUser.value().getId());
+		database->getSavedMovies<UserWatched>(loggedUser->getId());
 
 	for (int i = 0; i < watchedMovieIds.size(); i++) {
 		setMovieData(i, watchedMovieIds[i], m_watchedTableData);
@@ -125,7 +124,7 @@ void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 	QModelIndexList indexes = ui.tableView->selectionModel()->selection().indexes();
 	int selectedMovieId = (indexes.at(0).row() + 1);
 
-	MovieView* movieView = new MovieView(m_loggedUser, selectedMovieId);
+	MovieView* movieView = new MovieView(selectedMovieId);
 	Movie movie = database->getById<Movie>(selectedMovieId);
 
 	QList<QString> movieInfo = getMovieInfo(selectedMovieId);

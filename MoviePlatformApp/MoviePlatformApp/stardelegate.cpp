@@ -4,9 +4,8 @@
 #include "stareditor.h"
 #include "starrating.h"
 
-StarDelegate::StarDelegate(std::optional<User> loggedUser, int selectedMovieId)
+StarDelegate::StarDelegate(int selectedMovieId)
 {
-    m_loggedUser = loggedUser;
     m_selectedMovieId = selectedMovieId;
 }
 
@@ -47,7 +46,7 @@ QWidget *StarDelegate::createEditor(QWidget *parent,
 
 {
     if (index.data().canConvert<StarRating>()) {
-        StarEditor *editor = new StarEditor(m_loggedUser, m_selectedMovieId, parent);
+        StarEditor *editor = new StarEditor(m_selectedMovieId, parent);
         connect(editor, &StarEditor::editingFinished,
                 this, &StarDelegate::commitAndCloseEditor);
         return editor;

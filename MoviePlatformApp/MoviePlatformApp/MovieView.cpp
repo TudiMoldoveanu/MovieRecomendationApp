@@ -3,11 +3,11 @@
 #include "starrating.h"
 #include <QTableWidget>
 
-MovieView::MovieView(std::optional<User> loggedUser, int selectedMovieId, QWidget *parent)
+MovieView::MovieView(int selectedMovieId, QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-    m_loggedUser = loggedUser;
+
     m_selectedMovieId = selectedMovieId;
 }
 
@@ -47,7 +47,7 @@ void MovieView::setMovieRating()
 
     ui.tableWidget->setColumnCount(1);
     ui.tableWidget->setRowCount(1);
-    ui.tableWidget->setItemDelegate(new StarDelegate(m_loggedUser, m_selectedMovieId));
+    ui.tableWidget->setItemDelegate(new StarDelegate(m_selectedMovieId));
     ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
     ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidget->horizontalHeader()->hide();
@@ -138,7 +138,7 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 
 void MovieView::on_watchedButton_clicked()
 {
-    int userId = m_loggedUser.value().getId();
+    int userId = loggedUser->getId();
     UserWatched userWatched(userId, m_selectedMovieId);
     database->replace(userWatched);
     ui.watchedButton->setEnabled(false);
@@ -147,7 +147,7 @@ void MovieView::on_watchedButton_clicked()
 
 void MovieView::on_wishlistButton_clicked()
 {
-    int userId = m_loggedUser.value().getId();
+    int userId = loggedUser->getId();
     UserWishlist userWishlist(userId, m_selectedMovieId);
     database->replace(userWishlist);
     ui.wishlistButton->setEnabled(false);

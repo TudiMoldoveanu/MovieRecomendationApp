@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="LoggedUser.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="MovieDashboard.cpp" />
     <ClCompile Include="MovieView.cpp" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="LoggedUser.h" />
     <ClInclude Include="Movie.h" />
     <QtMoc Include="PreferencesPage.h" />
     <QtMoc Include="MovieDashboard.h" />

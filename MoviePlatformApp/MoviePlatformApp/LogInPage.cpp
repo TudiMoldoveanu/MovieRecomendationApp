@@ -22,18 +22,16 @@ bool LogInPage::verifiyLogin(std::string username, std::string password)
 
     for (const auto& user : allUsers) {
         if (user.getUsername() == username && user.getPassword() == password) {
-            if (!loggedUser.has_value())
-                loggedUser = user;
+            lUser = new User{ user.getId(), user.getUsername(), user.getPassword() };
+                LoggedUser* loggedUser = LoggedUser::login(lUser);
             return true;
         }
     }
     return false;
 }
 
-const std::optional<User>& LogInPage::getLoggedUser()
-{
-    return loggedUser;
-}
+
+
 
 
 void LogInPage::on_logInButton_clicked()
@@ -58,7 +56,7 @@ void LogInPage::on_logInButton_clicked()
             ui.loaderLabel->show();
             loaderMovie->start();
 
-            movieDashboard = new MovieDashboard(loggedUser, this);
+            movieDashboard = new MovieDashboard(this);
             this->setVisible(false);
             movieDashboard->show();
         }

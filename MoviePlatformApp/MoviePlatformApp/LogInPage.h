@@ -5,6 +5,7 @@
 #include "DataBase.h"
 #include "RegisterPage.h"
 #include "MovieDashboard.h"
+#include "LoggedUser.h"
 class LogInPage : public QMainWindow
 {
     Q_OBJECT
@@ -14,7 +15,8 @@ public:
     ~LogInPage();
     
     bool verifiyLogin(std::string username, std::string password);
-    static const std::optional<User>& getLoggedUser();
+
+  
 
 private slots:
     void on_logInButton_clicked();
@@ -27,7 +29,9 @@ private:
     Ui::LogInPage ui;
     RegisterPage *registerPage;
     MovieDashboard* movieDashboard;
+    User* lUser;
     static std::optional<User> loggedUser;
+
 };
 
 

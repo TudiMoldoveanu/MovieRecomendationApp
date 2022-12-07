@@ -12,7 +12,7 @@ class MovieView : public QMainWindow
 	Q_OBJECT
 
 public:
-	MovieView(std::optional<User> loggedUser, int MovieId, QWidget *parent = nullptr);
+	MovieView(int MovieId, QWidget *parent = nullptr);
 	~MovieView();
 	void setMovieView(QList<QString> movieInfo, QPixmap moviePoster);
 	void setMoviePoster(QPixmap image);
@@ -33,6 +33,6 @@ private slots:
 private:
 	Ui::MovieViewClass ui;
 	Database* database = Database::connect();
-	std::optional<User> m_loggedUser;
+	LoggedUser* loggedUser = LoggedUser::login();
 	int m_selectedMovieId;
 };

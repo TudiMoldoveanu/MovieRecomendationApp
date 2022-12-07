@@ -25,8 +25,7 @@ Database* Database::getInstance()
 
 Database* Database::connect()
 {
-	auto* instance = getInstance();
-	return instance;
+	return getInstance();
 }
 
 bool Database::isRegistered(std::string username)

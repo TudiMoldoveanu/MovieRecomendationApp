@@ -10,7 +10,7 @@ class StarDelegate : public QStyledItemDelegate
     Q_OBJECT
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
-    StarDelegate(std::optional<User> loggedUser, int selectedMovieId);
+    StarDelegate(int selectedMovieId);
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option,
                const QModelIndex &index) const override;
@@ -26,7 +26,6 @@ private slots:
     void commitAndCloseEditor();
 
 private:
-    std::optional<User> m_loggedUser;
     int m_selectedMovieId;
 };
 //! [0]

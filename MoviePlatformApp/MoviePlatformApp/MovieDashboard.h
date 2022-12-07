@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "ui_MovieDashboard.h"
 #include "DataBase.h"
+#include "LoggedUser.h"	
 #include "MovieView.h"
 #include <QApplication>
 #include <QTableWidget>
@@ -20,7 +21,7 @@ class MovieDashboard : public QMainWindow
 	Q_OBJECT
 
 public:
-	MovieDashboard(std::optional<User> loggedUser, QWidget* parent = nullptr);
+	MovieDashboard(QWidget* parent = nullptr);
 	~MovieDashboard();
 
 	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
@@ -46,9 +47,9 @@ private slots:
 private:
 	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
+	LoggedUser* loggedUser = LoggedUser::login();
 	int m_movieIndex;
 	std::vector<Movie> m_allMovies;
-	std::optional<User> m_loggedUser;
 	QStandardItemModel* m_dashboardTableData;
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
