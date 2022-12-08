@@ -13,6 +13,8 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	m_watchedTableData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
 	connect(ui.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	//check if user clicked at a tab
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
 	setMovieDashboardData(0, PAGINATE_NR);
 	setMovieWishlistData();
 	setMovieWatchedData();
@@ -134,6 +136,18 @@ void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 	movieView->setVisible(true);
 }
 
+void MovieDashboard::tabSelected()
+{
+	//if wishlist selected
+	if (ui.tabWidget->currentIndex() == 1) {
+		setMovieWishlistData();
+	}
+	//if watched selected
+	else if (ui.tabWidget->currentIndex() == 2) {
+		setMovieWatchedData();
+	}
+}
+
 std::string MovieDashboard::whiteSpaceReplace(std::string& s)
 {
 	for (size_t i = 0; i < s.size(); i++)
@@ -182,16 +196,6 @@ void MovieDashboard::on_loadMore_clicked()
 {
 	setMovieDashboardData(m_movieIndex, m_movieIndex + PAGINATE_NR);
 	m_movieIndex += PAGINATE_NR;
-}
-
-void MovieDashboard::on_refreshWishlist_clicked()
-{
-	setMovieWishlistData();
-}
-
-void MovieDashboard::on_refreshWatched_clicked()
-{
-	setMovieWatchedData();
 }
 
 void MovieDashboard::on_searchButton_clicked() { //search method to be improved

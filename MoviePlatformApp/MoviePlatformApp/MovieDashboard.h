@@ -40,9 +40,8 @@ public:
 private slots:
 	void on_searchButton_clicked();
 	void onMovieDoubleClick(const QModelIndex&);
+	void tabSelected();
 	void on_loadMore_clicked();
-	void on_refreshWishlist_clicked();
-	void on_refreshWatched_clicked();
 
 private:
 	Ui::MovieDashboardClass ui;

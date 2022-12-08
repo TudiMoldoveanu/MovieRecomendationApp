@@ -25,6 +25,22 @@ void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
     setMovieDescription(movieInfo[10]);
     setMovieListedIn(movieInfo[9]);
     setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
+    std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
+    std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+    for (int i = 0; i < wishlistedMovieIds.size(); i++) {
+        if (m_selectedMovieId == wishlistedMovieIds[i]) {
+            ui.wishlistButton->setEnabled(false);
+            ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            break;
+        }
+    }
+    for (int i = 0; i < watchedMovieIds.size(); i++) {
+        if (m_selectedMovieId == watchedMovieIds[i]) {
+            ui.watchedButton->setEnabled(false);
+            ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            break;
+        }
+    }
 }
 
 void MovieView::setMoviePoster(QPixmap image)

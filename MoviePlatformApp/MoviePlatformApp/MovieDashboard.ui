@@ -187,7 +187,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -311,32 +311,6 @@ background:#073d69 ;
 }</string>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>630</y>
-        <width>161</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Navigation</string>
-      </property>
-      <widget class="QPushButton" name="refreshWishlist">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Refresh</string>
-       </property>
-      </widget>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -360,32 +334,6 @@ QHeaderView::section {
 background:#073d69 ;
 }</string>
       </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>630</y>
-        <width>161</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Navigation</string>
-      </property>
-      <widget class="QPushButton" name="refreshWatched">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Refresh</string>
-       </property>
-      </widget>
      </widget>
     </widget>
    </widget>
