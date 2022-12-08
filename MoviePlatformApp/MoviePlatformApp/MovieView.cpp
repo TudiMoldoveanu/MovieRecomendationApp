@@ -55,10 +55,24 @@ void MovieView::setMovieTitle(QString title)
 
 void MovieView::setMovieRating()
 {
-    static constexpr struct {
+     int k_starsRated = 5;
+     if (database->userAlreadyRated(loggedUser->getId(), m_selectedMovieId))
+     {
+         try {
+             k_starsRated = database->getById<Rating>(loggedUser->getId(), m_selectedMovieId).getRating();
+         }
+
+         catch (std::system_error& e)
+         {
+             // do nothing
+         }
+     }
+
+
+     struct {
         int rating;
-    } staticData[] = {
-        { 5 }
+    } Data[] = {
+        { k_starsRated }
     };
 
     ui.tableWidget->setColumnCount(1);
@@ -74,7 +88,7 @@ void MovieView::setMovieRating()
 
     //populate
     QTableWidgetItem* rating = new QTableWidgetItem;
-    rating->setData(0, QVariant::fromValue(StarRating(staticData[0].rating)));
+    rating->setData(0, QVariant::fromValue(StarRating(Data[0].rating)));
     ui.tableWidget->setItem(0, 0, rating);
     ui.tableWidget->resizeColumnsToContents();
     ui.tableWidget->show();

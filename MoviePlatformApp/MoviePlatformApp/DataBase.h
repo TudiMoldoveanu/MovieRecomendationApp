@@ -23,6 +23,7 @@ public:
 	static Database* connect();
 
 	bool isRegistered(std::string username);
+	bool userAlreadyRated(int userId, int selectedMovieId);
 
 
 	// template useful functions
@@ -52,6 +53,12 @@ public:
 	auto getById(const int& id)
 	{
 		return m_storage->get<T>(id);
+	}
+
+	template <class T>
+	auto getById(const int& id1, const int& id2)
+	{
+		return m_storage->get<T>(id1, id2);
 	}
 
 	template <class T>

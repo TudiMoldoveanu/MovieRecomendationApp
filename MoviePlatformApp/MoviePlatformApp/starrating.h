@@ -1,6 +1,6 @@
 #ifndef STARRATING_H
 #define STARRATING_H
-
+#pragma once
 #include <QPainter>
 #include <QPolygonF>
 #include <QSize>
