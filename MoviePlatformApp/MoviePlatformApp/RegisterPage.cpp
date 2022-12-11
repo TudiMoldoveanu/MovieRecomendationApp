@@ -9,6 +9,8 @@ RegisterPage::RegisterPage(QWidget* parent)
 {
 	
 	ui.setupUi(this);
+	connect(ui.showPass, SIGNAL(clicked()), SLOT(on_showPass_clicked()));
+	connect(ui.hidePass, SIGNAL(clicked()), SLOT(on_hidePass_clicked()));
 }
 
 RegisterPage::~RegisterPage()
@@ -17,9 +19,9 @@ RegisterPage::~RegisterPage()
 
 
 
-bool RegisterPage::validateRegisterForm(std::string username, std::string password, std::string fullname, std::string age)
+bool RegisterPage::validateRegisterForm(std::string username, std::string password, std::string fullname, std::string age,std::string retypePass)
 {
-	if (username.empty() || password.empty() || fullname.empty() || age.empty()) {
+	if (username.empty() || password.empty() || fullname.empty() || age.empty()||retypePass.empty()) {
 		m_errorCode = ErrorCodes::EmptyFields;
 		return false;
 	}
@@ -44,6 +46,12 @@ bool RegisterPage::validateRegisterForm(std::string username, std::string passwo
 		m_errorCode = ErrorCodes::UsernameExists;
 		return false;
 	}
+	//check if retypePass = pass
+	if (retypePass != password)
+	{
+		m_errorCode = ErrorCodes::PassNotMatchRetype;
+		return false;
+	}
 	
 	return true;
 }
@@ -60,18 +68,49 @@ const char* RegisterPage::errorCodeToString(const ErrorCodes& type)
 		return "Password is too weak. Use at least eight characters, one number and one letter.";
 	case 3:
 		return "Username already exists, try another one.";
+	case 4:
+		return "Password is not the same in confirm password section.";
 	default:
 		return "none";
 	}
 }
+void RegisterPage::on_showPass_clicked()
+{
 
-void RegisterPage::on_pushButton_clicked() {
+	QString pass1 = ui.passLineEdit->text();
+	QString pass2 = ui.passLineEdit_2->text();
+	ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Normal);
+	ui.passLineEdit->setText(pass1);
+	ui.passLineEdit_2->setEchoMode(QLineEdit::EchoMode::Normal);
+	ui.passLineEdit_2->setText(pass2);
+	ui.showPass->setEnabled(false);
+	ui.showPass->setVisible(false);
+	ui.hidePass->setVisible(true);
+	ui.hidePass->setEnabled(true);
+}
+
+void RegisterPage::on_hidePass_clicked()
+{
+	QString pass1 = ui.passLineEdit->text();
+	QString pass2 = ui.passLineEdit_2->text();
+	ui.passLineEdit->setEchoMode(QLineEdit::EchoMode::Password);
+	ui.passLineEdit->setText(pass1);
+	ui.passLineEdit_2->setEchoMode(QLineEdit::EchoMode::Password);
+	ui.passLineEdit_2->setText(pass2);
+	ui.hidePass->setEnabled(false);
+	ui.hidePass->setVisible(false);
+	ui.showPass->setEnabled(true);
+	ui.showPass->setVisible(true);
+}
+void RegisterPage::on_pushButton_clicked() 
+{
 	std::string username = ui.userLineEdit->text().toStdString();
 	std::string  password = ui.passLineEdit->text().toStdString();
 	std::string  fullname = ui.nameLineEdit->text().toStdString();
 	std::string  age = ui.ageSpinBox->text().toStdString();
+	std::string retypePass = ui.passLineEdit_2->text().toStdString();
 
-	if (validateRegisterForm(username, password, fullname, age)) {
+	if (validateRegisterForm(username, password, fullname, age, retypePass)) {
 		User user{ -1, username, password };
 		UserInfo userInfo{ user.getId(), fullname, age };
 

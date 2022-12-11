@@ -5,13 +5,14 @@
 
 #include "starrating.h"
 #include "Database.h"
+#include "LoggedUser.h"
 
 //! [0]
 class StarEditor : public QWidget
 {
     Q_OBJECT
 public:
-    StarEditor(std::optional<User> loggedUser, int selectedMovieId, QWidget *parent = nullptr);
+    StarEditor(int selectedMovieId, QWidget *parent = nullptr);
 
     QSize sizeHint() const override;
     void setStarRating(const StarRating &starRating) {
@@ -29,10 +30,10 @@ protected:
 
 private:
     int starAtPosition(int x) const;
-    std::optional<User> m_loggedUser;
     int m_selectedMovieId;
     StarRating myStarRating;
     Database* database = Database::connect();
+    LoggedUser* loggedUser = LoggedUser::login();
 };
 //! [0]
 

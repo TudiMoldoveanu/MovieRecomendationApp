@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/MoviePlatformApp/MoviePlatformApp/x64/Debug/uic/ui_LogInPage.h

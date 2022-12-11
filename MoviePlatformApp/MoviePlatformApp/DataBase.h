@@ -1,5 +1,7 @@
 #pragma once
 #include"dbEngine.cpp"
+#include "UserWatched.h"
+#include "UserWishlist.h"
 class Database //Singleton
 {
 private:
@@ -21,6 +23,7 @@ public:
 	static Database* connect();
 
 	bool isRegistered(std::string username);
+	bool userAlreadyRated(int userId, int selectedMovieId);
 
 
 	// template useful functions
@@ -32,9 +35,30 @@ public:
 	}
 
 	template <class T>
+	auto getSavedMovies(const int& loggedInUser)
+	{
+		std::vector<int> movieIds;
+		auto allRecords = m_storage->get_all<T>();
+
+		for (int i = 0; i < allRecords.size(); i++) {
+			if (allRecords[i].getUserId() == loggedInUser) {
+				movieIds.push_back(allRecords[i].getShowId());
+			}
+		}
+
+		return movieIds;
+	}
+
+	template <class T>
 	auto getById(const int& id)
 	{
 		return m_storage->get<T>(id);
+	}
+
+	template <class T>
+	auto getById(const int& id1, const int& id2)
+	{
+		return m_storage->get<T>(id1, id2);
 	}
 
 	template <class T>

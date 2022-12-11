@@ -3,16 +3,45 @@
 #include "starrating.h"
 #include <QTableWidget>
 
-MovieView::MovieView(std::optional<User> loggedUser, int selectedMovieId, QWidget *parent)
+MovieView::MovieView(int selectedMovieId, QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-    m_loggedUser = loggedUser;
+
     m_selectedMovieId = selectedMovieId;
 }
 
 MovieView::~MovieView()
 {}
+
+void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
+    setMovieRating();
+    setMoviePoster(moviePoster);
+    setMovieTitle(movieInfo[1]);
+    setMovieDirector(movieInfo[2]);
+    setMovieCast(movieInfo[3]);
+    setMovieCountry(movieInfo[4]);
+    setMovieReleaseYear(movieInfo[6]);
+    setMovieDescription(movieInfo[10]);
+    setMovieListedIn(movieInfo[9]);
+    setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
+    std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
+    std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+    for (int i = 0; i < wishlistedMovieIds.size(); i++) {
+        if (m_selectedMovieId == wishlistedMovieIds[i]) {
+            ui.wishlistButton->setEnabled(false);
+            ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            break;
+        }
+    }
+    for (int i = 0; i < watchedMovieIds.size(); i++) {
+        if (m_selectedMovieId == watchedMovieIds[i]) {
+            ui.watchedButton->setEnabled(false);
+            ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            break;
+        }
+    }
+}
 
 void MovieView::setMoviePoster(QPixmap image)
 {
@@ -26,30 +55,41 @@ void MovieView::setMovieTitle(QString title)
 
 void MovieView::setMovieRating()
 {
-    static constexpr struct {
+     int k_starsRated = 5;
+     if (database->userAlreadyRated(loggedUser->getId(), m_selectedMovieId))
+     {
+         try {
+             k_starsRated = database->getById<Rating>(loggedUser->getId(), m_selectedMovieId).getRating();
+         }
+
+         catch (std::system_error& e)
+         {
+             // do nothing
+         }
+     }
+
+
+     struct {
         int rating;
-    } staticData[] = {
-        { 5 }
+    } Data[] = {
+        { k_starsRated }
     };
 
     ui.tableWidget->setColumnCount(1);
     ui.tableWidget->setRowCount(1);
-    ui.tableWidget->setItemDelegate(new StarDelegate(m_loggedUser, m_selectedMovieId));
-    ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked
-        | QAbstractItemView::SelectedClicked);
+    ui.tableWidget->setItemDelegate(new StarDelegate(m_selectedMovieId));
+    ui.tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
     ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui.tableWidget->horizontalHeader()->hide();
     ui.tableWidget->verticalHeader()->hide();
     ui.tableWidget->setFrameStyle(QFrame::NoFrame);
     ui.tableWidget->setShowGrid(false);
-    //hide highlight
     ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
     //populate
     QTableWidgetItem* rating = new QTableWidgetItem;
-    rating->setData(0, QVariant::fromValue(StarRating(staticData[0].rating)));
+    rating->setData(0, QVariant::fromValue(StarRating(Data[0].rating)));
     ui.tableWidget->setItem(0, 0, rating);
-
     ui.tableWidget->resizeColumnsToContents();
     ui.tableWidget->show();
 }
@@ -128,8 +168,7 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 
 void MovieView::on_watchedButton_clicked()
 {
-
-    int userId = m_loggedUser.value().getId();
+    int userId = loggedUser->getId();
     UserWatched userWatched(userId, m_selectedMovieId);
     database->replace(userWatched);
     ui.watchedButton->setEnabled(false);
@@ -138,7 +177,7 @@ void MovieView::on_watchedButton_clicked()
 
 void MovieView::on_wishlistButton_clicked()
 {
-    int userId = m_loggedUser.value().getId();
+    int userId = loggedUser->getId();
     UserWishlist userWishlist(userId, m_selectedMovieId);
     database->replace(userWishlist);
     ui.wishlistButton->setEnabled(false);

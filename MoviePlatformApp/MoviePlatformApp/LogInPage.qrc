@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="LogInPage">
+    <file>loader2.gif</file>
     <file>8-account-outline.png</file>
     <file>12417494831642659861-128.png</file>
     <file>1785693471618134422-128.png</file>

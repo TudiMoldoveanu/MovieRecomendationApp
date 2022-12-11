@@ -1,154 +1,154 @@
 #include "MovieDashboard.h"
-#include "Movie.h"
-#include <QList>
 
-const int PAGINATE_NR = 20;
+const int PAGINATE_NR = 5;
 
-MovieDashboard::MovieDashboard(std::optional<User> loggedUser, QWidget *parent)
+MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
-	this->allMovies = database->getAll<Movie>();
-
-	this->movieIndex = PAGINATE_NR;
-
-	this->model = new QStandardItemModel();
-
-	setHeader();
-
-	loadMovieData(0, PAGINATE_NR, "dashboard");
-
+	m_movieIndex = PAGINATE_NR;
+	m_allMovies = database->getAll<Movie>();
+	m_dashboardTableData = new QStandardItemModel();
+	m_wishlistTableData = new QStandardItemModel();
+	m_watchedTableData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
-	connect(ui.tableView,
-		SIGNAL(doubleClicked(const QModelIndex&)),
-		this,
-		SLOT(onMovieDoubleClick(const QModelIndex&)),
-		Qt::QueuedConnection);
-	
-	m_loggedUser = loggedUser;
+	connect(ui.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	//check if user clicked at a tab
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
+	setMovieDashboardData(0, PAGINATE_NR);
+	setMovieWishlistData();
+	setMovieWatchedData();
 }
 
 MovieDashboard::~MovieDashboard()
 {}
 
-void MovieDashboard::setHeader() {
-	//heading title for table
-	QList<QString> header = { "Poster Url", "Type", "Title", "Director", "Cast", "Country", "Date Added", "Release Year", "Rating", "Duration", "Listed In", "Description" };
-	model->setHorizontalHeaderLabels(header);
+void MovieDashboard::setHeader(QStandardItemModel* tableHeader) {
+	QList<QString> header = { "", "Type", "Title", "Director", "Cast", "Country", "Date Added", "Release Year", "Rating", "Duration", "Listed In", "Description" };
+	tableHeader->setHorizontalHeaderLabels(header);
 }
 
-void MovieDashboard::loadMovieData(int fromIndex, int toIndex, std::string optiune)
+void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 {
-	//model->removeRows(0, 0);
+	setHeader(m_dashboardTableData);
 
-	//add 10 items to the table
-	for (int line = fromIndex; line < toIndex; line++) {
-
-		QStandardItem* newItem = new QStandardItem();
-	
-		//add movie poster
-		std::string moviePoster = std::move(*allMovies[line].getPosterUrl());
-		std::string movieTitle = std::move(*allMovies[line].getTitle());
-
-		QPixmap pm = downloadFrom(moviePoster, movieTitle, "92");
-		newItem->setData(QVariant(pm), Qt::DecorationRole);
-
-		//add rest of the infos
-		QList<QString> movie = { 
-			QString::fromStdString(std::move(*allMovies[line].getType())),
-			QString::fromStdString(movieTitle), 
-			QString::fromStdString(std::move(*allMovies[line].getDirector())) ,
-			QString::fromStdString(std::move(*allMovies[line].getCast())),
-			QString::fromStdString(std::move(*allMovies[line].getCountry())),
-			QString::fromStdString(std::move(*allMovies[line].getDateAdded())),
-			QString::fromStdString(std::to_string(std::move(*allMovies[line].getReleaseYear()))),
-			QString::fromStdString(std::move(*allMovies[line].getRating())),
-			QString::fromStdString(std::move(*allMovies[line].getDuration())),
-			QString::fromStdString(std::move(*allMovies[line].getListedIn())),
-			QString::fromStdString(std::move(*allMovies[line].getDescription())),
-		};
-
-		//change - fromIndex (change back to get scroll load)
-		if (optiune == "search") {
-			this->model = new QStandardItemModel();
-			setHeader();
-			model->setItem(line - fromIndex, 0, newItem);
-			for (int col = 1; col < 12; col++) {
-				newItem = new QStandardItem(movie[col - 1]);
-				model->setItem(line - fromIndex, col, newItem);
-			}
-		}
-		else if (optiune == "dashboard") {
-			model->setItem(line, 0, newItem);
-			for (int col = 1; col < 12; col++) {
-				newItem = new QStandardItem(movie[col - 1]);
-				model->setItem(line, col, newItem);
-			}
-		}
+	for (int i = fromId; i < toId; i++) {
+		setMovieData(i, i + 1, m_dashboardTableData);
 	}
 
-	//set size for cells
-	ui.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	ui.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-	ui.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-	ui.tableView->verticalHeader()->setDefaultSectionSize(140);
-	ui.tableView->horizontalHeader()->setDefaultSectionSize(92);
-	ui.tableView->setModel(model);
-	ui.tableView->setStyleSheet
+	assignDataToTable(ui.tableView, m_dashboardTableData);
+}
+
+void MovieDashboard::setMovieWishlistData()
+{
+	setHeader(m_watchedTableData);
+
+	std::vector<int> wishlistedMovieIds = 
+		database->getSavedMovies<UserWishlist>(loggedUser->getId());
+
+	for (int i = 0; i < wishlistedMovieIds.size(); i++) {
+		setMovieData(i, wishlistedMovieIds[i], m_wishlistTableData);
+	}
+
+	assignDataToTable(ui.tableView_2, m_wishlistTableData);
+}
+
+void MovieDashboard::setMovieWatchedData()
+{
+	setHeader(m_wishlistTableData);
+
+	std::vector<int> watchedMovieIds =
+		database->getSavedMovies<UserWatched>(loggedUser->getId());
+
+	for (int i = 0; i < watchedMovieIds.size(); i++) {
+		setMovieData(i, watchedMovieIds[i], m_watchedTableData);
+	}
+
+	assignDataToTable(ui.tableView_3, m_watchedTableData);
+}
+
+QList<QString> MovieDashboard::getMovieInfo(const int& id) {
+
+	Movie movie = database->getById<Movie>(id);
+
+	QList<QString> movieInfo = {
+		QString::fromStdString(std::move(*movie.getType())),
+		QString::fromStdString(std::move(*movie.getTitle())),
+		QString::fromStdString(std::move(*movie.getDirector())) ,
+		QString::fromStdString(std::move(*movie.getCast())),
+		QString::fromStdString(std::move(*movie.getCountry())),
+		QString::fromStdString(std::move(*movie.getDateAdded())),
+		QString::fromStdString(std::to_string(std::move(*movie.getReleaseYear()))),
+		QString::fromStdString(std::move(*movie.getRating())),
+		QString::fromStdString(std::move(*movie.getDuration())),
+		QString::fromStdString(std::move(*movie.getListedIn())),
+		QString::fromStdString(std::move(*movie.getDescription())),
+	};
+
+	return movieInfo;
+}
+
+void MovieDashboard::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
+{
+	QStandardItem* movieData = new QStandardItem();
+
+	QPixmap moviePoster = getMoviePoster(movieId, "92");
+	QList<QString> movieInfo = getMovieInfo(movieId);
+
+	movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
+	tableData->setItem(tableLine, 0, movieData);
+	for (int col = 1; col < 12; col++) {
+		movieData = new QStandardItem(movieInfo[col - 1]);
+		tableData->setItem(tableLine, col, movieData);
+	}
+}
+
+void MovieDashboard::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {
+
+	//set data
+	tableUi->setModel(tableData);
+	//set styling
+	tableUi->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	tableUi->setSelectionMode(QAbstractItemView::SingleSelection);
+	tableUi->setSelectionBehavior(QAbstractItemView::SelectRows);
+	tableUi->verticalHeader()->setDefaultSectionSize(140);
+	tableUi->horizontalHeader()->setDefaultSectionSize(92);
+	tableUi->setStyleSheet
 	(
-	 "QHeaderView::section { background-color:#073d69}\n"
-     "QTableView QTableCornerButton::section { background-color:#073d69}"
+		"QHeaderView::section { background-color:#073d69}\n"
+		"QTableView QTableCornerButton::section { background-color:#073d69}"
 	);
-	ui.tableView->show();
+	tableUi->show();
 }
 
 void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 {
-	// Get all selections
 	QModelIndexList indexes = ui.tableView->selectionModel()->selection().indexes();
+	int selectedMovieId = (indexes.at(0).row() + 1);
 
-	//get selected movie id
-	int selectedIndexMovie = indexes.at(0).row() + 1;
-	//std::cout << selectedIndexMovie << "\n";
+	MovieView* movieView = new MovieView(selectedMovieId);
+	Movie movie = database->getById<Movie>(selectedMovieId);
 
-	//individual movie page
-	MovieView* movieView = new MovieView(m_loggedUser, selectedIndexMovie);
+	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
+	QPixmap moviePoster = getMoviePoster(selectedMovieId, "200");
 
-	Movie movie = database->getById<Movie>(selectedIndexMovie);
-
-	//add movie poster
-	std::string moviePoster = std::move(*movie.getPosterUrl());
-	std::string movieTitle = std::move(*movie.getTitle());
-	std::string movieDirector = std::move(*movie.getDirector());
-	std::string movieCast = std::move(*movie.getCast());
-	std::string movieCountry = std::move(*movie.getCountry());
-	std::string movieReleaseYear = std::to_string(std::move(*movie.getReleaseYear()));
-	std::string movieDescription = std::move(*movie.getDescription());
-	std::string movieListedIn = std::move(*movie.getListedIn());
-	std::string movieType = std::move(*movie.getType());
-	std::string movieDuration = std::move(*movie.getDuration());
-
-	QPixmap pm = downloadFrom(moviePoster, movieTitle, "200");
-
-	movieView->setMoviePoster(pm);
-	movieView->setMovieTitle(QString::fromStdString(movieTitle));
-	movieView->setMovieRating();
-	movieView->setMovieDirector(QString::fromStdString(movieDirector));
-	movieView->setMovieCast(QString::fromStdString(movieCast));
-	movieView->setMovieCountry(QString::fromStdString(movieCountry));
-	movieView->setMovieReleaseYear(QString::fromStdString(movieReleaseYear));
-	movieView->setMovieDescription(QString::fromStdString(movieDescription));
-	movieView->setMovieListedIn(QString::fromStdString(movieListedIn));
-	movieView->setMovieTypeAndDuration(QString::fromStdString(movieType), QString::fromStdString(movieDuration));
-
+	movieView->setMovieView(movieInfo, moviePoster);
 	movieView->setVisible(true);
-
-	//display individual page
-	//Movie movie = allMovies[selectedIndexMovie];
 }
 
-std::string MovieDashboard::whitespaceReplace(std::string& s)
+void MovieDashboard::tabSelected()
+{
+	//if wishlist selected
+	if (ui.tabWidget->currentIndex() == 1) {
+		setMovieWishlistData();
+	}
+	//if watched selected
+	else if (ui.tabWidget->currentIndex() == 2) {
+		setMovieWatchedData();
+	}
+}
+
+std::string MovieDashboard::whiteSpaceReplace(std::string& s)
 {
 	for (size_t i = 0; i < s.size(); i++)
 		if (isspace((unsigned char)s[i]))
@@ -156,62 +156,63 @@ std::string MovieDashboard::whitespaceReplace(std::string& s)
 	return s;
 }
 
-QPixmap MovieDashboard::downloadFrom(const std::string& poster_url, const std::string& title, const std::string& size) {
+QPixmap MovieDashboard::getMoviePoster(const int& id, const std::string& size) {
 
-	//check is poster is null
-	QUrl url;
-	if (poster_url.empty()) {
-		//replace whitespace with "+" to use for placholder link
-		std::string title_copy = title;
-		whitespaceReplace(title_copy);
+	Movie movie = database->getById<Movie>(id);
 
-		std::string URL_STRING = "https://placehold.co/92x500?text=" + title_copy;
-		const char* URL_CHAR = URL_STRING.c_str();
-		url = QUrl(URL_CHAR);
+	std::string moviePosterUrl = std::move(*movie.getPosterUrl());
+	std::string movieTitle = std::move(*movie.getPosterUrl());
+
+	QUrl requestUrl;
+	if (moviePosterUrl.empty()) {
+		whiteSpaceReplace(movieTitle);
+		QString finalUrl = "https://placehold.co/" + QString::fromStdString(size) + "x500/black/white";
+		requestUrl = QUrl(finalUrl);
 	}
 	else {
-		//concatenate url from database
-		std::string URL_STRING = "https://image.tmdb.org/t/p/w";
-		URL_STRING.append(size);
-		URL_STRING.append(poster_url);
-		const char* URL_CHAR = URL_STRING.c_str();
-		url = QUrl(URL_CHAR);
+		QString finalUrl = "https://image.tmdb.org/t/p/w" + QString::fromStdString(size) + QString::fromStdString(moviePosterUrl);
+		requestUrl = QUrl(finalUrl);
 	}
 
-	//make request to network
-	QNetworkAccessManager nam;
-	QEventLoop loop;
-	ui.loadMoreButton->setText("Loading...");
-	ui.loadMoreButton->setEnabled(false);
-	QObject::connect(&nam, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
-	QNetworkReply* reply = nam.get(QNetworkRequest(url));
-	loop.exec();
-	ui.loadMoreButton->setEnabled(true);
-	ui.loadMoreButton->setText("Load 20 More");
-
-	QPixmap pm;
-	pm.loadFromData(reply->readAll());
-
-	delete reply;
-	return pm;
+	return downloadMoviePoster(requestUrl);
 }
 
-void MovieDashboard::on_loadMoreButton_clicked()
+QPixmap MovieDashboard::downloadMoviePoster(QUrl url) {
+
+	QNetworkAccessManager network;
+	QEventLoop loop;
+	QObject::connect(&network, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
+	QNetworkReply* reply = network.get(QNetworkRequest(url));
+	loop.exec();
+
+	QPixmap moviePoster;
+	moviePoster.loadFromData(reply->readAll());
+
+	delete reply;
+	return moviePoster;
+}
+
+void MovieDashboard::on_loadMore_clicked()
 {
-	loadMovieData(movieIndex, movieIndex + PAGINATE_NR, "dashboard");
-	movieIndex += PAGINATE_NR;
+	setMovieDashboardData(m_movieIndex, m_movieIndex + PAGINATE_NR);
+	m_movieIndex += PAGINATE_NR;
 }
 
 void MovieDashboard::on_searchButton_clicked() { //search method to be improved
-	std::string i_movieTitle = ui.searchBox->text().toStdString();
 
-	for (const auto& movie : allMovies) {
-		//set text to searching
+	std::string searchTitle = ui.searchBox->text().toStdString();
+	int nrOfMoviesFound = 0;
+
+	m_dashboardTableData = new QStandardItemModel();
+
+	for (const auto& movie : m_allMovies) {
 		std::string movieTitle = std::move(*movie.getTitle());
-		if (movieTitle.find(i_movieTitle) != std::string::npos) {
+		if (movieTitle.find(searchTitle) != std::string::npos) {
 			int id = movie.getId();
-			//std::cout << movieTitle << std::endl;
-			loadMovieData(id-1, id, "search");
+			setMovieData(nrOfMoviesFound, id, m_dashboardTableData);
+			nrOfMoviesFound++;
 		}
 	}
+
+	assignDataToTable(ui.tableView, m_dashboardTableData);
 }

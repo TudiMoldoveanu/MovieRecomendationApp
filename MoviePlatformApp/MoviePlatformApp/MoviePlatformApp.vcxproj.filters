@@ -97,6 +97,9 @@
     <ClCompile Include="starrating.cpp">
       <Filter>Source Files\GUILayer\StarComponent</Filter>
     </ClCompile>
+    <ClCompile Include="LoggedUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -127,6 +130,9 @@
       <Filter>Source Files\GUILayer\StarComponent</Filter>
     </ClInclude>
     <ClInclude Include="UserInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggedUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

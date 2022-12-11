@@ -21,12 +21,13 @@ Database* Database::getInstance()
 		database = new Database();
 	}
 	return database;
+
+
 }
 
 Database* Database::connect()
 {
-	auto* instance = getInstance();
-	return instance;
+	return getInstance();
 }
 
 bool Database::isRegistered(std::string username)
@@ -47,6 +48,20 @@ bool Database::isRegistered(std::string username)
 	else {
 		return true;
 	}
+}
+bool Database::userAlreadyRated(int userId, int selectedMovieId)
+{
+	using namespace sqlite_orm;
+	auto commited = m_storage->transaction([&]() mutable {
+		auto userCount = m_storage->get_all<Rating>(where(c(&Rating::getUserId) == userId && c(&Rating::getShowId) == selectedMovieId));
+	if (userCount.size() == 1) {  //  dummy condition for test
+		return true;
+		//  exits lambda and calls ROLLBACK
+	}
+	return false;        //  exits lambda and calls COMMIT
+		});
+	
+	return commited;
 }
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
 {

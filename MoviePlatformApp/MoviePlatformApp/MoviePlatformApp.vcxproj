@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="LoggedUser.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="MovieDashboard.cpp" />
     <ClCompile Include="MovieView.cpp" />
@@ -113,11 +114,11 @@
     <QtRcc Include="LogInPage.qrc" />
     <QtRcc Include="PreferencesPage.qrc" />
     <QtRcc Include="RegistetPage.qrc" />
-    <QtUic Include="LogInPage.ui" />
     <QtMoc Include="LogInPage.h" />
     <ClCompile Include="dbEngine.cpp" />
     <ClCompile Include="LogInPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="LogInPage.ui" />
     <QtUic Include="MovieDashboard.ui" />
     <QtUic Include="MovieView.ui" />
     <QtUic Include="PreferencesPage.ui" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="LoggedUser.h" />
     <ClInclude Include="Movie.h" />
     <QtMoc Include="PreferencesPage.h" />
     <QtMoc Include="MovieDashboard.h" />
