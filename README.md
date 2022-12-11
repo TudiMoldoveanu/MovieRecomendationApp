@@ -1,4 +1,4 @@
-# ProjectModernCpp
+# MovieRecommendationApp
 
 A full stack desktop application of Movie Recommendation where you can create an account and based on your preferences and other users having similar preferences, you will be able to choose from a diversity of recommended movies.
 
