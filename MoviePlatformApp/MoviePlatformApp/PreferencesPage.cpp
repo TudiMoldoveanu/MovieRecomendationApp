@@ -28,6 +28,24 @@ void PreferencesPage::setMovieData(const int& tableLine, const int& movieId, QSt
     }
 }
 
+void PreferencesPage::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {
+
+    //set data
+    tableUi->setModel(tableData);
+    //set styling
+    tableUi->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableUi->setSelectionMode(QAbstractItemView::MultiSelection);
+    tableUi->setSelectionBehavior(QAbstractItemView::SelectItems);
+    tableUi->verticalHeader()->setDefaultSectionSize(140);
+    tableUi->horizontalHeader()->setDefaultSectionSize(92);
+    tableUi->setStyleSheet
+    (
+        "QHeaderView::section { background-color:#073d69}\n"
+        "QTableView QTableCornerButton::section { background-color:#073d69}"
+    );
+    tableUi->show();
+}
+
 void PreferencesPage::setMoviePosters(const int& fromId, const int& toId)
 {
     for (int i = fromId; i < toId; i++) {
