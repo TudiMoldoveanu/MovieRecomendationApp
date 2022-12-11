@@ -205,12 +205,12 @@ QPixmap MovieDashboard::getMoviePoster(const int& id, const std::string& size) {
 	Movie movie = database->getById<Movie>(id);
 
 	std::string moviePosterUrl = std::move(*movie.getPosterUrl());
-	std::string movieTitle = std::move(*movie.getPosterUrl());
+	std::string movieTitle = std::move(*movie.getTitle());
 
 	QUrl requestUrl;
 	if (moviePosterUrl.empty()) {
 		whiteSpaceReplace(movieTitle);
-		QString finalUrl = "https://placehold.co/" + QString::fromStdString(size) + "x500/black/white";
+		QString finalUrl = "https://placehold.co/" + QString::fromStdString(size) + "x500?text=" + QString::fromStdString(whiteSpaceReplace(movieTitle));
 		requestUrl = QUrl(finalUrl);
 	}
 	else {
@@ -238,12 +238,14 @@ QPixmap MovieDashboard::downloadMoviePoster(QUrl url) {
 
 void MovieDashboard::on_nextPage_clicked()
 {
+	m_searchMovies.clear();
 	setMovieDashboardData(m_movieIndex, m_movieIndex + PAGINATE_NR);
 	m_movieIndex += PAGINATE_NR;
 }
 
 void MovieDashboard::on_previousPage_clicked()
 {
+	m_searchMovies.clear();
 	if (m_movieIndex - PAGINATE_NR >= 5) {
 		m_movieIndex -= PAGINATE_NR;
 		setMovieDashboardData(m_movieIndex - PAGINATE_NR, m_movieIndex);
@@ -268,5 +270,6 @@ void MovieDashboard::on_searchButton_clicked() { //search method to be improved
 		}
 	}
 
+	setHeader(m_dashboardTableData);
 	assignDataToTable(ui.tableView, m_dashboardTableData);
 }
