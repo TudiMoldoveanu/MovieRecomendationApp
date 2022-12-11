@@ -28,6 +28,15 @@ void PreferencesPage::setMovieData(const int& tableLine, const int& movieId, QSt
     }
 }
 
+void PreferencesPage::setMoviePosters(const int& fromId, const int& toId)
+{
+    for (int i = fromId; i < toId; i++) {
+        setMovieData(i, i + 1, m_moviePosters);
+    }
+
+    assignDataToTable(ui.tableView, m_moviePosters);
+}
+
 QPixmap PreferencesPage::getMoviePoster(const int& id, const std::string& size) {
 
     Movie movie = database->getById<Movie>(id);

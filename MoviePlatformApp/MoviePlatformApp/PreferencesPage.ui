@@ -6,39 +6,53 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
-    <height>536</height>
+    <width>750</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PreferencesPage</string>
   </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
-  </property>
   <property name="styleSheet">
-   <string notr="true">/*-----QWidget-----*/
-QWidget
-{
-	background-color: #175282;
-	color: #fff;
-	border-color: #000000;
+   <string notr="true">/* VERTICAL SCROLLBAR */
+ QScrollBar:vertical {
+	border: none;
+    background: rgb(45, 45, 68);
+    width: 14px;
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+ }
 
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	background-color: rgb(104, 125, 155);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	background-color: rgb(255,222, 50);
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: rgb(255, 183, 0);
 }
 
-
-/*-----QLabel-----*/
-QLabel
-{
-	background-color: transparent;
-	color: #fff;
-	font-weight: bold;
-	border-color: #000000;
-
+/* BTN TOP - SCROLLBAR */
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::sub-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
 }
 
-
-/*-----QPushButton-----*/
 QPushButton
 {
 	background-color: #e8a813;
@@ -52,21 +66,18 @@ QPushButton
 
 QPushButton::hover
 {
-	background-color: #fcba21;
+	background-color: #ffb303;
 	color: #fff;
-
 }
 
 
 QPushButton::pressed
 {
-	background-color: #fcba21;
+	background-color: rgb(218, 164, 0);
 	color: #fff;
 
 }
 
-
-/*-----QToolButton-----*/
 QToolButton
 {
 	background-color: transparent;
@@ -97,307 +108,195 @@ QToolButton::pressed
 }
 
 
-/*-----QLineEdit-----*/
-QLineEdit{
-	background-color: #4d4d4d;
-	color: #fff;
-	font-weight: bold;
-	border-style: solid;
-	border-radius: 10px;
-	padding: 5px;
-
-}
 
 
-/*-----QCheckBox-----*/
-QCheckBox
-{
-	background-color: transparent;
-	color: #b9b9bb;
-	font-weight: bold;
 
-}
-
-
-QCheckBox::indicator
-{
-    color: #b1b1b1;
-    background-color: #00111d;
-    border: 1px solid #d10000;
-    width: 12px;
-    height: 12px;
-
-}
-
-
-QCheckBox::indicator:checked
-{
-    image:url(&quot;./ressources/check.png&quot;); /*To replace*/
-	background-color: #d10000;
-    border: 1px solid #d10000;
-
-}
-
-
-QCheckBox::indicator:unchecked:hover
-{
-    border: 1px solid #ff0000;
-
-}
-
-
-QCheckBox::disabled
-{
-	color: #656565;
-
-}
-
-
-QCheckBox::indicator:disabled
-{
-	background-color: #656565;
-	color: #656565;
-    border: 1px solid #656565;
-
-}</string>
+</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>90</y>
-      <width>531</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:20pt; color:#ffffff;&quot;&gt;Please select your favorite movie genres!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="iconLabel">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>120</y>
-      <width>151</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-image: url(:/newPrefix/popcorn.png)</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="Preferences.qrc">:/newPrefix/popcorn.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>411</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;Before you finally get into your account...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>-20</x>
-      <y>250</y>
-      <width>221</width>
-      <height>221</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-picture: url(:/newPrefix/—Pngtree—film projector_7495172.png)</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="Preferences.qrc">:/newPrefix/—Pngtree—film projector_7495172.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>240</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Comedies</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_2">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>290</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Dramas</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_3">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>340</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Thrillers</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_4">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>390</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Horror</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_5">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>240</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Sci-Fi &amp; Fantasy</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_6">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>290</y>
-      <width>141</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Action &amp; Adventure</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_7">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>340</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Children</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_8">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>390</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Romantic</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>470</y>
-      <width>101</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-radius:10px;</string>
-    </property>
-    <property name="text">
-     <string>All done!</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_9">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>440</y>
-      <width>75</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Anime</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_10">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>440</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Documentaries</string>
-    </property>
-   </widget>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(45, 45, 68);</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="styleSheet">
+       <string notr="true"> QScrollBar:vertical {
+	border: none;
+    background: rgb(56, 56, 85);
+ }</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>718</width>
+         <height>1218</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="minimumSize">
+           <size>
+            <width>600</width>
+            <height>1200</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #175282;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>40</y>
+             <width>431</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;Before you finally get into your account...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>80</y>
+             <width>581</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:20pt; color:#ffffff;&quot;&gt;Please select some movies/TV shows you like!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="iconLabel">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>580</x>
+             <y>20</y>
+             <width>111</width>
+             <height>111</height>
+            </rect>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/newPrefix/popcorn.png)</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../../../modern/MoviePlatformApp/MoviePlatformApp/Preferences.qrc">:/newPrefix/popcorn.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QTableView" name="tableView">
+           <property name="geometry">
+            <rect>
+             <x>15</x>
+             <y>161</y>
+             <width>671</width>
+             <height>1001</height>
+            </rect>
+           </property>
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">selection-background-color: rgb(255, 0, 0);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+          <widget class="QPushButton" name="allDoneButton">
+           <property name="geometry">
+            <rect>
+             <x>590</x>
+             <y>1150</y>
+             <width>101</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="tabletTracking">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:10px;
+background-color: rgb(255, 213, 5);</string>
+           </property>
+           <property name="text">
+            <string>All done!</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Preferences.qrc"/>
+  <include location="../../../modern/MoviePlatformApp/MoviePlatformApp/Preferences.qrc"/>
+  <include location="../../../NERVI/MoviePlatformApp/MoviePlatformApp/PreferencesPage.qrc"/>
+  <include location="../../../NERVI/MoviePlatformApp/MoviePlatformApp/PreferencesPage.qrc"/>
  </resources>
  <connections/>
 </ui>
