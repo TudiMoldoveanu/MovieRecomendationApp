@@ -17,7 +17,8 @@ public:
     void setMoviePosters(const int& fromId, const int& toId);
     QPixmap getMoviePoster(const int& id, const std::string& size);
     QPixmap downloadMoviePoster(QUrl url);
-
+private slots:
+    void on_allDoneButton_clicked();
 private:
     Ui::PreferencesPageClass ui;
     Database* database = Database::connect();

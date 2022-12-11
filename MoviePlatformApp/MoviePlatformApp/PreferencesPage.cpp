@@ -15,6 +15,21 @@ PreferencesPage::PreferencesPage(QWidget* parent)
 
 PreferencesPage::~PreferencesPage() {}
 
+void PreferencesPage::on_allDoneButton_clicked()
+{
+    ui.allDoneButton->setEnabled(false);
+    ui.allDoneButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+    LogInPage* logInPage;
+    logInPage = new LogInPage(this);
+    this->setVisible(false);
+    logInPage->show();
+    ui.allDoneButton->setEnabled(true);
+    ui.allDoneButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+        "border-radius:10px;\n"
+        "gridline-color: rgb(172, 81, 1);\n"
+        "background-color: rgb(255, 204, 1);"));
+}
+
 void PreferencesPage::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
 {
     const QSize btnSize = QSize(140, 92);

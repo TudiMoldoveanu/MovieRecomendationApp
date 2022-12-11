@@ -177,7 +177,7 @@ QToolButton::pressed
             <rect>
              <x>20</x>
              <y>80</y>
-             <width>581</width>
+             <width>641</width>
              <height>41</height>
             </rect>
            </property>
@@ -191,7 +191,7 @@ QToolButton::pressed
            </property>
            <property name="geometry">
             <rect>
-             <x>580</x>
+             <x>590</x>
              <y>20</y>
              <width>111</width>
              <height>111</height>
