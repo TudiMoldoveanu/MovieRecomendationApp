@@ -8,7 +8,6 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	ui.setupUi(this);
 	m_movieIndex = PAGINATE_NR;
 	m_allMovies = database->getAll<Movie>();
-	m_dashboardTableData = new QStandardItemModel();
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
@@ -30,10 +29,11 @@ void MovieDashboard::setHeader(QStandardItemModel* tableHeader) {
 
 void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 {
+	m_dashboardTableData = new QStandardItemModel();
 	setHeader(m_dashboardTableData);
 
 	for (int i = fromId; i < toId; i++) {
-		setMovieData(i, i + 1, m_dashboardTableData);
+		setMovieData(i-fromId, i + 1, m_dashboardTableData);
 	}
 
 	assignDataToTable(ui.tableView, m_dashboardTableData);
@@ -124,7 +124,7 @@ void MovieDashboard::assignDataToTable(QTableView* tableUi, QStandardItemModel* 
 void MovieDashboard::onMovieDoubleClick(const QModelIndex& index)
 {
 	QModelIndexList indexes = ui.tableView->selectionModel()->selection().indexes();
-	int selectedMovieId = (indexes.at(0).row() + 1);
+	int selectedMovieId = (indexes.at(0).row() + 1) + m_movieIndex - PAGINATE_NR;
 
 	MovieView* movieView = new MovieView(selectedMovieId);
 	Movie movie = database->getById<Movie>(selectedMovieId);
@@ -192,10 +192,18 @@ QPixmap MovieDashboard::downloadMoviePoster(QUrl url) {
 	return moviePoster;
 }
 
-void MovieDashboard::on_loadMore_clicked()
+void MovieDashboard::on_nextPage_clicked()
 {
 	setMovieDashboardData(m_movieIndex, m_movieIndex + PAGINATE_NR);
 	m_movieIndex += PAGINATE_NR;
+}
+
+void MovieDashboard::on_previousPage_clicked()
+{
+	if (m_movieIndex - PAGINATE_NR >= 5) {
+		m_movieIndex -= PAGINATE_NR;
+		setMovieDashboardData(m_movieIndex - PAGINATE_NR, m_movieIndex);
+	}
 }
 
 void MovieDashboard::on_searchButton_clicked() { //search method to be improved
