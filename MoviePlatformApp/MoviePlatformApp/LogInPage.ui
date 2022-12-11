@@ -499,7 +499,7 @@ border-radius:10px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/newPrefix/8-account-outline.png)</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string/>
@@ -630,7 +630,7 @@ background-image:url(:/LogInPage/12417494831642659861-128.png)
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="LogInPage.qrc"/>
-  <include location="../../../../../../../../.designer/backup/LogInPage.qrc"/>
+  <include location="LogInPage.qrc"/>
  </resources>
  <connections/>
 </ui>
