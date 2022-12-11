@@ -215,7 +215,7 @@ background:#073d69 ;
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>190</x>
         <y>630</y>
         <width>471</width>
         <height>151</height>
@@ -266,27 +266,14 @@ background:#073d69 ;
        <rect>
         <x>10</x>
         <y>630</y>
-        <width>291</width>
+        <width>161</width>
         <height>81</height>
        </rect>
       </property>
       <property name="title">
        <string>Navigation</string>
       </property>
-      <widget class="QPushButton" name="nextPage">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>30</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Next Page &gt;&gt;</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="previousPage">
+      <widget class="QPushButton" name="loadMore">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -296,7 +283,7 @@ background:#073d69 ;
         </rect>
        </property>
        <property name="text">
-        <string>&lt;&lt; Previous Page</string>
+        <string>Load More &gt;&gt;</string>
        </property>
       </widget>
      </widget>
@@ -357,7 +344,7 @@ background:#073d69 ;
      <x>0</x>
      <y>0</y>
      <width>1344</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

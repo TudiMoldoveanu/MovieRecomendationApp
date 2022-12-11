@@ -90,29 +90,44 @@ std::array<std::optional<std::string>, Database::k_movieTableSize> split(const s
 
 void Database::PopulateStorage(const std::string& dataFilePath)
 {
+	int k_maxInsertRangeSupports = 2730;
+
+	/* Get the number of movies by the number of lines in the .csv file*/
 	std::ifstream in(dataFilePath);
-
 	std::string str;
-
-	 std::string delim("|");
+	int numberOfMovies = std::count(std::istreambuf_iterator<char>(in),
+		std::istreambuf_iterator<char>(), '\n') + 1;
+	in.close(); 
+	
+	/*Insert the .csv in Database*/
+	in.open(dataFilePath);
+	std::string delim("|");
 	std::vector<Movie> movies;
-
-	while (getline(in, str))
+	int movieCounter = 0;
+	while (movieCounter < numberOfMovies)
 	{
-		//Id, Type, Title, Director, Cast, Country, Date_added, Release_year, Rating, Duration, Listed_in, Description, Poster_url
-		std::array<std::optional<std::string>, Database::k_movieTableSize> result = split(str, delim);
-		int releaseYear;
-		if (*result[7] != "")
+		while (movies.size() < k_maxInsertRangeSupports && getline(in, str))
 		{
-			releaseYear = std::stoi(*result[7]);
-		}
-		else
-			releaseYear = -1;
-		movies.emplace_back(Movie{ -1, *result[1], *result[2], *result[3], *result[4], *result[5], *result[6], 
-			releaseYear, *result[8], *result[9], *result[10], *result[11], *result[12] });
-		m_storage->insert(Movie{ -1, *result[1], *result[2], *result[3], *result[4], *result[5], *result[6],
-			releaseYear, *result[8], *result[9], *result[10], *result[11], *result[12] });
-	}
+			//Id, Type, Title, Director, Cast, Country, Date_added, Release_year, Rating, Duration, Listed_in, Description, Poster_url
+			std::array<std::optional<std::string>, Database::k_movieTableSize> result = split(str, delim);
+			const auto& [id, type, title, director, cast, country, dateAdded,
+						releaseYear, rating, duration, listedIn, description, posterUrl] = result;
+			// ^^unpacking the array
 
-//	m_storage->insert_range(movies.begin(), movies.end()); //-> fast but throwing runtime error, to be improved this way...
+			int rYear;
+			if (*releaseYear != "")
+			{
+				rYear = std::stoi(*result[7]);
+			}
+			else
+				rYear = -1;
+
+			movies.emplace_back(Movie{ -1, *type, *title, *director, *cast, *country, *dateAdded,
+				rYear, *rating, *duration, *listedIn, *description, *posterUrl });
+
+			movieCounter++;
+		}
+		m_storage->insert_range(movies.begin(), movies.end());
+		movies.clear();
+	}
 }

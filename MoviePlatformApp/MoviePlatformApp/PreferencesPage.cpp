@@ -32,11 +32,12 @@ void PreferencesPage::on_allDoneButton_clicked()
 
 void PreferencesPage::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
 {
+    srand(time(0));
     const QSize btnSize = QSize(140, 92);
     for (int col = 0; col < tableSize; col++)
     {
         QStandardItem* movieData = new QStandardItem();
-        int random = 1 + (rand() % 3000);
+        int random = 1 + (rand() % m_allMovies.size());
         QPixmap moviePoster = getMoviePoster(random, "92");
         movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
         tableData->setItem(col, tableLine, movieData);
