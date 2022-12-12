@@ -187,7 +187,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -215,7 +215,7 @@ background:#073d69 ;
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>320</x>
         <y>630</y>
         <width>471</width>
         <height>151</height>
@@ -266,14 +266,27 @@ background:#073d69 ;
        <rect>
         <x>10</x>
         <y>630</y>
-        <width>161</width>
+        <width>291</width>
         <height>81</height>
        </rect>
       </property>
       <property name="title">
        <string>Navigation</string>
       </property>
-      <widget class="QPushButton" name="loadMore">
+      <widget class="QPushButton" name="nextPage">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>30</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Next Page &gt;&gt;</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="previousPage">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -283,7 +296,7 @@ background:#073d69 ;
         </rect>
        </property>
        <property name="text">
-        <string>Load More &gt;&gt;</string>
+        <string>&lt;&lt; Previous Page </string>
        </property>
       </widget>
      </widget>

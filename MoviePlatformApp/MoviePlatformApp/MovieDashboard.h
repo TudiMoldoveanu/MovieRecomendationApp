@@ -39,9 +39,12 @@ public:
 
 private slots:
 	void on_searchButton_clicked();
-	void onMovieDoubleClick(const QModelIndex&);
+	void dashboardMovieDoubleClick(const QModelIndex&);
+	void wishlistMovieDoubleClick(const QModelIndex&);
+	void watchedMovieDoubleClick(const QModelIndex&);
 	void tabSelected();
-	void on_loadMore_clicked();
+	void on_nextPage_clicked();
+	void on_previousPage_clicked();
 
 private:
 	Ui::MovieDashboardClass ui;
@@ -49,6 +52,7 @@ private:
 	LoggedUser* loggedUser = LoggedUser::login();
 	int m_movieIndex;
 	std::vector<Movie> m_allMovies;
+	std::vector<int> m_searchMovies;
 	QStandardItemModel* m_dashboardTableData;
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
