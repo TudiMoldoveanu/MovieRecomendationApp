@@ -36,6 +36,7 @@ public:
 	void setMovieDashboardData(const int& fromId, const int& toId);
 	void setMovieWishlistData();
 	void setMovieWatchedData();
+	void setMyProfileData();
 
 private slots:
 	void on_searchButton_clicked();
@@ -56,4 +57,5 @@ private:
 	QStandardItemModel* m_dashboardTableData;
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
+	QStandardItemModel* m_myProfileData;
 };

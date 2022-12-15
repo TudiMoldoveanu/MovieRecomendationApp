@@ -27,6 +27,9 @@
     <Filter Include="Source Files\GUILayer\StarComponent">
       <UniqueIdentifier>{03658ea9-705e-43f9-b474-73ae2075f310}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataAcces">
+      <UniqueIdentifier>{ff1175c5-cb7d-4476-98e8-07376a028dbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="LogInPage.qrc">
@@ -44,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Movie.cpp">
@@ -68,9 +68,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserWishlist.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MovieDashboard.cpp">
@@ -100,6 +97,12 @@
     <ClCompile Include="LoggedUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataBase.cpp">
+      <Filter>DataAcces</Filter>
+    </ClCompile>
+    <ClCompile Include="dbEngine.cpp">
+      <Filter>DataAcces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -120,9 +123,6 @@
     <ClInclude Include="UserWishlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -134,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="LoggedUser.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataBase.h">
+      <Filter>DataAcces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

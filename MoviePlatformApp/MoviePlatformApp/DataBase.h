@@ -1,7 +1,5 @@
 #pragma once
 #include"dbEngine.cpp"
-#include "UserWatched.h"
-#include "UserWishlist.h"
 class Database //Singleton
 {
 private:

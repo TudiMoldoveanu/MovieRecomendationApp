@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1344</width>
-    <height>884</height>
+    <width>1300</width>
+    <height>860</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MovieDashboard</string>
@@ -163,7 +169,7 @@ QCheckBox::indicator:disabled
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>30</y>
       <width>1321</width>
       <height>831</height>
      </rect>
@@ -189,7 +195,150 @@ QTabBar::tab:selected {
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="myProfile">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <attribute name="title">
+      <string>My Profile</string>
+     </attribute>
+     <widget class="QFrame" name="myProfileFrame">
+      <property name="geometry">
+       <rect>
+        <x>-10</x>
+        <y>-10</y>
+        <width>1371</width>
+        <height>811</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="welcomeLabel">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>211</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Welcome back, </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="yourNameLabel">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>20</y>
+         <width>211</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Your Name!</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="yourWishlistLabel">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>125</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>14</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Your wishlist:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="yourWatchedLabel">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>450</y>
+         <width>291</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>12</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Your watched movies and TV shows:</string>
+       </property>
+      </widget>
+      <widget class="QTableView" name="watchedTable">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>480</y>
+         <width>1281</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTableView {
+    background: #073d69;
+    
+}
+QHeaderView::section {
+background:#073d69 ;
+}</string>
+       </property>
+      </widget>
+      <widget class="QTableView" name="wishlistTable">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>160</y>
+         <width>1281</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTableView {
+    background: #073d69;
+    
+}
+QHeaderView {
+background:#073d69 ;
+}</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="dashboard">
      <attribute name="title">
       <string>Dashboard</string>
      </attribute>
@@ -301,54 +450,6 @@ background:#073d69 ;
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="Wishlist">
-     <attribute name="title">
-      <string>Wishlisted</string>
-     </attribute>
-     <widget class="QTableView" name="tableView_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>1321</width>
-        <height>621</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTableView {
-    background: #073d69;
-    
-}
-QHeaderView {
-background:#073d69 ;
-}</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Watched</string>
-     </attribute>
-     <widget class="QTableView" name="tableView_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>1321</width>
-        <height>621</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTableView {
-    background: #073d69;
-    
-}
-QHeaderView::section {
-background:#073d69 ;
-}</string>
-      </property>
-     </widget>
-    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -356,8 +457,8 @@ background:#073d69 ;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1344</width>
-     <height>22</height>
+     <width>1300</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
