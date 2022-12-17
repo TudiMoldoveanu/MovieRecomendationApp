@@ -84,6 +84,12 @@ public:
 	{
 		m_storage->remove<T>(id);
 	}
+
+	template <class T>
+	void deleteId(const int& id1, const int& id2)
+	{
+		m_storage->remove<T>(id1, id2);
+	}
 public:
 	static const int k_movieTableSize = 13;
 };

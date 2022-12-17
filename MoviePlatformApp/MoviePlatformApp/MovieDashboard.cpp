@@ -196,7 +196,6 @@ void MovieDashboard::tabSelected()
 		setMovieWishlistData();
 		setMovieWatchedData();
 	}
-	
 }
 
 std::string MovieDashboard::whiteSpaceReplace(std::string& s)

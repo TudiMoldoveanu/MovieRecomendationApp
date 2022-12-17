@@ -29,15 +29,15 @@ void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
     std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
     for (int i = 0; i < wishlistedMovieIds.size(); i++) {
         if (m_selectedMovieId == wishlistedMovieIds[i]) {
-            ui.wishlistButton->setEnabled(false);
-            ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            ui.wishlistButton->setText("Remove Wishlist");
+            ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
         }
     }
     for (int i = 0; i < watchedMovieIds.size(); i++) {
         if (m_selectedMovieId == watchedMovieIds[i]) {
-            ui.watchedButton->setEnabled(false);
-            ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            ui.watchedButton->setText("Remove Watched");
+            ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
         }
     }
@@ -170,16 +170,30 @@ void MovieView::on_watchedButton_clicked()
 {
     int userId = loggedUser->getId();
     UserWatched userWatched(userId, m_selectedMovieId);
-    database->replace(userWatched);
-    ui.watchedButton->setEnabled(false);
-    ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+    if (ui.watchedButton->text().toStdString() == "Remove Watched") {
+        database->deleteId<UserWatched>(userId, m_selectedMovieId);
+        ui.watchedButton->setText("Mark as Watched");
+        ui.watchedButton->setStyleSheet("background-color: rgb(204,204,0)");
+    }
+    else {
+        database->replace(userWatched);
+        ui.watchedButton->setText("Remove Watched");
+        ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
+    }
 }
 
 void MovieView::on_wishlistButton_clicked()
 {
     int userId = loggedUser->getId();
     UserWishlist userWishlist(userId, m_selectedMovieId);
-    database->replace(userWishlist);
-    ui.wishlistButton->setEnabled(false);
-    ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+    if (ui.wishlistButton->text().toStdString() == "Remove Wishlist") {
+        database->deleteId<UserWishlist>(userId, m_selectedMovieId);
+        ui.wishlistButton->setText("Add to Wishlist");
+        ui.wishlistButton->setStyleSheet("background-color: rgb(204,204,0)");
+    }
+    else {
+        database->replace(userWishlist);
+        ui.wishlistButton->setText("Remove Wishlist");
+        ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
+    }
 }
