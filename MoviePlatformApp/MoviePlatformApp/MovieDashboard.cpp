@@ -149,7 +149,8 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 
 	//created an instance of SimilarMoviesEngine
 	SimilarMoviesEngine similarMovies(movie);
-	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByGenre());
+	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByGenreAndRating());
+	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
 
 	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = getMoviePoster(selectedMovieId, "200");
