@@ -1,22 +1,23 @@
 #include "MovieDashboard.h"
 
 const int PAGINATE_NR = 5;
+Ui::MovieDashboardClass MovieDashboard::uiDashboard;
 
 MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
-	ui.setupUi(this);
+	uiDashboard.setupUi(this);
 	m_movieIndex = PAGINATE_NR;
 	m_allMovies = database->getAll<Movie>();
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
 	m_myProfileData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
-	connect(ui.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(dashboardMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
-	connect(ui.wishlistTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(wishlistMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
-	connect(ui.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	connect(uiDashboard.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(dashboardMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	connect(uiDashboard.wishlistTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(wishlistMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	connect(uiDashboard.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	//check if user clicked at a tab
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
+	connect(uiDashboard.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
 	setMovieDashboardData(0, PAGINATE_NR);
 	setMovieWishlistData();
 	setMovieWatchedData();
@@ -40,7 +41,7 @@ void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 		setMovieData(i-fromId, i + 1, m_dashboardTableData);
 	}
 
-	assignDataToTable(ui.tableView, m_dashboardTableData);
+	assignDataToTable(uiDashboard.tableView, m_dashboardTableData);
 }
 
 void MovieDashboard::setMovieWishlistData()
@@ -54,7 +55,7 @@ void MovieDashboard::setMovieWishlistData()
 		setMovieData(i, wishlistedMovieIds[i], m_wishlistTableData);
 	}
 
-	assignDataToTable(ui.wishlistTable, m_wishlistTableData);
+	assignDataToTable(uiDashboard.wishlistTable, m_wishlistTableData);
 }
 
 void MovieDashboard::setMovieWatchedData()
@@ -68,14 +69,14 @@ void MovieDashboard::setMovieWatchedData()
 		setMovieData(i, watchedMovieIds[i], m_watchedTableData);
 	}
 
-	assignDataToTable(ui.watchedTable, m_watchedTableData);
+	assignDataToTable(uiDashboard.watchedTable, m_watchedTableData);
 }
 
 void MovieDashboard::setMyProfileData()
 {
 	auto userName = database->getById<UserInfo>(loggedUser->getId()).getFullName();
 	QString qstrUserName = QString::fromStdString(userName);
-	ui.yourNameLabel ->setText(qstrUserName + "!");
+	uiDashboard.yourNameLabel ->setText(qstrUserName + "!");
 }
 
 QList<QString> MovieDashboard::getMovieInfo(const int& id) {
@@ -134,7 +135,7 @@ void MovieDashboard::assignDataToTable(QTableView* tableUi, QStandardItemModel* 
 
 void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 {
-	QModelIndexList indexes = ui.tableView->selectionModel()->selection().indexes();
+	QModelIndexList indexes = uiDashboard.tableView->selectionModel()->selection().indexes();
 	int selectedMovieId;
 	if (!m_searchMovies.empty()) {
 		selectedMovieId = m_searchMovies[indexes.at(0).row()];
@@ -158,7 +159,7 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	std::vector<int> wishlistedMovieIds =
 		database->getSavedMovies<UserWishlist>(loggedUser->getId());
 
-	QModelIndexList indexes = ui.wishlistTable->selectionModel()->selection().indexes();
+	QModelIndexList indexes = uiDashboard.wishlistTable->selectionModel()->selection().indexes();
 	int selectedMovieId = wishlistedMovieIds[(indexes.at(0).row())];
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
@@ -176,7 +177,7 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 	std::vector<int> watchedMovieIds =
 		database->getSavedMovies<UserWatched>(loggedUser->getId());
 
-	QModelIndexList indexes = ui.watchedTable->selectionModel()->selection().indexes();
+	QModelIndexList indexes = uiDashboard.watchedTable->selectionModel()->selection().indexes();
 	int selectedMovieId = watchedMovieIds[(indexes.at(0).row())];
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
@@ -192,10 +193,11 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 void MovieDashboard::tabSelected()
 {
 	//if My Profile is selected
-	if (ui.tabWidget->currentIndex() == 0) {
+	if (uiDashboard.tabWidget->currentIndex() == 0) {
 		setMovieWishlistData();
 		setMovieWatchedData();
 	}
+	
 }
 
 std::string MovieDashboard::whiteSpaceReplace(std::string& s)
@@ -252,32 +254,44 @@ void MovieDashboard::on_nextPage_clicked()
 void MovieDashboard::on_previousPage_clicked()
 {
 	m_searchMovies.clear();
-	if (m_movieIndex - PAGINATE_NR >= 5) {
-		m_movieIndex -= PAGINATE_NR;
-		setMovieDashboardData(m_movieIndex - PAGINATE_NR, m_movieIndex);
-	}
+	if (m_movieIndex - PAGINATE_NR >= 5) 
+		{
+			m_movieIndex -= PAGINATE_NR;
+			setMovieDashboardData(m_movieIndex - PAGINATE_NR, m_movieIndex);
+		}
 }
 
-void MovieDashboard::on_searchButton_clicked() { //search method to be improved
+void MovieDashboard::on_settingsButton_clicked()
+{
+	uiDashboard.settingsButton->setDisabled(true);
+	SettingsPage* settingsPage = new SettingsPage(this);
+	settingsPage->setVisible(true);
+	uiDashboard.settingsButton->setDisabled(false);
 
-	std::string searchTitle = ui.searchBox->text().toStdString();
-	std::transform(searchTitle.begin(), searchTitle.end(), searchTitle.begin(), ::toupper);
+}
+
+void MovieDashboard::on_searchButton_clicked() 
+{ //search method to be improved
+	std::string searchTitle = uiDashboard.searchBox->text().toStdString();
+	std::ranges::transform(searchTitle, searchTitle.begin(), ::toupper);
 	int nrOfMoviesFound = 0;
 
 	m_dashboardTableData = new QStandardItemModel();
 	m_searchMovies.clear();
 
-	for (const auto& movie : m_allMovies) {
+	for (const auto& movie : m_allMovies) 
+	{
 		std::string movieTitle = std::move(*movie.getTitle());
 		std::transform(movieTitle.begin(), movieTitle.end(), movieTitle.begin(), ::toupper);
-		if (movieTitle.find(searchTitle) != std::string::npos) {
-			int id = movie.getId();
-			m_searchMovies.push_back(id);
-			setMovieData(nrOfMoviesFound, id, m_dashboardTableData);
-			nrOfMoviesFound++;
-		}
+		if (movieTitle.find(searchTitle) != std::string::npos) 
+			{
+				int id = movie.getId();
+				m_searchMovies.push_back(id);
+				setMovieData(nrOfMoviesFound, id, m_dashboardTableData);
+				nrOfMoviesFound++;
+			}
 	}
 
 	setHeader(m_dashboardTableData);
-	assignDataToTable(ui.tableView, m_dashboardTableData);
+	assignDataToTable(uiDashboard.tableView, m_dashboardTableData);
 }

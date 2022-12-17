@@ -244,7 +244,7 @@ QTabBar::tab:selected {
         <rect>
          <x>260</x>
          <y>20</y>
-         <width>211</width>
+         <width>321</width>
          <height>41</height>
         </rect>
        </property>
@@ -334,6 +334,60 @@ background:#073d69 ;
 QHeaderView {
 background:#073d69 ;
 }</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="settingsButton">
+       <property name="geometry">
+        <rect>
+         <x>1200</x>
+         <y>18</y>
+         <width>50</width>
+         <height>50</height>
+        </rect>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="MovieDashboard.qrc">
+         <normaloff>:/settingsIcon/settings.png</normaloff>:/settingsIcon/settings.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>1203</x>
+         <y>70</y>
+         <width>49</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Settings</string>
        </property>
       </widget>
      </widget>
@@ -465,6 +519,8 @@ background:#073d69 ;
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="MovieDashboard.qrc"/>
+ </resources>
  <connections/>
 </ui>

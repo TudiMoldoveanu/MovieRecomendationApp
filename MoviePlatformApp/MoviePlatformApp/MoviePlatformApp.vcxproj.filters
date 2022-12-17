@@ -44,6 +44,9 @@
     <QtRcc Include="PreferencesPage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="MovieDashboard.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,6 +106,12 @@
     <ClCompile Include="dbEngine.cpp">
       <Filter>DataAcces</Filter>
     </ClCompile>
+    <ClCompile Include="SettingsPage.cpp">
+      <Filter>Source Files\GUILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="PassChanger.cpp">
+      <Filter>Form Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -161,6 +170,12 @@
     <QtMoc Include="stareditor.h">
       <Filter>Source Files\GUILayer\StarComponent</Filter>
     </QtMoc>
+    <QtMoc Include="SettingsPage.h">
+      <Filter>Source Files\GUILayer</Filter>
+    </QtMoc>
+    <QtMoc Include="PassChanger.h">
+      <Filter>Form Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="RegisterPage.ui">
@@ -173,6 +188,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MovieView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="SettingsPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="PassChanger.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

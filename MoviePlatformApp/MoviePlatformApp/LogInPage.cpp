@@ -11,6 +11,8 @@ LogInPage::LogInPage(QWidget *parent)
 
     // hide loader label
     ui.loaderLabel->setVisible(false);
+    ui.userLineEdit->setPlaceholderText("username");
+    ui.passLineEdit->setPlaceholderText("password");
 }
 
 LogInPage::~LogInPage()
@@ -103,7 +105,3 @@ void LogInPage::on_hidePass_clicked()
     ui.showPass->setEnabled(true);
     ui.showPass->setVisible(true);
 }
-
-std::optional<User> LogInPage::loggedUser;
-
-//TODO: add else case in where the pass and username doesn't match

@@ -100,9 +100,11 @@
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="MovieDashboard.cpp" />
     <ClCompile Include="MovieView.cpp" />
+    <ClCompile Include="PassChanger.cpp" />
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
+    <ClCompile Include="SettingsPage.cpp" />
     <ClCompile Include="stardelegate.cpp" />
     <ClCompile Include="stareditor.cpp" />
     <ClCompile Include="starrating.cpp" />
@@ -112,6 +114,7 @@
     <ClCompile Include="UserWatched.cpp" />
     <ClCompile Include="UserWishlist.cpp" />
     <QtRcc Include="LogInPage.qrc" />
+    <QtRcc Include="MovieDashboard.qrc" />
     <QtRcc Include="PreferencesPage.qrc" />
     <QtRcc Include="RegistetPage.qrc" />
     <QtMoc Include="LogInPage.h" />
@@ -121,8 +124,10 @@
     <QtUic Include="LogInPage.ui" />
     <QtUic Include="MovieDashboard.ui" />
     <QtUic Include="MovieView.ui" />
+    <QtUic Include="PassChanger.ui" />
     <QtUic Include="PreferencesPage.ui" />
     <QtUic Include="RegisterPage.ui" />
+    <QtUic Include="SettingsPage.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
@@ -131,11 +136,13 @@
     <QtMoc Include="PreferencesPage.h" />
     <QtMoc Include="MovieDashboard.h" />
     <QtMoc Include="MovieView.h" />
+    <QtMoc Include="PassChanger.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="stardelegate.h" />
     <QtMoc Include="stareditor.h" />
+    <QtMoc Include="SettingsPage.h" />
     <ClInclude Include="starrating.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />

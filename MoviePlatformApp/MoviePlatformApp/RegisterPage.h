@@ -36,4 +36,5 @@ private:
 	Ui::RegisterPageClass ui;
 	ErrorCodes m_errorCode;
 	PreferencesPage *prefPage;
+
 };

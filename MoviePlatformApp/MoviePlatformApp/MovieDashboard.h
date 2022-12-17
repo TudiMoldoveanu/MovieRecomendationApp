@@ -15,6 +15,7 @@
 #include <QList>
 #include "Movie.h"
 #include "UserWishlist.h"
+#include "SettingsPage.h"
 
 class MovieDashboard : public QMainWindow
 {
@@ -46,9 +47,9 @@ private slots:
 	void tabSelected();
 	void on_nextPage_clicked();
 	void on_previousPage_clicked();
+	void on_settingsButton_clicked();
 
 private:
-	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
 	LoggedUser* loggedUser = LoggedUser::login();
 	int m_movieIndex;
@@ -58,4 +59,7 @@ private:
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
 	QStandardItemModel* m_myProfileData;
+
+public:
+	static Ui::MovieDashboardClass uiDashboard;
 };
