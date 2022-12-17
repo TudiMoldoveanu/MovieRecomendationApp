@@ -16,6 +16,7 @@
 #include "Movie.h"
 #include "UserWishlist.h"
 #include "SettingsPage.h"
+#include "SimilarMoviesEngine.h"
 
 class MovieDashboard : public QMainWindow
 {

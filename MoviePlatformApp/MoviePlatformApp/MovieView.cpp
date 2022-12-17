@@ -27,6 +27,7 @@ void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
     setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
     std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
     std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+    //to add similar movies
     for (int i = 0; i < wishlistedMovieIds.size(); i++) {
         if (m_selectedMovieId == wishlistedMovieIds[i]) {
             ui.wishlistButton->setText("Remove Wishlist");

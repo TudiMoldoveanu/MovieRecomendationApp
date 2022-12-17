@@ -7,10 +7,13 @@ class SimilarMoviesEngine
 {
 private:
 
-	int m_userId;
+	Movie m_movie;
+	Database* m_database = Database::connect();
 
 public:
-
-	SimilarMoviesEngine(int userId);
+	SimilarMoviesEngine(const Movie& movie);
+	std::vector<int> getSimilarMoviesByGenre();
+	Movie getMovie();
+	void printMoviesId(const std::vector<int>& moviesId);
 };
 
