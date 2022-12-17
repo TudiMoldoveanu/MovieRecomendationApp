@@ -169,13 +169,13 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 void MovieView::on_watchedButton_clicked()
 {
     int userId = loggedUser->getId();
-    UserWatched userWatched(userId, m_selectedMovieId);
     if (ui.watchedButton->text().toStdString() == "Remove Watched") {
         database->deleteId<UserWatched>(userId, m_selectedMovieId);
         ui.watchedButton->setText("Mark as Watched");
         ui.watchedButton->setStyleSheet("background-color: rgb(204,204,0)");
     }
     else {
+        UserWatched userWatched(userId, m_selectedMovieId);
         database->replace(userWatched);
         ui.watchedButton->setText("Remove Watched");
         ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
@@ -185,13 +185,13 @@ void MovieView::on_watchedButton_clicked()
 void MovieView::on_wishlistButton_clicked()
 {
     int userId = loggedUser->getId();
-    UserWishlist userWishlist(userId, m_selectedMovieId);
     if (ui.wishlistButton->text().toStdString() == "Remove Wishlist") {
         database->deleteId<UserWishlist>(userId, m_selectedMovieId);
         ui.wishlistButton->setText("Add to Wishlist");
         ui.wishlistButton->setStyleSheet("background-color: rgb(204,204,0)");
     }
     else {
+        UserWishlist userWishlist(userId, m_selectedMovieId);
         database->replace(userWishlist);
         ui.wishlistButton->setText("Remove Wishlist");
         ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
