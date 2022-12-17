@@ -60,7 +60,7 @@ void LogInPage::on_logInButton_clicked()
 
             movieDashboard = new MovieDashboard(this);
             this->setVisible(false);
-            movieDashboard->showFullScreen();
+            movieDashboard->show();
         }
         else
         {

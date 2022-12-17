@@ -112,6 +112,12 @@
     <ClCompile Include="PassChanger.cpp">
       <Filter>Form Files</Filter>
     </ClCompile>
+    <ClCompile Include="RecomendationEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimilarMoviesEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Movie.h">
@@ -146,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="DataBase.h">
       <Filter>DataAcces</Filter>
+    </ClInclude>
+    <ClInclude Include="RecomendationEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimilarMoviesEngine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

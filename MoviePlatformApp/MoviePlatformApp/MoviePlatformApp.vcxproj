@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -103,8 +103,10 @@
     <ClCompile Include="PassChanger.cpp" />
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
+    <ClCompile Include="RecomendationEngine.cpp" />
     <ClCompile Include="RegisterPage.cpp" />
     <ClCompile Include="SettingsPage.cpp" />
+    <ClCompile Include="SimilarMoviesEngine.cpp" />
     <ClCompile Include="stardelegate.cpp" />
     <ClCompile Include="stareditor.cpp" />
     <ClCompile Include="starrating.cpp" />
@@ -139,10 +141,12 @@
     <QtMoc Include="PassChanger.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
+    <ClInclude Include="RecomendationEngine.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="stardelegate.h" />
     <QtMoc Include="stareditor.h" />
     <QtMoc Include="SettingsPage.h" />
+    <ClInclude Include="SimilarMoviesEngine.h" />
     <ClInclude Include="starrating.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInfo.h" />
