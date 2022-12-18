@@ -85,7 +85,17 @@ void SimilarMoviesEngine::printMoviesId(const std::vector<int>& moviesId)
 	
 	for (int i = 0; i < moviesId.size(); i++)
 	{
+		//setSimilarMoviePosters();
 		std::cout << moviesId[i] << " ";
 	}
 	std::cout << std::endl;
+}
+
+void SimilarMoviesEngine::setSimilarMoviePosters(const int& movieId)
+{
+	//retrieve posters and data
+	QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
+	QPixmap moviePoster = posterManager.getMoviePoster(movieId, "200");
+	
+	//TODO: set similar movie data to active movie view window
 }
