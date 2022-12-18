@@ -10,6 +10,7 @@ PreferencesPage::PreferencesPage(QWidget* parent)
     ui.setupUi(this);
     m_allMovies = database->getAll<Movie>();
     m_moviePosters = new QStandardItemModel();
+    connect(ui.tableView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(movieClick(const QModelIndex&)), Qt::QueuedConnection);
     setMoviePosters(0, tableSize);
 }
 
@@ -28,6 +29,17 @@ void PreferencesPage::on_allDoneButton_clicked()
         "border-radius:10px;\n"
         "gridline-color: rgb(172, 81, 1);\n"
         "background-color: rgb(255, 204, 1);"));
+}
+
+void PreferencesPage::movieClick(const QModelIndex& index)
+{
+    QModelIndexList selection = ui.tableView->selectionModel()->selectedIndexes();
+    for (int i = 0; i < selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        QVariant data = index.model()->data(index, Qt::DisplayRole);
+        m_selectedMovies.push_back(data);
+    }
 }
 
 void PreferencesPage::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
@@ -70,3 +82,4 @@ void PreferencesPage::setMoviePosters(const int& fromId, const int& toId)
 
     assignDataToTable(ui.tableView, m_moviePosters);
 }
+
