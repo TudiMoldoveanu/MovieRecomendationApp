@@ -19,10 +19,12 @@ public:
     void setMoviePosters(const int& fromId, const int& toId);
 private slots:
     void on_allDoneButton_clicked();
+    void movieClick(const QModelIndex& index);
 private:
     Ui::PreferencesPageClass ui;
     Database* database = Database::connect();
     std::vector<Movie> m_allMovies;
+    std::vector<QVariant> m_selectedMovies;
     QStandardItemModel* m_moviePosters;
     PosterManager posterManager;
 };
