@@ -1,13 +1,12 @@
 #include "MovieDashboard.h"
 
-const int PAGINATE_NR = 5;
 Ui::MovieDashboardClass MovieDashboard::uiDashboard;
 
 MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
 	uiDashboard.setupUi(this);
-	m_movieIndex = PAGINATE_NR;
+	m_movieIndex = k_paginateNr;
 	m_allMovies = database->getAll<Movie>();
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
@@ -18,7 +17,7 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	connect(uiDashboard.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	//check if user clicked at a tab
 	connect(uiDashboard.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
-	setMovieDashboardData(0, PAGINATE_NR);
+	setMovieDashboardData(0, k_paginateNr);
 	setMovieWishlistData();
 	setMovieWatchedData();
 	setMyProfileData();
@@ -37,6 +36,8 @@ void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 	m_dashboardTableData = new QStandardItemModel();
 	setHeader(m_dashboardTableData);
 
+	srand(time(0));
+
 	for (int i = fromId; i < toId; i++) {
 		setMovieData(i-fromId, i + 1, m_dashboardTableData);
 	}
@@ -46,7 +47,7 @@ void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 
 void MovieDashboard::setMovieWishlistData()
 {
-	setHeader(m_watchedTableData);
+	setHeader(m_wishlistTableData);
 
 	std::vector<int> wishlistedMovieIds = 
 		database->getSavedMovies<UserWishlist>(loggedUser->getId());
@@ -60,7 +61,7 @@ void MovieDashboard::setMovieWishlistData()
 
 void MovieDashboard::setMovieWatchedData()
 {
-	setHeader(m_wishlistTableData);
+	setHeader(m_watchedTableData);
 
 	std::vector<int> watchedMovieIds =
 		database->getSavedMovies<UserWatched>(loggedUser->getId());
@@ -104,7 +105,7 @@ void MovieDashboard::setMovieData(const int& tableLine, const int& movieId, QSta
 {
 	QStandardItem* movieData = new QStandardItem();
 
-	QPixmap moviePoster = getMoviePoster(movieId, "92");
+	QPixmap moviePoster = posterManager.getMoviePoster(movieId, "92");
 	QList<QString> movieInfo = getMovieInfo(movieId);
 
 	movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
@@ -141,7 +142,7 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 		selectedMovieId = m_searchMovies[indexes.at(0).row()];
 	}
 	else {
-		selectedMovieId = (indexes.at(0).row() + 1) + m_movieIndex - PAGINATE_NR;
+		selectedMovieId = (indexes.at(0).row() + 1) + m_movieIndex - k_paginateNr;
 	}
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
@@ -153,7 +154,7 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
 
 	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = getMoviePoster(selectedMovieId, "200");
+	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);
 	movieView->setVisible(true);
@@ -171,7 +172,7 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	Movie movie = database->getById<Movie>(selectedMovieId);
 
 	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = getMoviePoster(selectedMovieId, "200");
+	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);
 	movieView->setVisible(true);
@@ -189,7 +190,7 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 	Movie movie = database->getById<Movie>(selectedMovieId);
 
 	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = getMoviePoster(selectedMovieId, "200");
+	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);
 	movieView->setVisible(true);
@@ -205,64 +206,20 @@ void MovieDashboard::tabSelected()
 	
 }
 
-std::string MovieDashboard::whiteSpaceReplace(std::string& s)
-{
-	for (size_t i = 0; i < s.size(); i++)
-		if (isspace((unsigned char)s[i]))
-			s[i] = '+';
-	return s;
-}
-
-QPixmap MovieDashboard::getMoviePoster(const int& id, const std::string& size) {
-
-	Movie movie = database->getById<Movie>(id);
-
-	std::string moviePosterUrl = std::move(*movie.getPosterUrl());
-	std::string movieTitle = std::move(*movie.getTitle());
-
-	QUrl requestUrl;
-	if (moviePosterUrl.empty()) {
-		whiteSpaceReplace(movieTitle);
-		QString finalUrl = "https://placehold.co/" + QString::fromStdString(size) + "x500?text=" + QString::fromStdString(whiteSpaceReplace(movieTitle));
-		requestUrl = QUrl(finalUrl);
-	}
-	else {
-		QString finalUrl = "https://image.tmdb.org/t/p/w" + QString::fromStdString(size) + QString::fromStdString(moviePosterUrl);
-		requestUrl = QUrl(finalUrl);
-	}
-
-	return downloadMoviePoster(requestUrl);
-}
-
-QPixmap MovieDashboard::downloadMoviePoster(QUrl url) {
-
-	QNetworkAccessManager network;
-	QEventLoop loop;
-	QObject::connect(&network, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
-	QNetworkReply* reply = network.get(QNetworkRequest(url));
-	loop.exec();
-
-	QPixmap moviePoster;
-	moviePoster.loadFromData(reply->readAll());
-
-	delete reply;
-	return moviePoster;
-}
-
 void MovieDashboard::on_nextPage_clicked()
 {
 	m_searchMovies.clear();
-	setMovieDashboardData(m_movieIndex, m_movieIndex + PAGINATE_NR);
-	m_movieIndex += PAGINATE_NR;
+	setMovieDashboardData(m_movieIndex, m_movieIndex + k_paginateNr);
+	m_movieIndex += k_paginateNr;
 }
 
 void MovieDashboard::on_previousPage_clicked()
 {
 	m_searchMovies.clear();
-	if (m_movieIndex - PAGINATE_NR >= 5) 
+	if (m_movieIndex - k_paginateNr >= 5) 
 		{
-			m_movieIndex -= PAGINATE_NR;
-			setMovieDashboardData(m_movieIndex - PAGINATE_NR, m_movieIndex);
+			m_movieIndex -= k_paginateNr;
+			setMovieDashboardData(m_movieIndex - k_paginateNr, m_movieIndex);
 		}
 }
 

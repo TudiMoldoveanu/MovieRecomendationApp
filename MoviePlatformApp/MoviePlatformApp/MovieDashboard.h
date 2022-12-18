@@ -8,15 +8,14 @@
 #include <QApplication>
 #include <QTableWidget>
 #include <QByteArray>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QStandardItemModel>
 #include <QList>
 #include "Movie.h"
 #include "UserWishlist.h"
 #include "SettingsPage.h"
 #include "SimilarMoviesEngine.h"
+#include "PosterManager.h"
+#include <ctime>
+
 
 class MovieDashboard : public QMainWindow
 {
@@ -28,17 +27,15 @@ public:
 
 	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
 	QList<QString> getMovieInfo(const int& id);
-	QPixmap getMoviePoster(const int& id, const std::string& size);
-	QPixmap downloadMoviePoster(QUrl url);
 	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
-
-	std::string whiteSpaceReplace(std::string& s);
 	void setHeader(QStandardItemModel* tableHeader);
 
 	void setMovieDashboardData(const int& fromId, const int& toId);
 	void setMovieWishlistData();
 	void setMovieWatchedData();
 	void setMyProfileData();
+
+
 
 private slots:
 	void on_searchButton_clicked();
@@ -60,6 +57,9 @@ private:
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
 	QStandardItemModel* m_myProfileData;
+	const int k_paginateNr = 5;
+	const int k_noOfMovies = 8807;
+	PosterManager posterManager;
 
 public:
 	static Ui::MovieDashboardClass uiDashboard;

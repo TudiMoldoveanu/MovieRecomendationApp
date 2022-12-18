@@ -5,6 +5,7 @@
 #include "DataBase.h"
 #include <QtWidgets>
 #include <ctime>
+#include "PosterManager.h"
 
 class PreferencesPage : public QMainWindow
 {
@@ -16,8 +17,6 @@ public:
     void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
     void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
     void setMoviePosters(const int& fromId, const int& toId);
-    QPixmap getMoviePoster(const int& id, const std::string& size);
-    QPixmap downloadMoviePoster(QUrl url);
 private slots:
     void on_allDoneButton_clicked();
 private:
@@ -25,4 +24,5 @@ private:
     Database* database = Database::connect();
     std::vector<Movie> m_allMovies;
     QStandardItemModel* m_moviePosters;
+    PosterManager posterManager;
 };

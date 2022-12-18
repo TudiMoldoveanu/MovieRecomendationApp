@@ -1,100 +1,71 @@
 #include "SimilarMoviesEngine.h"
 
-SimilarMoviesEngine::SimilarMoviesEngine(const Movie& movie) :m_movie{ movie } {};
+SimilarMoviesEngine::SimilarMoviesEngine(Movie movie) : m_movie{ std::move(movie) }
+{}
 
-
-std::vector<int> SimilarMoviesEngine::getSimilarMoviesByGenreAndRating()
+// TO be improved using transaction, refactor it by removing nested if-elses and maybe to try another approach
+std::vector<int> SimilarMoviesEngine::getSimilarMoviesByGenreAndRating() 
 {
 
 	std::vector<int> similarMovies;
 	
-	std::string allGenre= getMovie().getListedIn().value();
-
-	//extract first genre
-	std::string firstGenre;
-
+	std::string allGenre = getMovie().getListedIn().value();
 	//extract letters until we find ,
-	for (int i = 0; i < allGenre.size(); i++)
-	{
-		if (allGenre[i] != ',')
-		{
-			firstGenre += allGenre[i];
-		}
-		else break;
-	}
-
-	auto allRecords = m_database->getAll< Movie >();
+	std::string delimiter = ",";
+	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
 
 	//returns first 2 movies that have the firstGenre substring in ListedIn
 	int count = 0;
-	for (int i = 0; i < allRecords.size(); i++)
+	for (const auto& record : allRecords)
 	{
 		if (count <= 1)
 		{
-			std::string mainString = allRecords[i].getListedIn().value();
+			std::string mainString = record.getListedIn().value();
 			//test if mainString has firstGenre substring and if rating are the same
-			if 
-			(
-			mainString.find(firstGenre) != std::string::npos && allRecords[i].getId()!=getMovie().getId() && 
-			allRecords[i].getRating().value() == getMovie().getRating().value() )
+			if (m_movie.getId() != record.getId())
 			{
-				similarMovies.push_back(allRecords[i].getId());
-				count++;
+				if (mainString.find(firstGenre) != std::string::npos && *record.getRating() == *m_movie.getRating())
+				{
+					similarMovies.push_back(record.getId());
+					count++;
+				}
 			}
 		}
 		else
-		{
 			break;
-		}
-
+		
 	}
 	return similarMovies;
 }
 
-std::vector<int> SimilarMoviesEngine::getSimilarMoviesByDirectorOrCast()
+// TO be improved using transaction, to add checks for all cast members and refactor it by removing nested if-elses
+std::vector<int> SimilarMoviesEngine::getSimilarMoviesByDirectorOrCast() 
 {
 	std::vector<int> similarMovies;
-
-	std::string allCast = getMovie().getListedIn().value();
-
-	//extract first cast member
-	std::string firstCastMember;
-
-	//extract letters until we find ,
-	for (int i = 0; i < allCast.size(); i++)
-	{
-		if (allCast[i] != ',')
-		{
-			firstCastMember += allCast[i];
-		}
-		else break;
-	}
-
-	auto allRecords = m_database->getAll< Movie >();
+	std::string allCast = m_movie.getCast().value();
+	std::string delimiter = ",";
+	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
 
 	//returns first 2 movies that have the firstCastMember substring in cast
 	int count = 0;
-	for (int i = 0; i < allRecords.size(); i++)
+	for (const auto& record : allRecords)
 	{
 		if (count <= 1)
 		{
-			std::string mainString = allRecords[i].getCast().value();
-			//test if mainString has firstCastMember substring or if directors are the same
-			if
-			(
-			  (mainString.find(firstCastMember) != std::string::npos && allRecords[i].getId() != getMovie().getId()) ||
-			  (allRecords[i].getDirector().value() == getMovie().getDirector().value() && allRecords[i].getId() != getMovie().getId())
-			)
+			std::string mainString = record.getCast().value();
+			if (m_movie.getId() != record.getId())
 			{
-				similarMovies.push_back(allRecords[i].getId());
-				count++;
+				if (mainString.find(firstCastMember) != std::string::npos || *record.getDirector() == *m_movie.getDirector() && *m_movie.getDirector() != "")
+				{
+					similarMovies.push_back(record.getId());
+					count++;
+				}
 			}
 		}
 		else
 		{
 			break;
 		}
-
 	}
     return similarMovies;
 }
@@ -108,17 +79,13 @@ void SimilarMoviesEngine::printMoviesId(const std::vector<int>& moviesId)
 {
 	if (moviesId.empty())
 	{
-		std::cout << "Didn't find any similar movies based on this criteria!";
-
+		std::cout << "Didn't find any similar movies based on this criteria!" << std::endl;
+		return;
 	}
-	else 
+	
+	for (int i = 0; i < moviesId.size(); i++)
 	{
-		for (int i = 0; i < moviesId.size(); i++)
-		{
-			std::cout << moviesId[i] << " ";
-		}
+		std::cout << moviesId[i] << " ";
 	}
 	std::cout << std::endl;
 }
-
-

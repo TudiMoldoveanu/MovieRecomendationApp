@@ -20,7 +20,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -101,6 +101,7 @@
     <ClCompile Include="MovieDashboard.cpp" />
     <ClCompile Include="MovieView.cpp" />
     <ClCompile Include="PassChanger.cpp" />
+    <ClCompile Include="PosterManager.cpp" />
     <ClCompile Include="PreferencesPage.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="RecomendationEngine.cpp" />
@@ -139,6 +140,7 @@
     <QtMoc Include="MovieDashboard.h" />
     <QtMoc Include="MovieView.h" />
     <QtMoc Include="PassChanger.h" />
+    <ClInclude Include="PosterManager.h" />
     <ClInclude Include="Rating.h" />
     <QtMoc Include="RegisterPage.h" />
     <ClInclude Include="RecomendationEngine.h" />
