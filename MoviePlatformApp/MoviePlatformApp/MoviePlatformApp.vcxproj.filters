@@ -124,6 +124,9 @@
     <ClCompile Include="RecomendationEngine.cpp">
       <Filter>BussinessLayer\SourceFiles</Filter>
     </ClCompile>
+    <ClCompile Include="InfoManager.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="starrating.h">
@@ -166,6 +169,9 @@
       <Filter>BussinessLayer\HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="RecomendationEngine.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoManager.h">
       <Filter>BussinessLayer\HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>

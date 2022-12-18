@@ -80,33 +80,12 @@ void MovieDashboard::setMyProfileData()
 	uiDashboard.yourNameLabel ->setText(qstrUserName + "!");
 }
 
-QList<QString> MovieDashboard::getMovieInfo(const int& id) {
-
-	Movie movie = database->getById<Movie>(id);
-
-	QList<QString> movieInfo = {
-		QString::fromStdString(std::move(*movie.getType())),
-		QString::fromStdString(std::move(*movie.getTitle())),
-		QString::fromStdString(std::move(*movie.getDirector())) ,
-		QString::fromStdString(std::move(*movie.getCast())),
-		QString::fromStdString(std::move(*movie.getCountry())),
-		QString::fromStdString(std::move(*movie.getDateAdded())),
-		QString::fromStdString(std::to_string(std::move(*movie.getReleaseYear()))),
-		QString::fromStdString(std::move(*movie.getRating())),
-		QString::fromStdString(std::move(*movie.getDuration())),
-		QString::fromStdString(std::move(*movie.getListedIn())),
-		QString::fromStdString(std::move(*movie.getDescription())),
-	};
-
-	return movieInfo;
-}
-
 void MovieDashboard::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
 {
 	QStandardItem* movieData = new QStandardItem();
 
 	QPixmap moviePoster = posterManager.getMoviePoster(movieId, "92");
-	QList<QString> movieInfo = getMovieInfo(movieId);
+	QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
 
 	movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
 	tableData->setItem(tableLine, 0, movieData);
@@ -153,7 +132,7 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByGenreAndRating());
 	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
 
-	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
+	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);
@@ -171,7 +150,7 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	MovieView* movieView = new MovieView(selectedMovieId, this);
 	Movie movie = database->getById<Movie>(selectedMovieId);
 
-	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
+	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);
@@ -189,7 +168,7 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 	MovieView* movieView = new MovieView(selectedMovieId, this);
 	Movie movie = database->getById<Movie>(selectedMovieId);
 
-	QList<QString> movieInfo = getMovieInfo(selectedMovieId);
+	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
 	movieView->setMovieView(movieInfo, moviePoster);

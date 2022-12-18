@@ -14,6 +14,7 @@
 #include "SettingsPage.h"
 #include "SimilarMoviesEngine.h"
 #include "PosterManager.h"
+#include "InfoManager.h"
 #include <ctime>
 
 
@@ -26,7 +27,6 @@ public:
 	~MovieDashboard();
 
 	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
-	QList<QString> getMovieInfo(const int& id);
 	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
 	void setHeader(QStandardItemModel* tableHeader);
 
@@ -60,6 +60,7 @@ private:
 	const int k_paginateNr = 5;
 	const int k_noOfMovies = 8807;
 	PosterManager posterManager;
+	InfoManager infoManager;
 
 public:
 	static Ui::MovieDashboardClass uiDashboard;
