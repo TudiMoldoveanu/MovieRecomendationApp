@@ -14,7 +14,47 @@ MovieView::MovieView(int selectedMovieId, QWidget *parent)
 MovieView::~MovieView()
 {}
 
-void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
+void MovieView::setMovieView() {
+    Movie movie = database->getById<Movie>(m_selectedMovieId);
+
+    //created an instance of SimilarMoviesEngine
+    SimilarMoviesEngine similarMovies(movie);
+    std::vector<int> similar1 = similarMovies.getMoviesId(similarMovies.getSimilarMoviesByGenreAndRating());
+    std::vector<int> similar2 = similarMovies.getMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
+
+    if (!similar1.empty()) {
+        if (similar1.size() > 0) {
+            QPixmap moviePoster1 = posterManager.getMoviePoster(similar1[0], "154");
+            ui.similarMovie1->setPixmap(moviePoster1);
+        }
+        if (similar1.size() > 1) {
+            QPixmap moviePoster2 = posterManager.getMoviePoster(similar1[1], "154");
+            ui.similarMovie2->setPixmap(moviePoster2);
+        }
+        if (similar1.size() > 2) {
+            QPixmap moviePoster3 = posterManager.getMoviePoster(similar1[2], "154");
+            ui.similarMovie3->setPixmap(moviePoster3);
+        }
+    }
+
+    if (!similar2.empty()) {
+        if (similar2.size() > 0) {
+            QPixmap moviePoster4 = posterManager.getMoviePoster(similar2[0], "154");
+            ui.similarMovie4->setPixmap(moviePoster4);
+        }
+        if (similar2.size() > 1) {
+            QPixmap moviePoster5 = posterManager.getMoviePoster(similar2[1], "154");
+            ui.similarMovie5->setPixmap(moviePoster5);
+        }
+        if (similar2.size() > 2) {
+            QPixmap moviePoster6 = posterManager.getMoviePoster(similar2[2], "154");
+            ui.similarMovie6->setPixmap(moviePoster6);
+        }
+    }
+
+    QList<QString> movieInfo = infoManager.getMovieInfo(m_selectedMovieId);
+    QPixmap moviePoster = posterManager.getMoviePoster(m_selectedMovieId, "200");
+
     setMovieRating();
     setMoviePoster(moviePoster);
     setMovieTitle(movieInfo[1]);

@@ -14,11 +14,11 @@ std::vector<int> SimilarMoviesEngine::getSimilarMoviesByGenreAndRating()
 	std::string delimiter = ",";
 	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
 
-	//returns first 2 movies that have the firstGenre substring in ListedIn
+	//returns first 3 movies that have the firstGenre substring in ListedIn
 	int count = 0;
 	for (const auto& record : allRecords)
 	{
-		if (count <= 1)
+		if (count <= 2)
 		{
 			std::string mainString = record.getListedIn().value();
 			//test if mainString has firstGenre substring and if rating are the same
@@ -46,11 +46,11 @@ std::vector<int> SimilarMoviesEngine::getSimilarMoviesByDirectorOrCast()
 	std::string delimiter = ",";
 	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
 
-	//returns first 2 movies that have the firstCastMember substring in cast
+	//returns first 3 movies that have the firstCastMember substring in cast
 	int count = 0;
 	for (const auto& record : allRecords)
 	{
-		if (count <= 1)
+		if (count <= 2)
 		{
 			std::string mainString = record.getCast().value();
 			if (m_movie.getId() != record.getId())
@@ -75,27 +75,12 @@ Movie SimilarMoviesEngine::getMovie()
 	return m_movie;
 }
 
-void SimilarMoviesEngine::printMoviesId(const std::vector<int>& moviesId)
+std::vector<int> SimilarMoviesEngine::getMoviesId(const std::vector<int>& moviesId)
 {
 	if (moviesId.empty())
 	{
 		std::cout << "Didn't find any similar movies based on this criteria!" << std::endl;
-		return;
 	}
 	
-	for (int i = 0; i < moviesId.size(); i++)
-	{
-		//setSimilarMoviePosters();
-		std::cout << moviesId[i] << " ";
-	}
-	std::cout << std::endl;
-}
-
-void SimilarMoviesEngine::setSimilarMoviePosters(const int& movieId)
-{
-	//retrieve posters and data
-	QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
-	QPixmap moviePoster = posterManager.getMoviePoster(movieId, "200");
-	
-	//TODO: set similar movie data to active movie view window
+	return moviesId;
 }

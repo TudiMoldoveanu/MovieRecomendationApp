@@ -125,17 +125,8 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 	}
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
-	Movie movie = database->getById<Movie>(selectedMovieId);
 
-	//created an instance of SimilarMoviesEngine
-	SimilarMoviesEngine similarMovies(movie);
-	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByGenreAndRating());
-	similarMovies.printMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
-
-	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
-
-	movieView->setMovieView(movieInfo, moviePoster);
+	movieView->setMovieView();
 	movieView->setVisible(true);
 }
 
@@ -153,7 +144,7 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
-	movieView->setMovieView(movieInfo, moviePoster);
+	movieView->setMovieView();
 	movieView->setVisible(true);
 }
 
@@ -171,7 +162,7 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
 	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
 
-	movieView->setMovieView(movieInfo, moviePoster);
+	movieView->setMovieView();
 	movieView->setVisible(true);
 }
 

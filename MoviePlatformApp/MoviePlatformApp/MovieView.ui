@@ -493,90 +493,102 @@ border-radius:10px;
       <x>20</x>
       <y>330</y>
       <width>941</width>
-      <height>241</height>
+      <height>261</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>941</width>
+      <height>261</height>
+     </size>
     </property>
     <property name="title">
      <string>Similar Movies</string>
     </property>
-    <widget class="QLabel" name="similarMovie1">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="similarMovie2">
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="similarMovie3">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="similarMovie4">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="similarMovie5">
-     <property name="geometry">
-      <rect>
-       <x>660</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="similarMovie6">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>30</y>
-       <width>131</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1">
+        <widget class="QLabel" name="similarMovie2">
+         <property name="minimumSize">
+          <size>
+           <width>148</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="similarMovie1">
+         <property name="minimumSize">
+          <size>
+           <width>148</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="similarMovie6">
+         <property name="minimumSize">
+          <size>
+           <width>148</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="similarMovie5">
+         <property name="minimumSize">
+          <size>
+           <width>54</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="similarMovie3">
+         <property name="minimumSize">
+          <size>
+           <width>148</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="similarMovie4">
+         <property name="minimumSize">
+          <size>
+           <width>149</width>
+           <height>223</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Not Found</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
