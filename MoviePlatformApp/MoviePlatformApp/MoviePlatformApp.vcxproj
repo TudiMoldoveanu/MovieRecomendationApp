@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="ImageTextDelegate.cpp" />
     <ClCompile Include="InfoManager.cpp" />
     <ClCompile Include="LoggedUser.cpp" />
     <ClCompile Include="Movie.cpp" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="ImageTextDelegate.h" />
     <ClInclude Include="InfoManager.h" />
     <ClInclude Include="LoggedUser.h" />
     <ClInclude Include="Movie.h" />

@@ -19,7 +19,7 @@ public:
 	std::vector<int> getSimilarMoviesByGenreAndRating();
 	std::vector<int>getSimilarMoviesByDirectorOrCast();
 	Movie getMovie();
-	std::vector<int> getMoviesId(const std::vector<int>& moviesId);
+	std::vector<int> getMoviesId();
 	PosterManager posterManager;
 	InfoManager infoManager;
 };

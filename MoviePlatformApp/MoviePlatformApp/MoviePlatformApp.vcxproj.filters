@@ -127,6 +127,7 @@
     <ClCompile Include="InfoManager.cpp">
       <Filter>BussinessLayer\SourceFiles</Filter>
     </ClCompile>
+    <ClCompile Include="ImageTextDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="starrating.h">
@@ -174,6 +175,7 @@
     <ClInclude Include="InfoManager.h">
       <Filter>BussinessLayer\HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="ImageTextDelegate.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="stardelegate.h">

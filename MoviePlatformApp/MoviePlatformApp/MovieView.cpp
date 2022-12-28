@@ -8,7 +8,11 @@ MovieView::MovieView(int selectedMovieId, QWidget *parent)
 {
 	ui.setupUi(this);
 
+    connect(ui.similarMoviesTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(similarTableDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+
     m_selectedMovieId = selectedMovieId;
+
+    m_similarMovieTable = new QStandardItemModel;
 }
 
 MovieView::~MovieView()
@@ -19,38 +23,20 @@ void MovieView::setMovieView() {
 
     //created an instance of SimilarMoviesEngine
     SimilarMoviesEngine similarMovies(movie);
-    std::vector<int> similar1 = similarMovies.getMoviesId(similarMovies.getSimilarMoviesByGenreAndRating());
-    std::vector<int> similar2 = similarMovies.getMoviesId(similarMovies.getSimilarMoviesByDirectorOrCast());
+    m_similarMovieIds = similarMovies.getMoviesId();
 
-    if (!similar1.empty()) {
-        if (similar1.size() > 0) {
-            QPixmap moviePoster1 = posterManager.getMoviePoster(similar1[0], "154");
-            ui.similarMovie1->setPixmap(moviePoster1);
-        }
-        if (similar1.size() > 1) {
-            QPixmap moviePoster2 = posterManager.getMoviePoster(similar1[1], "154");
-            ui.similarMovie2->setPixmap(moviePoster2);
-        }
-        if (similar1.size() > 2) {
-            QPixmap moviePoster3 = posterManager.getMoviePoster(similar1[2], "154");
-            ui.similarMovie3->setPixmap(moviePoster3);
-        }
+    std::cout << m_similarMovieIds.size() << "\n";
+
+    //set data
+    m_similarMovieTable = new QStandardItemModel();
+
+    for (int i = 0; i < m_similarMovieIds.size(); i++) {
+        setMovieData(i, m_similarMovieIds[i], m_similarMovieTable);
     }
 
-    if (!similar2.empty()) {
-        if (similar2.size() > 0) {
-            QPixmap moviePoster4 = posterManager.getMoviePoster(similar2[0], "154");
-            ui.similarMovie4->setPixmap(moviePoster4);
-        }
-        if (similar2.size() > 1) {
-            QPixmap moviePoster5 = posterManager.getMoviePoster(similar2[1], "154");
-            ui.similarMovie5->setPixmap(moviePoster5);
-        }
-        if (similar2.size() > 2) {
-            QPixmap moviePoster6 = posterManager.getMoviePoster(similar2[2], "154");
-            ui.similarMovie6->setPixmap(moviePoster6);
-        }
-    }
+    assignDataToTable(ui.similarMoviesTable, m_similarMovieTable);
+    //
+   
 
     QList<QString> movieInfo = infoManager.getMovieInfo(m_selectedMovieId);
     QPixmap moviePoster = posterManager.getMoviePoster(m_selectedMovieId, "200");
@@ -235,5 +221,48 @@ void MovieView::on_wishlistButton_clicked()
         database->replace(userWishlist);
         ui.wishlistButton->setText("Remove Wishlist");
         ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
+    }
+}
+
+void MovieView::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {
+
+    //set data
+    tableUi->setModel(tableData);
+    //set styling
+    tableUi->setCursor(Qt::PointingHandCursor);
+    tableUi->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableUi->verticalHeader()->setDefaultSectionSize(230);
+    tableUi->horizontalHeader()->setDefaultSectionSize(154);
+    tableUi->setFrameStyle(QFrame::NoFrame);
+    tableUi->horizontalHeader()->hide();
+    tableUi->verticalHeader() ->hide();
+    tableUi->setStyleSheet
+    (
+        "QHeaderView::section { background-color:#073d69}\n"
+        "QTableView QTableCornerButton::section { background-color:#073d69}"
+    );
+    tableUi->show();
+}
+
+void MovieView::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
+{
+    QStandardItem* movieData = new QStandardItem();
+
+    QPixmap moviePoster = posterManager.getMoviePoster(movieId, "154");
+    QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
+
+    movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
+    tableData->setItem(0, tableLine, movieData);
+}
+
+void MovieView::similarTableDoubleClick(const QModelIndex&)
+{
+    QModelIndexList selection = ui.similarMoviesTable->selectionModel()->selectedIndexes();
+    for (int i = 0; i < selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        this->m_selectedMovieId = m_similarMovieIds[index.column()];
+        this->setMovieView();
+        this->setVisible(true);
     }
 }

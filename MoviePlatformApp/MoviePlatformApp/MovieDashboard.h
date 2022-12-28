@@ -57,11 +57,15 @@ private:
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
 	QStandardItemModel* m_myProfileData;
-	const int k_paginateNr = 5;
+	const int k_paginateNr = 32;
 	const int k_noOfMovies = 8807;
+	const int k_cols = 8;
+	int k_currentPage = 0;
+	int k_rows = 0;
 	PosterManager posterManager;
 	InfoManager infoManager;
 
 public:
 	static Ui::MovieDashboardClass uiDashboard;
+	Ui::MovieDashboardClass ui;
 };

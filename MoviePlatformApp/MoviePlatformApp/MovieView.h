@@ -31,6 +31,9 @@ public:
 private slots:
 	void on_watchedButton_clicked();
 	void on_wishlistButton_clicked();
+	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
+	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
+	void similarTableDoubleClick(const QModelIndex&);
 
 private:
 	Ui::MovieViewClass ui;
@@ -39,4 +42,6 @@ private:
 	int m_selectedMovieId;
 	PosterManager posterManager;
 	InfoManager infoManager;
+	QStandardItemModel* m_similarMovieTable;
+	std::vector<int> m_similarMovieIds;
 };
