@@ -6,36 +6,7 @@ SimilarMoviesEngine::SimilarMoviesEngine(Movie movie) : m_movie{ std::move(movie
 // TO be improved using transaction, refactor it by removing nested if-elses and maybe to try another approach
 std::vector<int> SimilarMoviesEngine::getSimilarMoviesByGenreAndRating() 
 {
-
-	std::vector<int> similarMovies;
-	
-	std::string allGenre = getMovie().getListedIn().value();
-	//extract letters until we find ,
-	std::string delimiter = ",";
-	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
-
-	//returns first 3 movies that have the firstGenre substring in ListedIn
-	int count = 0;
-	for (const auto& record : allRecords)
-	{
-		if (count <= 2)
-		{
-			std::string mainString = record.getListedIn().value();
-			//test if mainString has firstGenre substring and if rating are the same
-			if (m_movie.getId() != record.getId())
-			{
-				if (mainString.find(firstGenre) != std::string::npos && *record.getRating() == *m_movie.getRating())
-				{
-					similarMovies.push_back(record.getId());
-					count++;
-				}
-			}
-		}
-		else
-			break;
-		
-	}
-	return similarMovies;
+	return m_database->getSimilarsGenreAndRating(m_movie);
 }
 
 // TO be improved using transaction, to add checks for all cast members and refactor it by removing nested if-elses
@@ -70,7 +41,7 @@ std::vector<int> SimilarMoviesEngine::getSimilarMoviesByDirectorOrCast()
     return similarMovies;
 }
 
-Movie SimilarMoviesEngine::getMovie()
+Movie SimilarMoviesEngine::getMovie() const
 {
 	return m_movie;
 }

@@ -19,11 +19,9 @@ private:
 public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
-
 	bool isRegistered(const std::string& username);
 	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
-
-
+	std::vector<int> getSimilarsGenreAndRating(const Movie& movie);
 	// template useful functions
 	template <class T>
 	auto getAll()

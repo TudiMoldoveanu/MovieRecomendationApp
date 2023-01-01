@@ -18,7 +18,7 @@ public:
 	SimilarMoviesEngine(Movie movie);
 	std::vector<int> getSimilarMoviesByGenreAndRating();
 	std::vector<int>getSimilarMoviesByDirectorOrCast();
-	Movie getMovie();
+	Movie getMovie() const;
 	std::vector<int> getMoviesId();
 	PosterManager posterManager;
 	InfoManager infoManager;

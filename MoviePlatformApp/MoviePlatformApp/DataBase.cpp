@@ -1,4 +1,5 @@
 #include "Database.h"
+#include "SimilarMoviesEngine.h"
 
 Database::Database()
 {
@@ -63,6 +64,31 @@ bool Database::userAlreadyRated(const int& userId, const int& selectedMovieId)
 	
 	return commited;
 }
+
+std::vector<int> Database::getSimilarsGenreAndRating(const Movie& movie)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+	auto commited= m_storage->transaction([&] () mutable {
+		// Execute the SELECT statement and retrieve the results
+		std::string allGenre = movie.getListedIn().value();
+		std::string firstGenre = allGenre.substr(0, allGenre.find(","));
+		auto results = m_storage->get_all<int>(
+		select(&Movie::getId, where(like(c(&Movie::getListedIn), "%" + firstGenre + "%") and (c(&Movie::getRating) == movie.getRating())), limit(3)));
+
+		// Add the results to the similarMovies vector
+		for (int movieId : results)
+		{
+			similarMovies.push_back(movieId);
+		}
+		if (!similarMovies.empty())
+			return true;
+		return false;
+		});
+	if(commited)
+	return similarMovies;
+}
+
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
 {
 	std::array<std::optional<std::string>, Database::k_movieTableSize> result;
