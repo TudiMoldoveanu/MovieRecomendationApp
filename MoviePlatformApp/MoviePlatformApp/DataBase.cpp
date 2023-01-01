@@ -65,7 +65,7 @@ bool Database::userAlreadyRated(const int& userId, const int& selectedMovieId)
 	return commited;
 }
 
-std::vector<int> Database::getSimilarsGenreAndRating(const Movie& movie)
+std::vector<int> Database::getSimilarGenreAndRating(const Movie& movie)
 {
 	using namespace sqlite_orm;
 	std::vector<int> similarMovies;
@@ -87,6 +87,40 @@ std::vector<int> Database::getSimilarsGenreAndRating(const Movie& movie)
 		});
 	if(commited)
 	return similarMovies;
+}
+
+std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+	std::string allCast = movie.getCast().value();
+	std::string delimiter = ",";
+	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
+
+	// Begin a transaction
+	auto commited = m_storage->transaction([&]() mutable {
+		// Execute the SELECT statement and retrieve the results
+		std::string allGenre = movie.getListedIn().value();
+		std::string firstGenre = allGenre.substr(0, allGenre.find(","));
+		// Select the movie records that match the desired criteria
+		auto results = m_storage->get_all<int>(select(columns(&Movie::getId),
+			where(like(&Movie::getCast, "%" + firstCastMember + "%") or
+				(is_equal(&Movie::getDirector, *movie.getDirector()) and
+					is_not_equal(&Movie::getDirector, "")) and
+				is_not_equal(&Movie::getId, movie.getId())),limit(3)));
+
+		// Iterate over the results and add the movie IDs to the similarMovies vector
+		for (const auto& result : results)
+		{
+			similarMovies.push_back(result);
+		}
+
+		if (!similarMovies.empty())
+			return true;
+		return false;
+		});
+	if (commited)
+		return similarMovies;
 }
 
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
