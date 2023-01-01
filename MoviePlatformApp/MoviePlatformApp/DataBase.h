@@ -20,8 +20,8 @@ public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
 
-	bool isRegistered(std::string username);
-	bool userAlreadyRated(int userId, int selectedMovieId);
+	bool isRegistered(const std::string& username);
+	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
 
 
 	// template useful functions

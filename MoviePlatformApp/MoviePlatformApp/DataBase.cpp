@@ -30,7 +30,7 @@ Database* Database::connect()
 	return getInstance();
 }
 
-bool Database::isRegistered(std::string username)
+bool Database::isRegistered(const std::string& username)
 {
 	using namespace sqlite_orm;
 	auto commited = m_storage->transaction([&]() mutable {
@@ -49,7 +49,7 @@ bool Database::isRegistered(std::string username)
 		return true;
 	}
 }
-bool Database::userAlreadyRated(int userId, int selectedMovieId)
+bool Database::userAlreadyRated(const int& userId, const int& selectedMovieId)
 {
 	using namespace sqlite_orm;
 	auto commited = m_storage->transaction([&]() mutable {

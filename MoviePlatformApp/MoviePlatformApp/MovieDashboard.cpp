@@ -150,6 +150,7 @@ void MovieDashboard::assignDataToTable(QTableView* tableUi, QStandardItemModel* 
 
 void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 {
+	uiDashboard.tableView->setEnabled(false);
 	QModelIndexList selection = uiDashboard.tableView->selectionModel()->selectedIndexes();
 	int selectedMovieId;
 
@@ -161,13 +162,15 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 	}
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
-
 	movieView->setMovieView();
 	movieView->setVisible(true);
+	uiDashboard.tableView->setEnabled(true);
 }
 
 void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 {
+	uiDashboard.wishlistTable->setEnabled(false);
+	uiDashboard.watchedTable->setEnabled(false);
 	std::vector<int> wishlistedMovieIds =
 		database->getSavedMovies<UserWishlist>(loggedUser->getId());
 	
@@ -181,10 +184,14 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 
 	movieView->setMovieView();
 	movieView->setVisible(true);
+	uiDashboard.wishlistTable->setEnabled(true);
+	uiDashboard.watchedTable->setEnabled(true);
 }
 
 void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 {
+	uiDashboard.watchedTable->setEnabled(false);
+	uiDashboard.wishlistTable->setEnabled(false);
 	std::vector<int> watchedMovieIds =
 		database->getSavedMovies<UserWatched>(loggedUser->getId());
 
@@ -198,6 +205,8 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 
 	movieView->setMovieView();
 	movieView->setVisible(true);
+	uiDashboard.watchedTable->setEnabled(true);
+	uiDashboard.wishlistTable->setEnabled(true);
 }
 
 void MovieDashboard::tabSelected()

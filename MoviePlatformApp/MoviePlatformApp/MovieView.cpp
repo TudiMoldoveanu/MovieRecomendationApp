@@ -258,11 +258,13 @@ void MovieView::setMovieData(const int& tableLine, const int& movieId, QStandard
 void MovieView::similarTableDoubleClick(const QModelIndex&)
 {
     QModelIndexList selection = ui.similarMoviesTable->selectionModel()->selectedIndexes();
-    for (int i = 0; i < selection.count(); i++)
-    {
-        QModelIndex index = selection.at(i);
-        this->m_selectedMovieId = m_similarMovieIds[index.column()];
-        this->setMovieView();
-        this->setVisible(true);
-    }
+    
+        ui.similarMoviesTable->setEnabled(false);
+        for (int i = 0; i < selection.count(); i++)
+        {
+            QModelIndex index = selection.at(i);
+            this->m_selectedMovieId = m_similarMovieIds[index.column()];
+            this->setMovieView();
+        }
+        ui.similarMoviesTable->setEnabled(true);
 }
