@@ -18,7 +18,8 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	connect(uiDashboard.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	//check if user clicked at a tab
 	connect(uiDashboard.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
-	setMovieDashboardData(0, k_paginateNr);
+	m_randomNumber = randomIndex();
+	setMovieDashboardData(m_randomNumber, m_randomNumber + k_paginateNr);
 	setMovieWishlistData();
 	setMovieWatchedData();
 	setMyProfileData();
@@ -158,7 +159,7 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 		selectedMovieId = m_searchMovies[index.column()];
 	}
 	else {
-		selectedMovieId = (k_currentPage * k_paginateNr) + index.row() * k_cols + index.column() + 1;
+		selectedMovieId = (k_currentPage * k_paginateNr) + index.row() * k_cols + index.column() + m_randomNumber + 1;
 	}
 
 	MovieView* movieView = new MovieView(selectedMovieId, this);
@@ -269,4 +270,10 @@ void MovieDashboard::on_searchButton_clicked()
 	}
 
 	assignDataToTable(uiDashboard.tableView, m_dashboardTableData);
+}
+
+int MovieDashboard::randomIndex()
+{
+	srand(time(0));
+	return rand() % k_noOfMovies;
 }

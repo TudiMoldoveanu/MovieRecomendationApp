@@ -22,7 +22,7 @@ public:
 	bool isRegistered(const std::string& username);
 	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
 	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
-	std::vector<int>getSimilarDirectorOrCast(const Movie& movie);
+	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
 	// template useful functions
 	template <class T>
 	auto getAll()

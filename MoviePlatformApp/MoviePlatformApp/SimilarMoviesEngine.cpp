@@ -15,7 +15,7 @@ std::vector<int> SimilarMoviesEngine::getSimilarMoviesByDirectorOrCast()
 	return m_database->getSimilarDirectorOrCast(m_movie);
 }
 
-Movie SimilarMoviesEngine::getMovie()
+Movie SimilarMoviesEngine::getMovie() const
 {
 	return m_movie;
 }

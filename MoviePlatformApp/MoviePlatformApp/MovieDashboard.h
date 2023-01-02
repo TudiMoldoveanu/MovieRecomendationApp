@@ -51,6 +51,7 @@ private:
 	Database* database = Database::connect();
 	LoggedUser* loggedUser = LoggedUser::login();
 	int m_movieIndex;
+	int m_randomNumber;
 	std::vector<Movie> m_allMovies;
 	std::vector<int> m_searchMovies;
 	QStandardItemModel* m_dashboardTableData;
@@ -64,6 +65,7 @@ private:
 	int k_rows = 0;
 	PosterManager posterManager;
 	InfoManager infoManager;
+	int randomIndex();
 
 public:
 	static Ui::MovieDashboardClass uiDashboard;
