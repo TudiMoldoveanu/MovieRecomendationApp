@@ -97,6 +97,13 @@ void MovieDashboard::setMovieWatchedData()
 	assignDataToTable(uiDashboard.watchedTable, m_watchedTableData);
 }
 
+void MovieDashboard::setRecommendedMoviesData()
+{
+	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
+	std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+
+}
+
 void MovieDashboard::setMyProfileData()
 {
 	auto userName = database->getById<UserInfo>(loggedUser->getId()).getFullName();

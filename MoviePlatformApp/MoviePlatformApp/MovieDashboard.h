@@ -33,6 +33,7 @@ public:
 	void setMovieDashboardData(const int& fromId, const int& toId);
 	void setMovieWishlistData();
 	void setMovieWatchedData();
+	void setRecommendedMoviesData();
 	void setMyProfileData();
 
 

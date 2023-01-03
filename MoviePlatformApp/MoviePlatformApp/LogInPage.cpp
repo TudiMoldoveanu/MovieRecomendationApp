@@ -81,7 +81,8 @@ void LogInPage::on_registerButton_clicked()
     registerPage = new RegisterPage(this);
     this->setVisible(false);
     registerPage->show();
-    
+
+    //to add recomendation functions
 }
 
 void LogInPage::on_showPass_clicked()
