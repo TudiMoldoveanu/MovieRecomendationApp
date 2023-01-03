@@ -25,7 +25,12 @@ void RecomendationEngine::setMovieGenresMap()
 
 }
 
-std::array<std::string, 2> RecomendationEngine::getFirstTwoGenresOfMovie(int movieId)
+std::vector<int> RecomendationEngine::getSimilarMovies()
+{
+	return m_database->getSimilarGenre(mostFreqGenre());
+}
+
+std::array<std::string, 2> RecomendationEngine::getFirstTwoGenresOfMovie(const int& movieId)
 {
 	std::array<std::string, 2> firstTwoGenres;
 	Movie movie = m_database->getById<Movie>(movieId);
@@ -43,7 +48,7 @@ std::array<std::string, 2> RecomendationEngine::getFirstTwoGenresOfMovie(int mov
 	
 }
 
-std::string RecomendationEngine::maxRate()
+std::string RecomendationEngine::mostFreqGenre()
 {
 	int max = 0;
 	std::string genre;

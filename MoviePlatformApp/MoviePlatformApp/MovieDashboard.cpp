@@ -104,7 +104,12 @@ void MovieDashboard::setRecommendedMoviesData()
 	//create an instance of Recommendation Engine
 	RecomendationEngine recEngine(watchedMovieIds, wishlistedMovieIds);
 	recEngine.setMovieGenresMap();
-	std::cout<<recEngine.maxRate();
+	std::vector<int> recommendedMoviesIds = recEngine.getSimilarMovies();
+	
+	for (int i = 0; i < recommendedMoviesIds.size(); i++)
+	{
+		std::cout << recommendedMoviesIds[i] << " ";
+	}
 
 }
 

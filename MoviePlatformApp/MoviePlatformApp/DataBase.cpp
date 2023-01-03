@@ -129,6 +129,30 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 
 	return similarMovies;
 	}
+
+std::vector<int> Database::getSimilarGenre(const std::string genre)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+
+
+	int count = 0;
+	for (auto& record : m_storage->iterate<Movie>())
+	{
+
+		if (count > 5)
+			break;
+		std::string mainString = record.getListedIn().value();
+		//test if mainString has genre as a substring
+		if (mainString.find(genre) == std::string::npos)
+			continue;
+
+		similarMovies.push_back(record.getId());
+		count++;
+	}
+
+	return similarMovies;
+}
 	
 
 

@@ -13,15 +13,14 @@ private:
 	std::vector<int> m_wishlistedMovieIds, m_wacthedMovieIds;
 	std::map < std::string, int> m_movieGenresOfUser;
 	//Funtions
-    std::array<std::string,2> getFirstTwoGenresOfMovie(int movieId);
-	double getAverage();
+    std::array<std::string,2> getFirstTwoGenresOfMovie(const int& movieId);
+	std:: string mostFreqGenre();
    
 
 public:
 	RecomendationEngine(std::vector<int> watchedIds, std::vector<int> wishlistIds);
 	void setMovieGenresMap();
-	 std:: string maxRate();
-	
-
+	std::vector<int> getSimilarMovies();
+	 
 };
 

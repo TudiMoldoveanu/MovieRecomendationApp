@@ -23,6 +23,7 @@ public:
 	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
 	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
 	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
+	std::vector<int> getSimilarGenre(const std::string genre);
 	// template useful functions
 	template <class T>
 	auto getAll()
