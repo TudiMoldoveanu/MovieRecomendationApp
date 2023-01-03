@@ -101,6 +101,10 @@ void MovieDashboard::setRecommendedMoviesData()
 {
 	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
 	std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+	//create an instance of Recommendation Engine
+	RecomendationEngine recEngine(watchedMovieIds, wishlistedMovieIds);
+	recEngine.setMovieGenresMap();
+	std::cout<<recEngine.maxRate();
 
 }
 
@@ -224,6 +228,10 @@ void MovieDashboard::tabSelected()
 		setMovieWishlistData();
 		setMovieWatchedData();
 	}
+	if (uiDashboard.tabWidget->currentIndex() == 2) {
+		setRecommendedMoviesData();
+	}
+
 }
 
 void MovieDashboard::on_nextPage_clicked()

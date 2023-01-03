@@ -16,6 +16,7 @@
 #include "PosterManager.h"
 #include "InfoManager.h"
 #include <ctime>
+#include"RecomendationEngine.h"
 
 
 class MovieDashboard : public QMainWindow

@@ -43,4 +43,20 @@ std::array<std::string, 2> RecomendationEngine::getFirstTwoGenresOfMovie(int mov
 	
 }
 
+std::string RecomendationEngine::maxRate()
+{
+	int max = 0;
+	std::string genre;
+	std::map < std::string, int>::iterator it;
+	for (it=m_movieGenresOfUser.begin(); it!=m_movieGenresOfUser.end(); it++)
+	{
+		if (max < it->second)
+		{
+			max = it->second;
+			genre = it->first;
+		}
+	}
+	return genre;
+}
+
 
