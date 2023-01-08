@@ -60,6 +60,7 @@ private:
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
 	QStandardItemModel* m_myProfileData;
+	QStandardItemModel* m_recommendTableData;
 	const int k_paginateNr = 32;
 	const int k_noOfMovies = 8807;
 	const int k_cols = 8;
