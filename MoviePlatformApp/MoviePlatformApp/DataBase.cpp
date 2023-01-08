@@ -153,6 +153,28 @@ std::vector<int> Database::getSimilarGenre(const std::string genre)
 
 	return similarMovies;
 }
+
+double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings)
+{
+	// Compute the dot product
+	int dotProduct = 0;
+	for (int i = 0; i < firstUserRatings.size(); i++) {
+		dotProduct += firstUserRatings[i] * secondUserRatings[i];
+	}
+	// Compute the magnitudes
+	double magnitude1 = 0;
+	for (int rating : firstUserRatings) {
+		magnitude1 += rating * rating;
+	}
+	magnitude1 = sqrt(magnitude1);
+	double magnitude2 = 0;
+	for (int rating : secondUserRatings) {
+		magnitude2 += rating * rating;
+	}
+	magnitude2 = sqrt(magnitude2);
+	// Return the cosine similarity
+	return dotProduct / (magnitude1 * magnitude2);
+}
 	
 
 

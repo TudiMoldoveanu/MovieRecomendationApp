@@ -24,6 +24,7 @@ public:
 	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
 	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
 	std::vector<int> getSimilarGenre(const std::string genre);
+	double cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings);
 	// template useful functions
 	template <class T>
 	auto getAll()
