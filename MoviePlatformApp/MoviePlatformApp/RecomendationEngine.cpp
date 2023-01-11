@@ -7,20 +7,16 @@ void RecomendationEngine::setMovieGenresMap()
 	for (int i = 0; i < m_wacthedMovieIds.size(); i++)
 	{
 		int currentId = m_wacthedMovieIds[i];
-		std::array<std::string, 2> firstTwoGenres = getFirstTwoGenresOfMovie(currentId);
-		//unpack the data from genre array 
-		auto [firstGenre, secondGenre] = firstTwoGenres;
-		m_movieGenresOfUser[firstGenre]++;
-		m_movieGenresOfUser[secondGenre]++;
+		std::string gernre = getFirstGenreOfMovie(currentId);
+		m_movieGenresOfUser[gernre]++;
+		
 	}
 	for (int i = 0; i < m_wishlistedMovieIds.size(); i++)
 	{
-		int currentId = m_wishlistedMovieIds[i];
-		std::array<std::string, 2> firstTwoGenres = getFirstTwoGenresOfMovie(currentId);
-		//unpack the data from genre array 
-		auto [firstGenre, secondGenre] = firstTwoGenres;
-		m_movieGenresOfUser[firstGenre]++;
-		m_movieGenresOfUser[secondGenre]++;
+		int currentId = m_wacthedMovieIds[i];
+		std::string gernre = getFirstGenreOfMovie(currentId);
+		m_movieGenresOfUser[gernre]++;
+		
 	}
 
 }
@@ -30,22 +26,17 @@ std::vector<int> RecomendationEngine::getSimilarMovies()
 	return m_database->getSimilarGenre(mostFreqGenre());
 }
 
-std::array<std::string, 2> RecomendationEngine::getFirstTwoGenresOfMovie(const int& movieId)
+std::string RecomendationEngine::getFirstGenreOfMovie(const int& movieId)
 {
-	std::array<std::string, 2> firstTwoGenres;
+    std::string firstGenre;
 	Movie movie = m_database->getById<Movie>(movieId);
 
 	std::string allMovieGenres = movie.getListedIn().value();
 	std::string delimiter = ",";
 
-	std::string firstGenre = allMovieGenres.substr(0, allMovieGenres.find(delimiter));
-	firstTwoGenres[0] = firstGenre;
-
-	std::string secondGenre = allMovieGenres.substr(firstGenre.size()+2, allMovieGenres.find(delimiter));
-	firstTwoGenres[1] = secondGenre;
-
-	return firstTwoGenres;
+	firstGenre = allMovieGenres.substr(0, allMovieGenres.find(delimiter));
 	
+	return firstGenre;
 }
 
 std::string RecomendationEngine::mostFreqGenre()

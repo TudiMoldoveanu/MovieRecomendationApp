@@ -13,7 +13,7 @@ private:
 	std::vector<int> m_wishlistedMovieIds, m_wacthedMovieIds;
 	std::map < std::string, int> m_movieGenresOfUser;
 	//Funtions
-    std::array<std::string,2> getFirstTwoGenresOfMovie(const int& movieId);
+	std::string getFirstGenreOfMovie(const int& movieId);
 	std:: string mostFreqGenre();
    
 
