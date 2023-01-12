@@ -1,7 +1,5 @@
 #pragma once
 #include"dbEngine.cpp"
-#include "UserWatched.h"
-#include "UserWishlist.h"
 class Database //Singleton
 {
 private:
@@ -21,11 +19,12 @@ private:
 public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
-
-	bool isRegistered(std::string username);
-	bool userAlreadyRated(int userId, int selectedMovieId);
-
-
+	bool isRegistered(const std::string& username);
+	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
+	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
+	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
+	std::vector<int> getSimilarGenre(const std::string genre);
+	double cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings);
 	// template useful functions
 	template <class T>
 	auto getAll()
@@ -85,6 +84,12 @@ public:
 	void deleteId(const int& id)
 	{
 		m_storage->remove<T>(id);
+	}
+
+	template <class T>
+	void deleteId(const int& id1, const int& id2)
+	{
+		m_storage->remove<T>(id1, id2);
 	}
 public:
 	static const int k_movieTableSize = 13;

@@ -1,4 +1,5 @@
 #include "Database.h"
+#include "SimilarMoviesEngine.h"
 
 Database::Database()
 {
@@ -30,7 +31,7 @@ Database* Database::connect()
 	return getInstance();
 }
 
-bool Database::isRegistered(std::string username)
+bool Database::isRegistered(const std::string& username)
 {
 	using namespace sqlite_orm;
 	auto commited = m_storage->transaction([&]() mutable {
@@ -49,7 +50,7 @@ bool Database::isRegistered(std::string username)
 		return true;
 	}
 }
-bool Database::userAlreadyRated(int userId, int selectedMovieId)
+bool Database::userAlreadyRated(const int& userId, const int& selectedMovieId)
 {
 	using namespace sqlite_orm;
 	auto commited = m_storage->transaction([&]() mutable {
@@ -63,6 +64,120 @@ bool Database::userAlreadyRated(int userId, int selectedMovieId)
 	
 	return commited;
 }
+
+std::vector<int> Database::getSimilarGenreAndRating(const Movie& movie)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+
+	std::string allGenre = movie.getListedIn().value();
+	//extract letters until we find ,
+	std::string delimiter = ",";
+	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
+	
+	int count = 0;
+	for (auto& record : m_storage->iterate<Movie>())
+	{
+
+		if(count > 2)
+			break;
+
+		if (movie.getId() == record.getId())
+			continue;
+
+		std::string mainString = record.getListedIn().value();
+		//test if mainString has firstGenre substring and if rating are the same
+		if (mainString.find(firstGenre) == std::string::npos || *record.getRating() != movie.getRating())
+			continue;
+
+		similarMovies.push_back(record.getId());
+		count++;
+	}
+
+	return similarMovies;
+}
+
+std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+	std::string allCast = movie.getCast().value();
+
+	if (allCast == "")
+		return similarMovies;
+
+	std::string delimiter = ",";
+	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
+
+	int count = 0;
+	for (auto& record : m_storage->iterate<Movie>())
+	{
+		if (count > 2)
+			break;
+
+		std::string mainString = record.getCast().value();
+
+		if (movie.getId() == record.getId())
+			continue;
+
+		if (mainString.find(firstCastMember) == std::string::npos && *record.getDirector() != movie.getDirector() || movie.getDirector() == "")
+			continue;
+
+		similarMovies.push_back(record.getId());
+		count++;
+	}
+
+	return similarMovies;
+}
+
+std::vector<int> Database::getSimilarGenre(const std::string genre)
+{
+	using namespace sqlite_orm;
+	std::vector<int> similarMovies;
+
+
+	int count = 0;
+	for (auto& record : m_storage->iterate<Movie>())
+	{
+
+		if (count > 5)
+			break;
+		std::string mainString = record.getListedIn().value();
+		//test if mainString has genre as a substring
+		if (mainString.find(genre) == std::string::npos)
+			continue;
+
+		similarMovies.push_back(record.getId());
+		count++;
+	}
+
+	return similarMovies;
+}
+
+double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings)
+{
+	// Compute the dot product
+	int dotProduct = 0;
+	for (int i = 0; i < firstUserRatings.size(); i++) {
+		dotProduct += firstUserRatings[i] * secondUserRatings[i];
+	}
+	// Compute the magnitudes
+	double magnitude1 = 0;
+	for (int rating : firstUserRatings) {
+		magnitude1 += rating * rating;
+	}
+	magnitude1 = sqrt(magnitude1);
+	double magnitude2 = 0;
+	for (int rating : secondUserRatings) {
+		magnitude2 += rating * rating;
+	}
+	magnitude2 = sqrt(magnitude2);
+	// Return the cosine similarity
+	return dotProduct / (magnitude1 * magnitude2);
+}
+	
+
+
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
 {
 	std::array<std::optional<std::string>, Database::k_movieTableSize> result;

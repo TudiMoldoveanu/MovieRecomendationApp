@@ -6,6 +6,8 @@
 #include "Movie.h"
 #include "User.h"
 #include "MovieDashboard.h"
+#include "InfoManager.h"
+#include "PosterManager.h"
 
 class MovieView : public QMainWindow
 {
@@ -14,7 +16,7 @@ class MovieView : public QMainWindow
 public:
 	MovieView(int MovieId, QWidget *parent = nullptr);
 	~MovieView();
-	void setMovieView(QList<QString> movieInfo, QPixmap moviePoster);
+	void setMovieView();
 	void setMoviePoster(QPixmap image);
 	void setMovieTitle(QString title);
 	void setMovieRating();
@@ -29,10 +31,17 @@ public:
 private slots:
 	void on_watchedButton_clicked();
 	void on_wishlistButton_clicked();
+	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
+	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
+	void similarTableDoubleClick(const QModelIndex&);
 
 private:
 	Ui::MovieViewClass ui;
 	Database* database = Database::connect();
 	LoggedUser* loggedUser = LoggedUser::login();
 	int m_selectedMovieId;
+	PosterManager posterManager;
+	InfoManager infoManager;
+	QStandardItemModel* m_similarMovieTable;
+	std::vector<int> m_similarMovieIds;
 };

@@ -8,13 +8,39 @@ MovieView::MovieView(int selectedMovieId, QWidget *parent)
 {
 	ui.setupUi(this);
 
+    connect(ui.similarMoviesTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(similarTableDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+
     m_selectedMovieId = selectedMovieId;
+
+    m_similarMovieTable = new QStandardItemModel;
 }
 
 MovieView::~MovieView()
 {}
 
-void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
+void MovieView::setMovieView() {
+    Movie movie = database->getById<Movie>(m_selectedMovieId);
+
+    //created an instance of SimilarMoviesEngine
+    SimilarMoviesEngine similarMovies(movie);
+    m_similarMovieIds = similarMovies.getMoviesId();
+
+    std::cout << m_similarMovieIds.size() << "\n";
+
+    //set data
+    m_similarMovieTable = new QStandardItemModel();
+
+    for (int i = 0; i < m_similarMovieIds.size(); i++) {
+        setMovieData(i, m_similarMovieIds[i], m_similarMovieTable);
+    }
+
+    assignDataToTable(ui.similarMoviesTable, m_similarMovieTable);
+    //
+   
+
+    QList<QString> movieInfo = infoManager.getMovieInfo(m_selectedMovieId);
+    QPixmap moviePoster = posterManager.getMoviePoster(m_selectedMovieId, "200");
+
     setMovieRating();
     setMoviePoster(moviePoster);
     setMovieTitle(movieInfo[1]);
@@ -29,15 +55,15 @@ void MovieView::setMovieView(QList<QString> movieInfo, QPixmap moviePoster) {
     std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
     for (int i = 0; i < wishlistedMovieIds.size(); i++) {
         if (m_selectedMovieId == wishlistedMovieIds[i]) {
-            ui.wishlistButton->setEnabled(false);
-            ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            ui.wishlistButton->setText("Remove Wishlist");
+            ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
         }
     }
     for (int i = 0; i < watchedMovieIds.size(); i++) {
         if (m_selectedMovieId == watchedMovieIds[i]) {
-            ui.watchedButton->setEnabled(false);
-            ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+            ui.watchedButton->setText("Remove Watched");
+            ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
         }
     }
@@ -170,16 +196,75 @@ void MovieView::on_watchedButton_clicked()
 {
     int userId = loggedUser->getId();
     UserWatched userWatched(userId, m_selectedMovieId);
-    database->replace(userWatched);
-    ui.watchedButton->setEnabled(false);
-    ui.watchedButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+    if (ui.watchedButton->text().toStdString() == "Remove Watched") {
+        database->deleteId<UserWatched>(userId, m_selectedMovieId);
+        ui.watchedButton->setText("Mark as Watched");
+        ui.watchedButton->setStyleSheet("background-color: rgb(204,204,0)");
+    }
+    else {
+        database->replace(userWatched);
+        ui.watchedButton->setText("Remove Watched");
+        ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
+    }
 }
 
 void MovieView::on_wishlistButton_clicked()
 {
     int userId = loggedUser->getId();
     UserWishlist userWishlist(userId, m_selectedMovieId);
-    database->replace(userWishlist);
-    ui.wishlistButton->setEnabled(false);
-    ui.wishlistButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+    if (ui.wishlistButton->text().toStdString() == "Remove Wishlist") {
+        database->deleteId<UserWishlist>(userId, m_selectedMovieId);
+        ui.wishlistButton->setText("Add to Wishlist");
+        ui.wishlistButton->setStyleSheet("background-color: rgb(204,204,0)");
+    }
+    else {
+        database->replace(userWishlist);
+        ui.wishlistButton->setText("Remove Wishlist");
+        ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
+    }
+}
+
+void MovieView::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {
+
+    //set data
+    tableUi->setModel(tableData);
+    //set styling
+    tableUi->setCursor(Qt::PointingHandCursor);
+    tableUi->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableUi->verticalHeader()->setDefaultSectionSize(230);
+    tableUi->horizontalHeader()->setDefaultSectionSize(154);
+    tableUi->setFrameStyle(QFrame::NoFrame);
+    tableUi->horizontalHeader()->hide();
+    tableUi->verticalHeader() ->hide();
+    tableUi->setStyleSheet
+    (
+        "QHeaderView::section { background-color:#073d69}\n"
+        "QTableView QTableCornerButton::section { background-color:#073d69}"
+    );
+    tableUi->show();
+}
+
+void MovieView::setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData)
+{
+    QStandardItem* movieData = new QStandardItem();
+
+    QPixmap moviePoster = posterManager.getMoviePoster(movieId, "154");
+    QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
+
+    movieData->setData(QVariant(moviePoster), Qt::DecorationRole);
+    tableData->setItem(0, tableLine, movieData);
+}
+
+void MovieView::similarTableDoubleClick(const QModelIndex&)
+{
+    QModelIndexList selection = ui.similarMoviesTable->selectionModel()->selectedIndexes();
+    
+        ui.similarMoviesTable->setEnabled(false);
+        for (int i = 0; i < selection.count(); i++)
+        {
+            QModelIndex index = selection.at(i);
+            this->m_selectedMovieId = m_similarMovieIds[index.column()];
+            this->setMovieView();
+        }
+        ui.similarMoviesTable->setEnabled(true);
 }

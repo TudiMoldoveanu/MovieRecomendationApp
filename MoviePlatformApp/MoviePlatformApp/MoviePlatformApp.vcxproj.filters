@@ -1,31 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Form Files">
+    <Filter Include="GUILayer">
+      <UniqueIdentifier>{f0821a88-47d9-4743-bfc0-d3b3c2c57aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUILayer\StarComponent">
+      <UniqueIdentifier>{03658ea9-705e-43f9-b474-73ae2075f310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUILayer\HeaderFiles">
+      <UniqueIdentifier>{ee3dbf00-d553-4a9b-8e04-e9f715f50cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUILayer\SourceFiles">
+      <UniqueIdentifier>{062e0108-0957-415c-817f-23d4651dee49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUILayer\Form Files">
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
+    <Filter Include="BussinessLayer">
+      <UniqueIdentifier>{27c63034-7fd4-4ad5-8598-829a2ba8d6e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GUILayer">
-      <UniqueIdentifier>{f0821a88-47d9-4743-bfc0-d3b3c2c57aee}</UniqueIdentifier>
+    <Filter Include="BussinessLayer\SourceFiles">
+      <UniqueIdentifier>{ed25ef96-885b-4e21-8cd0-771a73bb4263}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GUILayer\StarComponent">
-      <UniqueIdentifier>{03658ea9-705e-43f9-b474-73ae2075f310}</UniqueIdentifier>
+    <Filter Include="BussinessLayer\HeaderFiles">
+      <UniqueIdentifier>{24626233-f389-42d2-b580-b754421e21ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BussinessLayer\DataAcces">
+      <UniqueIdentifier>{ff1175c5-cb7d-4476-98e8-07376a028dbc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,7 +39,7 @@
       <Filter>Resource Files</Filter>
     </QtRcc>
     <QtUic Include="LogInPage.ui">
-      <Filter>Form Files</Filter>
+      <Filter>GUILayer\Form Files</Filter>
     </QtUic>
     <QtRcc Include="RegistetPage.qrc">
       <Filter>Resource Files</Filter>
@@ -41,136 +47,183 @@
     <QtRcc Include="PreferencesPage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="MovieDashboard.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Movie.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rating.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UserInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UserPreferences.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UserWatched.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UserWishlist.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MovieDashboard.cpp">
-      <Filter>Source Files\GUILayer</Filter>
-    </ClCompile>
-    <ClCompile Include="LogInPage.cpp">
-      <Filter>Source Files\GUILayer</Filter>
-    </ClCompile>
-    <ClCompile Include="PreferencesPage.cpp">
-      <Filter>Source Files\GUILayer</Filter>
-    </ClCompile>
-    <ClCompile Include="RegisterPage.cpp">
-      <Filter>Source Files\GUILayer</Filter>
-    </ClCompile>
-    <ClCompile Include="MovieView.cpp">
-      <Filter>Source Files\GUILayer</Filter>
-    </ClCompile>
     <ClCompile Include="stardelegate.cpp">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
+      <Filter>GUILayer\StarComponent</Filter>
     </ClCompile>
     <ClCompile Include="stareditor.cpp">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
+      <Filter>GUILayer\StarComponent</Filter>
     </ClCompile>
     <ClCompile Include="starrating.cpp">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
+      <Filter>GUILayer\StarComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="DataBase.cpp">
+      <Filter>BussinessLayer\DataAcces</Filter>
+    </ClCompile>
+    <ClCompile Include="dbEngine.cpp">
+      <Filter>BussinessLayer\DataAcces</Filter>
+    </ClCompile>
+    <ClCompile Include="LogInPage.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="MovieDashboard.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="MovieView.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PassChanger.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PreferencesPage.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterPage.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsPage.cpp">
+      <Filter>GUILayer\SourceFiles</Filter>
     </ClCompile>
     <ClCompile Include="LoggedUser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>BussinessLayer\SourceFiles</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Movie.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Rating.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInfo.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="UserPreferences.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="UserWatched.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="UserWishlist.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PosterManager.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SimilarMoviesEngine.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="RecomendationEngine.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoManager.cpp">
+      <Filter>BussinessLayer\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTextDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Movie.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rating.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserPreferences.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserWatched.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserWishlist.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="starrating.h">
+      <Filter>GUILayer\StarComponent</Filter>
     </ClInclude>
     <ClInclude Include="DataBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="starrating.h">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="UserInfo.h">
-      <Filter>Header Files</Filter>
+      <Filter>BussinessLayer\DataAcces</Filter>
     </ClInclude>
     <ClInclude Include="LoggedUser.h">
-      <Filter>Header Files</Filter>
+      <Filter>BussinessLayer\HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Movie.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Rating.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInfo.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UserPreferences.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UserWishlist.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UserWatched.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="PosterManager.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="SimilarMoviesEngine.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="RecomendationEngine.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoManager.h">
+      <Filter>BussinessLayer\HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageTextDelegate.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="PreferencesPage.h">
-      <Filter>Source Files\GUILayer</Filter>
-    </QtMoc>
-    <QtMoc Include="MovieDashboard.h">
-      <Filter>Source Files\GUILayer</Filter>
-    </QtMoc>
-    <QtMoc Include="RegisterPage.h">
-      <Filter>Source Files\GUILayer</Filter>
-    </QtMoc>
-    <QtMoc Include="LogInPage.h">
-      <Filter>Source Files\GUILayer</Filter>
-    </QtMoc>
-    <QtMoc Include="MovieView.h">
-      <Filter>Source Files\GUILayer</Filter>
-    </QtMoc>
     <QtMoc Include="stardelegate.h">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
+      <Filter>GUILayer\StarComponent</Filter>
     </QtMoc>
     <QtMoc Include="stareditor.h">
-      <Filter>Source Files\GUILayer\StarComponent</Filter>
+      <Filter>GUILayer\StarComponent</Filter>
+    </QtMoc>
+    <QtMoc Include="LogInPage.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="MovieDashboard.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="MovieView.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="PassChanger.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="PreferencesPage.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="RegisterPage.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
+    </QtMoc>
+    <QtMoc Include="SettingsPage.h">
+      <Filter>GUILayer\HeaderFiles</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="RegisterPage.ui">
-      <Filter>Form Files</Filter>
+      <Filter>GUILayer\Form Files</Filter>
     </QtUic>
     <QtUic Include="PreferencesPage.ui">
-      <Filter>Form Files</Filter>
+      <Filter>GUILayer\Form Files</Filter>
     </QtUic>
     <QtUic Include="MovieDashboard.ui">
-      <Filter>Form Files</Filter>
+      <Filter>GUILayer\Form Files</Filter>
     </QtUic>
     <QtUic Include="MovieView.ui">
-      <Filter>Form Files</Filter>
+      <Filter>GUILayer\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="SettingsPage.ui">
+      <Filter>GUILayer\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="PassChanger.ui">
+      <Filter>GUILayer\Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>

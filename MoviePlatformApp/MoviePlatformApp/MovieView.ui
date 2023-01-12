@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MovieViewClass</class>
  <widget class="QMainWindow" name="MovieViewClass">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,6 +12,12 @@
     <width>989</width>
     <height>648</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>989</width>
+    <height>648</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MovieView</string>
@@ -164,7 +173,7 @@ QCheckBox::indicator:disabled
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>191</width>
+      <width>201</width>
       <height>291</height>
      </rect>
     </property>
@@ -478,17 +487,33 @@ border-radius:10px;
      <string>Add to Wishlist</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_2">
+   <widget class="QLabel" name="movieTitle_2">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>330</y>
-      <width>941</width>
-      <height>241</height>
+      <width>561</width>
+      <height>41</height>
      </rect>
     </property>
-    <property name="title">
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
      <string>Similar Movies</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="similarMoviesTable">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>370</y>
+      <width>941</width>
+      <height>231</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -498,7 +523,7 @@ border-radius:10px;
      <x>0</x>
      <y>0</y>
      <width>989</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

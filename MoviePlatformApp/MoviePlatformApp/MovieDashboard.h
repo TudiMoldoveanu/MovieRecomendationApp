@@ -8,13 +8,16 @@
 #include <QApplication>
 #include <QTableWidget>
 #include <QByteArray>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QStandardItemModel>
 #include <QList>
 #include "Movie.h"
 #include "UserWishlist.h"
+#include "SettingsPage.h"
+#include "SimilarMoviesEngine.h"
+#include "PosterManager.h"
+#include "InfoManager.h"
+#include <ctime>
+#include"RecomendationEngine.h"
+
 
 class MovieDashboard : public QMainWindow
 {
@@ -25,17 +28,16 @@ public:
 	~MovieDashboard();
 
 	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
-	QList<QString> getMovieInfo(const int& id);
-	QPixmap getMoviePoster(const int& id, const std::string& size);
-	QPixmap downloadMoviePoster(QUrl url);
 	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
-
-	std::string whiteSpaceReplace(std::string& s);
 	void setHeader(QStandardItemModel* tableHeader);
 
 	void setMovieDashboardData(const int& fromId, const int& toId);
 	void setMovieWishlistData();
 	void setMovieWatchedData();
+	void setRecommendedMoviesData();
+	void setMyProfileData();
+
+
 
 private slots:
 	void on_searchButton_clicked();
@@ -45,15 +47,30 @@ private slots:
 	void tabSelected();
 	void on_nextPage_clicked();
 	void on_previousPage_clicked();
+	void on_settingsButton_clicked();
 
 private:
-	Ui::MovieDashboardClass ui;
 	Database* database = Database::connect();
 	LoggedUser* loggedUser = LoggedUser::login();
 	int m_movieIndex;
+	int m_randomNumber;
 	std::vector<Movie> m_allMovies;
 	std::vector<int> m_searchMovies;
 	QStandardItemModel* m_dashboardTableData;
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;
+	QStandardItemModel* m_myProfileData;
+	QStandardItemModel* m_recommendTableData;
+	const int k_paginateNr = 32;
+	const int k_noOfMovies = 8807;
+	const int k_cols = 8;
+	int k_currentPage = 0;
+	int k_rows = 0;
+	PosterManager posterManager;
+	InfoManager infoManager;
+	int randomIndex();
+
+public:
+	static Ui::MovieDashboardClass uiDashboard;
+	Ui::MovieDashboardClass ui;
 };
