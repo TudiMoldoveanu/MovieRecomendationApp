@@ -74,26 +74,33 @@ std::vector<int> Database::getSimilarGenreAndRating(const Movie& movie)
 	std::vector<int> similarMovies;
 
 	std::string allGenre = movie.getListedIn().value();
+
+
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
+	std::advance(randomIt, randomIndex);
+
+
 	//extract letters until we find ,
 	std::string delimiter = ",";
 	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
-	
+
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
 	{
 
-		if(count > 2)
+		if (count > 2)
 			break;
 
-		if (movie.getId() == record.getId())
+		if (movie.getId() == (*it).getId())
 			continue;
 
-		std::string mainString = record.getListedIn().value();
+		std::string mainString = (*it).getListedIn().value();
 		//test if mainString has firstGenre substring and if rating are the same
-		if (mainString.find(firstGenre) == std::string::npos || *record.getRating() != movie.getRating())
+		if (mainString.find(firstGenre) == std::string::npos || (*it).getRating() != movie.getRating())
 			continue;
 
-		similarMovies.push_back(record.getId());
+		similarMovies.push_back((*it).getId());
 		count++;
 	}
 
@@ -107,6 +114,10 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 	std::vector<int> similarMovies;
 	std::string allCast = movie.getCast().value();
 
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
+	std::advance(randomIt, randomIndex);
+
 	if (allCast == "")
 		return similarMovies;
 
@@ -114,20 +125,20 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
 
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
 	{
 		if (count > 2)
 			break;
 
-		std::string mainString = record.getCast().value();
+		std::string mainString = (*it).getCast().value();
 
-		if (movie.getId() == record.getId())
+		if (movie.getId() == (*it).getId())
 			continue;
 
-		if (mainString.find(firstCastMember) == std::string::npos && *record.getDirector() != movie.getDirector() || movie.getDirector() == "")
+		if (mainString.find(firstCastMember) == std::string::npos && (*it).getDirector() != movie.getDirector() || movie.getDirector() == "")
 			continue;
 
-		similarMovies.push_back(record.getId());
+		similarMovies.push_back((*it).getId());
 		count++;
 	}
 
