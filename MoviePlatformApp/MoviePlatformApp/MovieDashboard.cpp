@@ -21,6 +21,7 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	setMovieDashboardData(m_randomNumber, m_randomNumber + k_paginateNr);
 	setMovieWishlistData();
 	setMovieWatchedData();
+	setRecommendedMoviesData();
 	setMyProfileData();
 }
 
@@ -223,14 +224,10 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 
 void MovieDashboard::tabSelected()
 {
-	//if My Profile is selected
-	if (uiDashboard.tabWidget->currentIndex() == 0) {
-		setMovieWishlistData();
-		setMovieWatchedData();
-	}
-	if (uiDashboard.tabWidget->currentIndex() == 2) {
+
+	/*if (uiDashboard.tabWidget->currentIndex() == 2) {
 		setRecommendedMoviesData();
-	}
+	}*/ // idk if to set it here or at movieView buttons actions
 }
 
 void MovieDashboard::on_nextPage_clicked()

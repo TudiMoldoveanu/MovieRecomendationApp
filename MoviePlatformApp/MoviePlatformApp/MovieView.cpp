@@ -13,6 +13,7 @@ MovieView::MovieView(int selectedMovieId, QWidget *parent)
     m_selectedMovieId = selectedMovieId;
 
     m_similarMovieTable = new QStandardItemModel;
+    m_parent = parent;
 }
 
 MovieView::~MovieView()
@@ -24,8 +25,6 @@ void MovieView::setMovieView() {
     //created an instance of SimilarMoviesEngine
     SimilarMoviesEngine similarMovies(movie);
     m_similarMovieIds = similarMovies.getMoviesId();
-
-    std::cout << m_similarMovieIds.size() << "\n";
 
     //set data
     m_similarMovieTable = new QStandardItemModel();
@@ -53,8 +52,10 @@ void MovieView::setMovieView() {
     setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
     std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
     std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
-    for (int i = 0; i < wishlistedMovieIds.size(); i++) {
-        if (m_selectedMovieId == wishlistedMovieIds[i]) {
+    for (int i = 0; i < wishlistedMovieIds.size(); i++) 
+    {
+        if (m_selectedMovieId == wishlistedMovieIds[i])
+        {
             ui.wishlistButton->setText("Remove Wishlist");
             ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
@@ -213,6 +214,9 @@ void MovieView::on_watchedButton_clicked()
         ui.watchedButton->setText("Remove Watched");
         ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
     }
+    MovieDashboard* dashboard = (MovieDashboard*)m_parent;
+    dashboard->setMovieWatchedData();
+    dashboard->setRecommendedMoviesData(); // i think it's pretty difficult to trigger the algorithms at every button action
 }
 
 void MovieView::on_wishlistButton_clicked()
@@ -229,6 +233,9 @@ void MovieView::on_wishlistButton_clicked()
         ui.wishlistButton->setText("Remove Wishlist");
         ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
     }
+    MovieDashboard* dashboard = (MovieDashboard*)m_parent;
+    dashboard->setMovieWishlistData();
+    dashboard->setRecommendedMoviesData(); // same as above
 }
 
 void MovieView::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {

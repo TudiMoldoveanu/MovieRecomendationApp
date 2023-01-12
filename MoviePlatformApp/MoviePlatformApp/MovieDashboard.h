@@ -29,15 +29,12 @@ public:
 
 	void setMovieData(const int& tableLine, const int& movieId, QStandardItemModel* tableData);
 	void assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData);
-	void setHeader(QStandardItemModel* tableHeader);
 
 	void setMovieDashboardData(const int& fromId, const int& toId);
 	void setMovieWishlistData();
 	void setMovieWatchedData();
 	void setRecommendedMoviesData();
 	void setMyProfileData();
-
-
 
 private slots:
 	void on_searchButton_clicked();
