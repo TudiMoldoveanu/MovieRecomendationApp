@@ -12,6 +12,8 @@ Database::Database()
 	 if (initMoviesCount == 0)
 		 this->PopulateStorage("movies_dataset.csv");
 
+	 m_allMovies =  getAll<Movie>();
+
 	 std::cout << "Database connected!" << std::endl; 
 }
 
@@ -141,39 +143,34 @@ int Database::randomIndexGenerator(const std::vector<Movie>& movies)
 	return distr(gen);
 }
 
-std::vector<int> Database::getSimilarGenre(const std::string genre)
+void Database::getSimilarGenre(const std::string& genre, std::set<int>& recommendedMovies, bool oneOrMore)
 {
 	using namespace sqlite_orm;
-	std::vector<int> similarMovies;
 
-	auto allMovies = getAll<Movie>();
-
-	//pick a random index in movies vector
-	std::random_device rd; 
-	std::mt19937 gen(rd()); 
-	std::uniform_int_distribution<> distr(0, allMovies.size()); 
-	int randomIndex = randomIndexGenerator(allMovies);
-
-	auto randomIt = allMovies.begin();
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
 	std::advance(randomIt, randomIndex);
-
 	int count = 0;
-	for (auto it = randomIt;it!=allMovies.end();it++)
-	{
+	int countMax;
 
-		if (count > 5)
+	if (oneOrMore)
+		countMax = 1;
+	else
+		countMax = 5;
+
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
+	{
+		if (count >= countMax)
 			break;
-		std::string mainString = (*it).getListedIn().value();
+		std::string mainString = it->getListedIn().value();
 
 		//test if mainString has genre as a substring
 		if (mainString.find(genre) == std::string::npos)
 			continue;
 
-		similarMovies.push_back((*it).getId());
+		recommendedMovies.insert(it->getId());
 		count++;
 	}
-
-	return similarMovies;
 }
 
 double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings)

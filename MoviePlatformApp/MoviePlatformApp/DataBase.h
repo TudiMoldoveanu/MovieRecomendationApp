@@ -4,6 +4,7 @@ class Database //Singleton
 {
 private:
 	std::unique_ptr<Storage> m_storage; 
+	std::vector<Movie> m_allMovies;
 
 private:
 	Database();
@@ -16,7 +17,7 @@ private:
 	static Database* getInstance();
 	void PopulateStorage(const std::string& dataFilePath);
 	int randomIndexGenerator(const std::vector<Movie>& movies);
-
+	
 public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
@@ -24,9 +25,8 @@ public:
 	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
 	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
 	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
-	std::vector<int> getSimilarGenre(const std::string genre);
+	void getSimilarGenre(const std::string& genre, std::set<int>& recommendedMovies, bool oneOrMore = false);
 	double cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings);
-
 	// template useful functions
 	template <class T>
 	auto getAll()

@@ -3,4 +3,8 @@
     <file>settings2.png</file>
     <file>settings.png</file>
   </qresource>
+  <qresource prefix="dashboard">
+    <file>movieBand.png</file>
+    <file>dashboard.png</file>
+  </qresource>
 </RCC>

@@ -88,12 +88,12 @@ void MovieDashboard::setRecommendedMoviesData()
 	//create an instance of Recommendation Engine
 	RecomendationEngine recEngine(watchedMovieIds, wishlistedMovieIds);
 	recEngine.setMovieGenresMap();
-	std::vector<int> recommendedMoviesIds = recEngine.getSimilarMovies();
+	std::set<int> recommendedMoviesIds = recEngine.getSimilarMovies();
 	
-
-	for (int i = 0; i < recommendedMoviesIds.size(); i++) {
-		QPixmap moviePoster = posterManager.getMoviePoster(recommendedMoviesIds[i], "154");
-		QList<QString> movieInfo = infoManager.getMovieInfo(recommendedMoviesIds[i]);
+	int count = 0;
+	for (const auto& recommendedMovieId : recommendedMoviesIds) {
+		QPixmap moviePoster = posterManager.getMoviePoster(recommendedMovieId, "154");
+		QList<QString> movieInfo = infoManager.getMovieInfo(recommendedMovieId);
 
 		uiDashboard.recommendTable->setItemDelegate(new ImageTextDelegate(uiDashboard.recommendTable));
 
@@ -101,7 +101,8 @@ void MovieDashboard::setRecommendedMoviesData()
 		QStandardItem* item = new QStandardItem;
 		item->setData(moviePoster, Qt::DisplayRole);
 		item->setData(movieInfo[1], Qt::UserRole);
-		m_recommendTableData->setItem(0, i, item);
+		m_recommendTableData->setItem(0, count, item);
+		count++;
 	}
 
 	assignDataToTable(uiDashboard.recommendTable, m_recommendTableData);
