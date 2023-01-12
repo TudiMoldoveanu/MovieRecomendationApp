@@ -15,7 +15,8 @@ private:
 	// instantiate the database
 	static Database* getInstance();
 	void PopulateStorage(const std::string& dataFilePath);
-	
+	int randomIndexGenerator(const std::vector<Movie>& movies);
+
 public:
 	// sync the instantiated database and return a pointer to it
 	static Database* connect();
@@ -25,6 +26,7 @@ public:
 	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
 	std::vector<int> getSimilarGenre(const std::string genre);
 	double cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings);
+
 	// template useful functions
 	template <class T>
 	auto getAll()

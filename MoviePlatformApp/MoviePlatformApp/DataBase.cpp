@@ -98,6 +98,7 @@ std::vector<int> Database::getSimilarGenreAndRating(const Movie& movie)
 	return similarMovies;
 }
 
+
 std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 {
 	using namespace sqlite_orm;
@@ -131,6 +132,15 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 	return similarMovies;
 }
 
+int Database::randomIndexGenerator(const std::vector<Movie>& movies)
+{
+	//pick a random index in movies vector
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distr(0, movies.size());
+	return distr(gen);
+}
+
 std::vector<int> Database::getSimilarGenre(const std::string genre)
 {
 	using namespace sqlite_orm;
@@ -142,8 +152,7 @@ std::vector<int> Database::getSimilarGenre(const std::string genre)
 	std::random_device rd; 
 	std::mt19937 gen(rd()); 
 	std::uniform_int_distribution<> distr(0, allMovies.size()); 
-	int randomIndex = distr(gen);
-
+	int randomIndex = randomIndexGenerator(allMovies);
 
 	auto randomIt = allMovies.begin();
 	std::advance(randomIt, randomIndex);
@@ -188,7 +197,6 @@ double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, cons
 	// Return the cosine similarity
 	return dotProduct / (magnitude1 * magnitude2);
 }
-	
 
 
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)
