@@ -10,9 +10,6 @@ RecomendationEngine::RecomendationEngine(std::vector<int> watchedIds, std::vecto
 	srand(time(0));
 }
 
-
-
-
 void RecomendationEngine::setMovieGenresMap()
 {
 	for (const auto& currentId : m_wishlistedMovieIds)

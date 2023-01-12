@@ -10,8 +10,6 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	m_randomNumber = randomIndex();
 	m_movieIndex = k_paginateNr + m_randomNumber;
 	m_allMovies = database->getAll<Movie>();
-	m_wishlistTableData = new QStandardItemModel();
-	m_watchedTableData = new QStandardItemModel();
 	m_myProfileData = new QStandardItemModel();
 	m_recommendTableData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
@@ -43,6 +41,7 @@ void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 
 void MovieDashboard::setMovieWishlistData()
 {
+	m_wishlistTableData = new QStandardItemModel();
 	std::vector<int> wishlistedMovieIds =
 		database->getSavedMovies<UserWishlist>(loggedUser->getId());
 
@@ -63,6 +62,7 @@ void MovieDashboard::setMovieWishlistData()
 
 void MovieDashboard::setMovieWatchedData()
 {
+	m_watchedTableData = new QStandardItemModel();
 	std::vector<int> watchedMovieIds =
 		database->getSavedMovies<UserWatched>(loggedUser->getId());
 
@@ -231,7 +231,6 @@ void MovieDashboard::tabSelected()
 	if (uiDashboard.tabWidget->currentIndex() == 2) {
 		setRecommendedMoviesData();
 	}
-
 }
 
 void MovieDashboard::on_nextPage_clicked()
