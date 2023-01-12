@@ -12,7 +12,7 @@ private:
 	Database* m_database = Database::connect();
 	std::vector<int> m_wishlistedMovieIds, m_wacthedMovieIds;
 	std::map < std::string, int> m_movieGenresOfUser;
-	//Funtions
+	//Functions
 	std::string getFirstGenreOfMovie(const int& movieId);
 	std:: string mostFreqGenre();
    

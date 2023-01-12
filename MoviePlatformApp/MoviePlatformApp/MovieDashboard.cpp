@@ -7,7 +7,8 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
 	uiDashboard.setupUi(this);
-	m_movieIndex = k_paginateNr;
+	m_randomNumber = randomIndex();
+	m_movieIndex = k_paginateNr + m_randomNumber;
 	m_allMovies = database->getAll<Movie>();
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
@@ -19,7 +20,6 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	connect(uiDashboard.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	//check if user clicked at a tab
 	connect(uiDashboard.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
-	m_randomNumber = randomIndex();
 	setMovieDashboardData(m_randomNumber, m_randomNumber + k_paginateNr);
 	setMovieWishlistData();
 	setMovieWatchedData();
@@ -244,6 +244,9 @@ void MovieDashboard::on_nextPage_clicked()
 
 void MovieDashboard::on_previousPage_clicked()
 {
+	if (m_movieIndex < k_paginateNr)
+		return;
+
 	k_currentPage--;
 	k_rows = 0;
 	m_searchMovies.clear();

@@ -4,16 +4,14 @@ RecomendationEngine::RecomendationEngine(std::vector<int> watchedIds, std::vecto
 
 void RecomendationEngine::setMovieGenresMap()
 {
-	for (int i = 0; i < m_wacthedMovieIds.size(); i++)
+	for (const auto& currentId : m_wishlistedMovieIds)
 	{
-		int currentId = m_wacthedMovieIds[i];
 		std::string gernre = getFirstGenreOfMovie(currentId);
 		m_movieGenresOfUser[gernre]++;
-		
 	}
-	for (int i = 0; i < m_wishlistedMovieIds.size(); i++)
+
+	for (const auto& currentId : m_wacthedMovieIds)
 	{
-		int currentId = m_wishlistedMovieIds[i];
 		std::string gernre = getFirstGenreOfMovie(currentId);
 		m_movieGenresOfUser[gernre]++;
 	}
@@ -41,13 +39,12 @@ std::string RecomendationEngine::mostFreqGenre()
 {
 	int max = 0;
 	std::string genre;
-	std::map < std::string, int>::iterator it;
-	for (it=m_movieGenresOfUser.begin(); it!=m_movieGenresOfUser.end(); it++)
+	for (const auto& genreCount : m_movieGenresOfUser)
 	{
-		if (max < it->second)
+		if (max < genreCount.second)
 		{
-			max = it->second;
-			genre = it->first;
+			max = genreCount.second;
+			genre = genreCount.first;
 		}
 	}
 	return genre;
