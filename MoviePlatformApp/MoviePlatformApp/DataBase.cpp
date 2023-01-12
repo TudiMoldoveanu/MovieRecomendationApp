@@ -1,5 +1,6 @@
 #include "Database.h"
 #include "SimilarMoviesEngine.h"
+#include <random>
 
 Database::Database()
 {
@@ -135,19 +136,31 @@ std::vector<int> Database::getSimilarGenre(const std::string genre)
 	using namespace sqlite_orm;
 	std::vector<int> similarMovies;
 
+	auto allMovies = getAll<Movie>();
+
+	//pick a random index in movies vector
+	std::random_device rd; 
+	std::mt19937 gen(rd()); 
+	std::uniform_int_distribution<> distr(0, allMovies.size()); 
+	int randomIndex = distr(gen);
+
+
+	auto randomIt = allMovies.begin();
+	std::advance(randomIt, randomIndex);
 
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
+	for (auto it = randomIt;it!=allMovies.end();it++)
 	{
 
 		if (count > 5)
 			break;
-		std::string mainString = record.getListedIn().value();
+		std::string mainString = (*it).getListedIn().value();
+
 		//test if mainString has genre as a substring
 		if (mainString.find(genre) == std::string::npos)
 			continue;
 
-		similarMovies.push_back(record.getId());
+		similarMovies.push_back((*it).getId());
 		count++;
 	}
 
