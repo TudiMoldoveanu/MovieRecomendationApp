@@ -12,6 +12,7 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	m_wishlistTableData = new QStandardItemModel();
 	m_watchedTableData = new QStandardItemModel();
 	m_myProfileData = new QStandardItemModel();
+	m_recommendTableData = new QStandardItemModel();
 	//signal for displaying individual movie page on double click
 	connect(uiDashboard.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(dashboardMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	connect(uiDashboard.wishlistTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(wishlistMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
@@ -28,23 +29,6 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 MovieDashboard::~MovieDashboard()
 {}
 
-void MovieDashboard::setHeader(QStandardItemModel* tableHeader) {
-	QList<QString> header = {
-		"",
-		"Type",
-		"Title",
-		"Director",
-		"Cast",
-		"Country",
-		"Date Added",
-		"Release Year",
-		"Rating",
-		"Duration",
-		"Listed In",
-		"Description"
-	};
-	tableHeader->setHorizontalHeaderLabels(header);
-}
 
 void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 {
@@ -113,6 +97,7 @@ void MovieDashboard::setRecommendedMoviesData()
 
 		uiDashboard.recommendTable->setItemDelegate(new ImageTextDelegate(uiDashboard.recommendTable));
 
+
 		QStandardItem* item = new QStandardItem;
 		item->setData(moviePoster, Qt::DisplayRole);
 		item->setData(movieInfo[1], Qt::UserRole);
@@ -120,9 +105,6 @@ void MovieDashboard::setRecommendedMoviesData()
 	}
 
 	assignDataToTable(uiDashboard.recommendTable, m_recommendTableData);
-
-
-
 }
 
 void MovieDashboard::setMyProfileData()

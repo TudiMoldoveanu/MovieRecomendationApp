@@ -13,12 +13,10 @@ void RecomendationEngine::setMovieGenresMap()
 	}
 	for (int i = 0; i < m_wishlistedMovieIds.size(); i++)
 	{
-		int currentId = m_wacthedMovieIds[i];
+		int currentId = m_wishlistedMovieIds[i];
 		std::string gernre = getFirstGenreOfMovie(currentId);
 		m_movieGenresOfUser[gernre]++;
-		
 	}
-
 }
 
 std::vector<int> RecomendationEngine::getSimilarMovies()

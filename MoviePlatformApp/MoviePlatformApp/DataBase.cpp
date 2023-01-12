@@ -128,7 +128,7 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 	}
 
 	return similarMovies;
-	}
+}
 
 std::vector<int> Database::getSimilarGenre(const std::string genre)
 {
