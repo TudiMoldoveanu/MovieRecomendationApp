@@ -13,6 +13,7 @@ MovieView::MovieView(int selectedMovieId, QWidget *parent)
     m_selectedMovieId = selectedMovieId;
 
     m_similarMovieTable = new QStandardItemModel;
+    m_parent = parent;
 }
 
 MovieView::~MovieView()
@@ -24,8 +25,6 @@ void MovieView::setMovieView() {
     //created an instance of SimilarMoviesEngine
     SimilarMoviesEngine similarMovies(movie);
     m_similarMovieIds = similarMovies.getMoviesId();
-
-    std::cout << m_similarMovieIds.size() << "\n";
 
     //set data
     m_similarMovieTable = new QStandardItemModel();
@@ -53,11 +52,17 @@ void MovieView::setMovieView() {
     setMovieTypeAndDuration(movieInfo[0], movieInfo[8]);
     std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
     std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
-    for (int i = 0; i < wishlistedMovieIds.size(); i++) {
-        if (m_selectedMovieId == wishlistedMovieIds[i]) {
+    for (int i = 0; i < wishlistedMovieIds.size(); i++) 
+    {
+        if (m_selectedMovieId == wishlistedMovieIds[i])
+        {
             ui.wishlistButton->setText("Remove Wishlist");
             ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
+        }
+        else {
+            ui.wishlistButton->setText("Add to Wishlist");
+            ui.wishlistButton->setStyleSheet("background-color: #e8a813;");
         }
     }
     for (int i = 0; i < watchedMovieIds.size(); i++) {
@@ -65,6 +70,9 @@ void MovieView::setMovieView() {
             ui.watchedButton->setText("Remove Watched");
             ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
             break;
+        } else {
+            ui.watchedButton->setText("Mark as Watched");
+            ui.watchedButton->setStyleSheet("background-color: #e8a813;");
         }
     }
 }
@@ -195,33 +203,39 @@ void MovieView::setMovieTypeAndDuration(QString type, QString duration)
 void MovieView::on_watchedButton_clicked()
 {
     int userId = loggedUser->getId();
-    UserWatched userWatched(userId, m_selectedMovieId);
     if (ui.watchedButton->text().toStdString() == "Remove Watched") {
         database->deleteId<UserWatched>(userId, m_selectedMovieId);
         ui.watchedButton->setText("Mark as Watched");
-        ui.watchedButton->setStyleSheet("background-color: rgb(204,204,0)");
+        ui.watchedButton->setStyleSheet("background-color: #e8a813;");
     }
     else {
+        UserWatched userWatched(userId, m_selectedMovieId);
         database->replace(userWatched);
         ui.watchedButton->setText("Remove Watched");
         ui.watchedButton->setStyleSheet("background-color: rgb(139,0,0)");
     }
+    MovieDashboard* dashboard = (MovieDashboard*)m_parent;
+    dashboard->setMovieWatchedData();
+    dashboard->setRecommendedMoviesData(); // i think it's pretty difficult to trigger the algorithms at every button action
 }
 
 void MovieView::on_wishlistButton_clicked()
 {
     int userId = loggedUser->getId();
-    UserWishlist userWishlist(userId, m_selectedMovieId);
     if (ui.wishlistButton->text().toStdString() == "Remove Wishlist") {
         database->deleteId<UserWishlist>(userId, m_selectedMovieId);
         ui.wishlistButton->setText("Add to Wishlist");
-        ui.wishlistButton->setStyleSheet("background-color: rgb(204,204,0)");
+        ui.wishlistButton->setStyleSheet("background-color: #e8a813;");
     }
     else {
+        UserWishlist userWishlist(userId, m_selectedMovieId);
         database->replace(userWishlist);
         ui.wishlistButton->setText("Remove Wishlist");
         ui.wishlistButton->setStyleSheet("background-color: rgb(139,0,0)");
     }
+    MovieDashboard* dashboard = (MovieDashboard*)m_parent;
+    dashboard->setMovieWishlistData();
+    dashboard->setRecommendedMoviesData(); // same as above
 }
 
 void MovieView::assignDataToTable(QTableView* tableUi, QStandardItemModel* tableData) {
@@ -264,6 +278,7 @@ void MovieView::similarTableDoubleClick(const QModelIndex&)
         {
             QModelIndex index = selection.at(i);
             this->m_selectedMovieId = m_similarMovieIds[index.column()];
+            MovieView* movieView = new MovieView(m_selectedMovieId, this);
             this->setMovieView();
         }
         ui.similarMoviesTable->setEnabled(true);

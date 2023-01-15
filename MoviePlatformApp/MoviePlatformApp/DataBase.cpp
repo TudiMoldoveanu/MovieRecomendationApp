@@ -1,5 +1,6 @@
 #include "Database.h"
 #include "SimilarMoviesEngine.h"
+#include <random>
 
 Database::Database()
 {
@@ -10,6 +11,8 @@ Database::Database()
 	 auto initMoviesCount = this->m_storage->count<Movie>();
 	 if (initMoviesCount == 0)
 		 this->PopulateStorage("movies_dataset.csv");
+
+	 m_allMovies =  getAll<Movie>();
 
 	 std::cout << "Database connected!" << std::endl; 
 }
@@ -71,37 +74,49 @@ std::vector<int> Database::getSimilarGenreAndRating(const Movie& movie)
 	std::vector<int> similarMovies;
 
 	std::string allGenre = movie.getListedIn().value();
+
+
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
+	std::advance(randomIt, randomIndex);
+
+
 	//extract letters until we find ,
 	std::string delimiter = ",";
 	std::string firstGenre = allGenre.substr(0, allGenre.find(delimiter));
-	
+
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
 	{
 
-		if(count > 2)
+		if (count > 2)
 			break;
 
-		if (movie.getId() == record.getId())
+		if (movie.getId() == (*it).getId())
 			continue;
 
-		std::string mainString = record.getListedIn().value();
+		std::string mainString = (*it).getListedIn().value();
 		//test if mainString has firstGenre substring and if rating are the same
-		if (mainString.find(firstGenre) == std::string::npos || *record.getRating() != movie.getRating())
+		if (mainString.find(firstGenre) == std::string::npos || (*it).getRating() != movie.getRating())
 			continue;
 
-		similarMovies.push_back(record.getId());
+		similarMovies.push_back((*it).getId());
 		count++;
 	}
 
 	return similarMovies;
 }
 
+
 std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 {
 	using namespace sqlite_orm;
 	std::vector<int> similarMovies;
 	std::string allCast = movie.getCast().value();
+
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
+	std::advance(randomIt, randomIndex);
 
 	if (allCast == "")
 		return similarMovies;
@@ -110,48 +125,63 @@ std::vector<int> Database::getSimilarDirectorOrCast(const Movie& movie)
 	std::string firstCastMember = allCast.substr(0, allCast.find(delimiter));
 
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
 	{
 		if (count > 2)
 			break;
 
-		std::string mainString = record.getCast().value();
+		std::string mainString = (*it).getCast().value();
 
-		if (movie.getId() == record.getId())
+		if (movie.getId() == (*it).getId())
 			continue;
 
-		if (mainString.find(firstCastMember) == std::string::npos && *record.getDirector() != movie.getDirector() || movie.getDirector() == "")
+		if (mainString.find(firstCastMember) == std::string::npos && (*it).getDirector() != movie.getDirector() || movie.getDirector() == "")
 			continue;
 
-		similarMovies.push_back(record.getId());
+		similarMovies.push_back((*it).getId());
 		count++;
 	}
 
 	return similarMovies;
 }
 
-std::vector<int> Database::getSimilarGenre(const std::string genre)
+int Database::randomIndexGenerator(const std::vector<Movie>& movies)
+{
+	//pick a random index in movies vector
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distr(0, movies.size());
+	return distr(gen);
+}
+
+void Database::getSimilarGenre(const std::string& genre, std::set<int>& recommendedMovies, bool oneOrMore)
 {
 	using namespace sqlite_orm;
-	std::vector<int> similarMovies;
 
-
+	int randomIndex = randomIndexGenerator(m_allMovies);
+	auto randomIt = m_allMovies.begin();
+	std::advance(randomIt, randomIndex);
 	int count = 0;
-	for (auto& record : m_storage->iterate<Movie>())
-	{
+	int countMax;
 
-		if (count > 5)
+	if (oneOrMore)
+		countMax = 1;
+	else
+		countMax = 5;
+
+	for (auto it = randomIt; it != m_allMovies.end(); it++)
+	{
+		if (count >= countMax)
 			break;
-		std::string mainString = record.getListedIn().value();
+		std::string mainString = it->getListedIn().value();
+
 		//test if mainString has genre as a substring
 		if (mainString.find(genre) == std::string::npos)
 			continue;
 
-		similarMovies.push_back(record.getId());
+		recommendedMovies.insert(it->getId());
 		count++;
 	}
-
-	return similarMovies;
 }
 
 double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings)
@@ -175,7 +205,6 @@ double Database::cosineSimilarity(const std::vector<int>& firstUserRatings, cons
 	// Return the cosine similarity
 	return dotProduct / (magnitude1 * magnitude2);
 }
-	
 
 
 std::array<std::optional<std::string>, Database::k_movieTableSize> split(const std::string& str, const std::string& delim)

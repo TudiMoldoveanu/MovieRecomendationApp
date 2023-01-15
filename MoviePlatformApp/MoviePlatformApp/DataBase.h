@@ -4,6 +4,7 @@ class Database //Singleton
 {
 private:
 	std::unique_ptr<Storage> m_storage; 
+	std::vector<Movie> m_allMovies;
 
 private:
 	Database();
@@ -15,6 +16,7 @@ private:
 	// instantiate the database
 	static Database* getInstance();
 	void PopulateStorage(const std::string& dataFilePath);
+	int randomIndexGenerator(const std::vector<Movie>& movies);
 	
 public:
 	// sync the instantiated database and return a pointer to it
@@ -23,7 +25,7 @@ public:
 	bool userAlreadyRated(const int& userId, const int& selectedMovieId);
 	std::vector<int> getSimilarGenreAndRating(const Movie& movie);
 	std::vector<int> getSimilarDirectorOrCast(const Movie& movie);
-	std::vector<int> getSimilarGenre(const std::string genre);
+	void getSimilarGenre(const std::string& genre, std::set<int>& recommendedMovies, bool oneOrMore = false);
 	double cosineSimilarity(const std::vector<int>& firstUserRatings, const std::vector<int>& secondUserRatings);
 	// template useful functions
 	template <class T>
@@ -36,13 +38,12 @@ public:
 	template <class T>
 	auto getSavedMovies(const int& loggedInUser)
 	{
-		std::vector<int> movieIds;
-		auto allRecords = m_storage->get_all<T>();
+		using namespace sqlite_orm;
+		auto movies = m_storage->get_all<T>(where(c(&T::getUserId) == loggedInUser));
 
-		for (int i = 0; i < allRecords.size(); i++) {
-			if (allRecords[i].getUserId() == loggedInUser) {
-				movieIds.push_back(allRecords[i].getShowId());
-			}
+		std::vector<int> movieIds;
+		for (auto& movie : movies) {
+			movieIds.push_back(movie.getShowId());
 		}
 
 		return movieIds;

@@ -11,6 +11,7 @@ RegisterPage::RegisterPage(QWidget* parent)
 	ui.setupUi(this);
 	connect(ui.showPass, SIGNAL(clicked()), SLOT(on_showPass_clicked()));
 	connect(ui.hidePass, SIGNAL(clicked()), SLOT(on_hidePass_clicked()));
+	ui.loaderLabel->setVisible(false);
 }
 
 RegisterPage::~RegisterPage()
@@ -102,15 +103,25 @@ void RegisterPage::on_hidePass_clicked()
 	ui.showPass->setEnabled(true);
 	ui.showPass->setVisible(true);
 }
-void RegisterPage::on_pushButton_clicked() 
+void RegisterPage::on_registerButton_clicked() 
 {
+
+	ui.registerButton->setEnabled(false);
+	ui.registerButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+
 	std::string username = ui.userLineEdit->text().toStdString();
 	std::string  password = ui.passLineEdit->text().toStdString();
 	std::string  fullname = ui.nameLineEdit->text().toStdString();
 	std::string  age = ui.ageSpinBox->text().toStdString();
 	std::string retypePass = ui.passLineEdit_2->text().toStdString();
 
-	if (validateRegisterForm(username, password, fullname, age, retypePass)) {
+	if (validateRegisterForm(username, password, fullname, age, retypePass)) 
+	{
+		QMovie* loaderMovie = new QMovie("loader2.gif");
+		ui.loaderLabel->setMovie(loaderMovie);
+		ui.loaderLabel->show();
+		loaderMovie->start();
+
 		User user{ -1, username, password };
 		UserInfo userInfo{ user.getId(), fullname, age };
 
@@ -124,4 +135,12 @@ void RegisterPage::on_pushButton_clicked()
 	else {
 		QMessageBox::information(this, "Register", errorCodeToString(m_errorCode));
 	}
+
+	// reset the button afterwards
+	ui.registerButton->setEnabled(true);
+	ui.registerButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
+
 }

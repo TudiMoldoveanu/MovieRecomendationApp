@@ -36,6 +36,7 @@ private slots:
 	void similarTableDoubleClick(const QModelIndex&);
 
 private:
+	QWidget* m_parent;
 	Ui::MovieViewClass ui;
 	Database* database = Database::connect();
 	LoggedUser* loggedUser = LoggedUser::login();

@@ -15,7 +15,7 @@ public:
 	PosterManager();
 
 	std::string whiteSpaceReplace(std::string& s);
-	QPixmap getMoviePoster(const int& id, const std::string& size);
+	QPixmap getMoviePoster(const int& id, const std::string& width);
 	QPixmap downloadMoviePoster(const QUrl& url);
 };
 
