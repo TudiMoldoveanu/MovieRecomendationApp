@@ -55,6 +55,19 @@ void MovieDashboard::setMovieWatchedData()
 	assignDataToTable(uiDashboard.watchedTable, m_watchedTableData);
 }
 
+double jaccardSimilarity(const std::string& s1, const std::string& s2) {
+	std::set<std::string> set1, set2;
+	std::stringstream s1s(s1), s2s(s2);
+	std::string temp;
+	while (s1s >> temp) set1.insert(temp);
+	while (s2s >> temp) set2.insert(temp);
+	std::vector<std::string> intersection;
+	std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(),
+		std::back_inserter(intersection));
+	int size = intersection.size();
+	return (double)size / (set1.size() + set2.size() - size);
+}
+
 void MovieDashboard::setRecommendedMoviesData()
 {
 	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
