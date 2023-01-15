@@ -38,13 +38,12 @@ public:
 	template <class T>
 	auto getSavedMovies(const int& loggedInUser)
 	{
-		std::vector<int> movieIds;
-		auto allRecords = m_storage->get_all<T>();
+		using namespace sqlite_orm;
+		auto movies = m_storage->get_all<T>(where(c(&T::getUserId) == loggedInUser));
 
-		for (int i = 0; i < allRecords.size(); i++) {
-			if (allRecords[i].getUserId() == loggedInUser) {
-				movieIds.push_back(allRecords[i].getShowId());
-			}
+		std::vector<int> movieIds;
+		for (auto& movie : movies) {
+			movieIds.push_back(movie.getShowId());
 		}
 
 		return movieIds;

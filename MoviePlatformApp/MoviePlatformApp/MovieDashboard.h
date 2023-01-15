@@ -36,6 +36,25 @@ public:
 	void setMovieWatchedData();
 	void setRecommendedMoviesData();
 	void setMyProfileData();
+	void setMovieView(const int& selectedMovieId);
+
+	template<class T>
+	QStandardItemModel* setModelData(QStandardItemModel* tableData) {
+		tableData = new QStandardItemModel();
+		std::vector<int> movieIds = database->getSavedMovies<T>(loggedUser->getId());
+
+		for (int i = 0; i < movieIds.size(); i++) {
+			QPixmap moviePoster = posterManager.getMoviePoster(movieIds[i], "154");
+			QList<QString> movieInfo = infoManager.getMovieInfo(movieIds[i]);
+
+			QStandardItem* item = new QStandardItem;
+			item->setData(moviePoster, Qt::DisplayRole);
+			item->setData(movieInfo[1], Qt::UserRole);
+			tableData->setItem(0, i, item);
+		}
+
+		return tableData;
+	}
 
 private slots:
 	void on_searchButton_clicked();

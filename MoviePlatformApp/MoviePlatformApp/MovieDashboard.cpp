@@ -45,43 +45,13 @@ void MovieDashboard::setMovieDashboardData(const int& fromId, const int& toId)
 
 void MovieDashboard::setMovieWishlistData()
 {
-	m_wishlistTableData = new QStandardItemModel();
-	std::vector<int> wishlistedMovieIds =
-		database->getSavedMovies<UserWishlist>(loggedUser->getId());
-
-	for (int i = 0; i < wishlistedMovieIds.size(); i++) {
-		QPixmap moviePoster = posterManager.getMoviePoster(wishlistedMovieIds[i], "154");
-		QList<QString> movieInfo = infoManager.getMovieInfo(wishlistedMovieIds[i]);
-
-		uiDashboard.wishlistTable->setItemDelegate(new ImageTextDelegate(uiDashboard.wishlistTable));
-		
-		QStandardItem* item = new QStandardItem;
-		item->setData(moviePoster, Qt::DisplayRole);
-		item->setData(movieInfo[1], Qt::UserRole);
-		m_wishlistTableData->setItem(0, i, item);
-	}
-
+	m_wishlistTableData = setModelData<UserWishlist>(m_wishlistTableData);
 	assignDataToTable(uiDashboard.wishlistTable, m_wishlistTableData);
 }
 
 void MovieDashboard::setMovieWatchedData()
 {
-	m_watchedTableData = new QStandardItemModel();
-	std::vector<int> watchedMovieIds =
-		database->getSavedMovies<UserWatched>(loggedUser->getId());
-
-	for (int i = 0; i < watchedMovieIds.size(); i++) {
-		QPixmap moviePoster = posterManager.getMoviePoster(watchedMovieIds[i], "154");
-		QList<QString> movieInfo = infoManager.getMovieInfo(watchedMovieIds[i]);
-
-		uiDashboard.watchedTable->setItemDelegate(new ImageTextDelegate(uiDashboard.watchedTable));
-
-		QStandardItem* item = new QStandardItem;
-		item->setData(moviePoster, Qt::DisplayRole);
-		item->setData(movieInfo[1], Qt::UserRole);
-		m_watchedTableData->setItem(0, i, item);
-	}
-
+	m_watchedTableData = setModelData<UserWatched>(m_watchedTableData);
 	assignDataToTable(uiDashboard.watchedTable, m_watchedTableData);
 }
 
@@ -102,9 +72,6 @@ void MovieDashboard::setRecommendedMoviesData()
 	for (const auto& recommendedMovieId : m_recommendedMoviesIds) {
 		QPixmap moviePoster = posterManager.getMoviePoster(recommendedMovieId, "154");
 		QList<QString> movieInfo = infoManager.getMovieInfo(recommendedMovieId);
-
-		uiDashboard.recommendTable->setItemDelegate(new ImageTextDelegate(uiDashboard.recommendTable));
-
 
 		QStandardItem* item = new QStandardItem;
 		item->setData(moviePoster, Qt::DisplayRole);
@@ -130,8 +97,6 @@ void MovieDashboard::setMovieData(const int& tableLine, const int& movieId, QSta
 	QPixmap moviePoster = posterManager.getMoviePoster(movieId, "154");
 	QList<QString> movieInfo = infoManager.getMovieInfo(movieId);
 
-	uiDashboard.tableView->setItemDelegate(new ImageTextDelegate(uiDashboard.tableView));
-
 	movieData->setData(moviePoster, Qt::DisplayRole);
 	movieData->setData(movieInfo[1], Qt::UserRole);
 
@@ -149,6 +114,7 @@ void MovieDashboard::assignDataToTable(QTableView* tableUi, QStandardItemModel* 
 	//set data
 	tableUi->setModel(tableData);
 	//set styling
+	tableUi->setItemDelegate(new ImageTextDelegate(tableUi));
 	tableUi->setCursor(Qt::PointingHandCursor);
 	tableUi->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	tableUi->setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -181,9 +147,8 @@ void MovieDashboard::dashboardMovieDoubleClick(const QModelIndex& index)
 		selectedMovieId = (k_currentPage * k_paginateNr) + index.row() * k_cols + index.column() + m_randomNumber + 1;
 	}
 
-	MovieView* movieView = new MovieView(selectedMovieId, this);
-	movieView->setMovieView();
-	movieView->setVisible(true);
+	setMovieView(selectedMovieId);
+
 	uiDashboard.tableView->setEnabled(true);
 }
 
@@ -196,14 +161,8 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	
 	int selectedMovieId = wishlistedMovieIds[index.column()];
 
-	MovieView* movieView = new MovieView(selectedMovieId, this);
-	Movie movie = database->getById<Movie>(selectedMovieId);
+	setMovieView(selectedMovieId);
 
-	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
-
-	movieView->setMovieView();
-	movieView->setVisible(true);
 	uiDashboard.wishlistTable->setEnabled(true);
 	uiDashboard.watchedTable->setEnabled(true);
 }
@@ -214,14 +173,8 @@ void MovieDashboard::recommendedMovieDoubleClick(const QModelIndex& index)
 
 	int selectedMovieId =  *std::next(m_recommendedMoviesIds.begin(), index.column());
 
-	MovieView* movieView = new MovieView(selectedMovieId, this);
-	Movie movie = database->getById<Movie>(selectedMovieId);
+	setMovieView(selectedMovieId);
 
-	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
-
-	movieView->setMovieView();
-	movieView->setVisible(true);
 	uiDashboard.recommendTable->setEnabled(true);
 }
 
@@ -234,14 +187,8 @@ void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 
 	int selectedMovieId = watchedMovieIds[index.column()];
 
-	MovieView* movieView = new MovieView(selectedMovieId, this);
-	Movie movie = database->getById<Movie>(selectedMovieId);
+	setMovieView(selectedMovieId);
 
-	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
-	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
-
-	movieView->setMovieView();
-	movieView->setVisible(true);
 	uiDashboard.watchedTable->setEnabled(true);
 	uiDashboard.wishlistTable->setEnabled(true);
 }
@@ -396,4 +343,15 @@ int MovieDashboard::randomIndex()
 {
 	srand(time(0));
 	return rand() % k_noOfMovies;
+}
+
+void MovieDashboard::setMovieView(const int& selectedMovieId) {
+	MovieView* movieView = new MovieView(selectedMovieId, this);
+	Movie movie = database->getById<Movie>(selectedMovieId);
+
+	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
+	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
+
+	movieView->setMovieView();
+	movieView->setVisible(true);
 }
