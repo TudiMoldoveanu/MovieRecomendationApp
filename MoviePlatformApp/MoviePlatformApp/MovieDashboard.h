@@ -37,6 +37,7 @@ public:
 	void setRecommendedMoviesData();
 	void setMyProfileData();
 	void setMovieView(const int& selectedMovieId);
+	std::vector<int> getPreferencesRecommendations(std::vector<Movie> prefMovies);
 
 	template<class T>
 	QStandardItemModel* setModelData(QStandardItemModel* tableData) {

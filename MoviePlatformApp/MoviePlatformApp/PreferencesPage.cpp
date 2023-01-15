@@ -37,8 +37,15 @@ void PreferencesPage::movieClick(const QModelIndex& index)
     for (int i = 0; i < selection.count(); i++)
     {
         QModelIndex index = selection.at(i);
-        QVariant data = index.model()->data(index, Qt::DisplayRole);
-        m_selectedMovies.push_back(data);
+        int movieId = index.model()->data(index, Qt::DisplayRole).toInt();
+        for (auto& movie : m_allMovies)
+        {
+            if (movie.getId() == movieId)
+            {
+                m_selectedMovies.push_back(movie);
+                break;
+            }
+        }
     }
 }
 

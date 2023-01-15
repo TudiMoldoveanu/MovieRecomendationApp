@@ -24,7 +24,7 @@ private:
     Ui::PreferencesPageClass ui;
     Database* database = Database::connect();
     std::vector<Movie> m_allMovies;
-    std::vector<QVariant> m_selectedMovies;
+    std::vector<Movie> m_selectedMovies;
     QStandardItemModel* m_moviePosters;
     PosterManager posterManager;
 };

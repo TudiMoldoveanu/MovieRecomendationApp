@@ -55,6 +55,51 @@ void MovieDashboard::setMovieWatchedData()
 	assignDataToTable(uiDashboard.watchedTable, m_watchedTableData);
 }
 
+double jaccardSimilarity(const std::string& s1, const std::string& s2) {
+	std::set<std::string> set1, set2;
+	std::stringstream s1s(s1), s2s(s2);
+	std::string temp;
+	while (s1s >> temp) set1.insert(temp);
+	while (s2s >> temp) set2.insert(temp);
+	std::vector<std::string> intersection;
+	std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(),
+		std::back_inserter(intersection));
+	int size = intersection.size();
+	return (double)size / (set1.size() + set2.size() - size);
+}
+
+std::vector<int> MovieDashboard::getPreferencesRecommendations(std::vector<Movie> prefMovies)
+{
+	std::vector<int> recommendations;
+	std::vector<std::string> selected_descriptions;
+
+	for (auto& selected_movie : prefMovies)
+	{
+		auto description = selected_movie.getDescription();
+		if (description)
+			selected_descriptions.push_back(*description);
+	}
+
+	for (auto& movie : m_allMovies)
+	{
+		auto movie_description = movie.getDescription();
+		if (movie_description)
+		{
+			for (auto& selected_description : selected_descriptions)
+			{
+				double jaccard_similarity = jaccardSimilarity(selected_description, *movie_description);
+
+				if (jaccard_similarity > 0.5)
+				{
+					recommendations.emplace_back(movie.getId());
+					break;
+				}
+			}
+		}
+	}
+	return recommendations;
+}
+
 void MovieDashboard::setRecommendedMoviesData()
 {
 	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
