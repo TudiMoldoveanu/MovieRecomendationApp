@@ -11,21 +11,30 @@ std::string PosterManager::whiteSpaceReplace(std::string & s)
 	return s;
 }
 
-QPixmap PosterManager::getMoviePoster(const int& id, const std::string& size)
+QPixmap PosterManager::getMoviePoster(const int& id, const std::string& width)
 {
 	Movie movie = database->getById<Movie>(id);
 
 	std::string moviePosterUrl = std::move(*movie.getPosterUrl());
 	std::string movieTitle = std::move(*movie.getTitle());
 
+	std::string height;
+	if (width == "154") {
+		height = "230";
+	}
+	else {
+		height = "300";
+	}
+
 	QUrl requestUrl;
 	if (moviePosterUrl.empty()) {
 		whiteSpaceReplace(movieTitle);
-		QString finalUrl = "https://placehold.co/" + QString::fromStdString(size) + "x500?text=" + QString::fromStdString(whiteSpaceReplace(movieTitle));
+		//https://dummyimage.com/154x220/ffffff/000000&text=Hello
+		QString finalUrl = "https://dummyimage.com/" + QString::fromStdString(width) + "x" + QString::fromStdString(height) + QString::fromStdString("/ffffff/000000&text=") + "?text=" + QString::fromStdString(whiteSpaceReplace(movieTitle));
 		requestUrl = QUrl(finalUrl);
 	}
 	else {
-		QString finalUrl = "https://image.tmdb.org/t/p/w" + QString::fromStdString(size) + QString::fromStdString(moviePosterUrl);
+		QString finalUrl = "https://image.tmdb.org/t/p/w" + QString::fromStdString(width) + QString::fromStdString(moviePosterUrl);
 		requestUrl = QUrl(finalUrl);
 	}
 
