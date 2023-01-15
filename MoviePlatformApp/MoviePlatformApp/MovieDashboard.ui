@@ -193,7 +193,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="myProfile">
        <property name="maximumSize">
@@ -465,7 +465,7 @@ background:#073d69 ;
          <string>Next Page &gt;&gt;</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="dashboardLabel">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -479,6 +479,38 @@ background:#073d69 ;
         </property>
         <property name="pixmap">
          <pixmap resource="MovieDashboard.qrc">:/dashboard/dashboard.png</pixmap>
+        </property>
+       </widget>
+       <widget class="QLabel" name="loaderLabel">
+        <property name="geometry">
+         <rect>
+          <x>960</x>
+          <y>20</y>
+          <width>51</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="MovieDashboard.qrc">:/dashboard/smallLoader.gif</pixmap>
+        </property>
+       </widget>
+       <widget class="QLabel" name="pageLoaderLabel">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>780</y>
+          <width>51</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="MovieDashboard.qrc">:/dashboard/smallLoader.gif</pixmap>
         </property>
        </widget>
       </widget>
@@ -552,7 +584,7 @@ background:#073d69 ;
      <x>0</x>
      <y>0</y>
      <width>1344</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

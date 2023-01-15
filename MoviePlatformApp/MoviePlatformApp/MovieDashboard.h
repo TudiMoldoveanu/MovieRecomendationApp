@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QtWidgets>
 #include "ui_MovieDashboard.h"
 #include "DataBase.h"
 #include "LoggedUser.h"	
@@ -40,7 +41,8 @@ private slots:
 	void on_searchButton_clicked();
 	void dashboardMovieDoubleClick(const QModelIndex&);
 	void wishlistMovieDoubleClick(const QModelIndex&);
-	void watchedMovieDoubleClick(const QModelIndex&);
+	void watchedMovieDoubleClick(const QModelIndex&); 
+	void recommendedMovieDoubleClick(const QModelIndex&);
 	void tabSelected();
 	void on_nextPage_clicked();
 	void on_previousPage_clicked();
@@ -53,6 +55,7 @@ private:
 	int m_randomNumber;
 	std::vector<Movie> m_allMovies;
 	std::vector<int> m_searchMovies;
+	std::set<int> m_recommendedMoviesIds;
 	QStandardItemModel* m_dashboardTableData;
 	QStandardItemModel* m_wishlistTableData;
 	QStandardItemModel* m_watchedTableData;

@@ -27,7 +27,7 @@ public:
 	const char* errorCodeToString(const ErrorCodes& type);
 
 private slots:
-	void on_pushButton_clicked();
+	void on_registerButton_clicked();
 	void on_showPass_clicked();
 	void on_hidePass_clicked();
 

@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="newPrefix">
     <file>popcorn.png</file>
+    <file>loader3.gif</file>
     <file>—Pngtree—film projector_7495172.png</file>
   </qresource>
 </RCC>

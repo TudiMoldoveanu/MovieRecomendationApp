@@ -371,11 +371,11 @@ background-color: #4d4d4d;
      <number>1</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="registerButton">
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>570</y>
+      <y>600</y>
       <width>221</width>
       <height>51</height>
      </rect>
@@ -496,6 +496,22 @@ border-radius:10px;
     </property>
     <property name="checkable">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="loaderLabel">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>540</y>
+      <width>81</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="RegistetPage.qrc">:/newPrefix/loader2.gif</pixmap>
     </property>
    </widget>
   </widget>

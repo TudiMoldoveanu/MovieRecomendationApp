@@ -136,7 +136,7 @@ QToolButton::pressed
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-678</y>
          <width>718</width>
          <height>1218</height>
         </rect>
@@ -207,7 +207,7 @@ QToolButton::pressed
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../../../modern/MoviePlatformApp/MoviePlatformApp/Preferences.qrc">:/newPrefix/popcorn.png</pixmap>
+            <pixmap resource="PreferencesPage.qrc">:/newPrefix/popcorn.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -295,7 +295,7 @@ background-color: rgb(255, 213, 5);</string>
  </widget>
  <resources>
   <include location="../../../modern/MoviePlatformApp/MoviePlatformApp/Preferences.qrc"/>
-  <include location="../../../NERVI/MoviePlatformApp/MoviePlatformApp/PreferencesPage.qrc"/>
+  <include location="PreferencesPage.qrc"/>
   <include location="../../../NERVI/MoviePlatformApp/MoviePlatformApp/PreferencesPage.qrc"/>
  </resources>
  <connections/>

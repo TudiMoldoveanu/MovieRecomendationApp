@@ -4,6 +4,7 @@
     <file>settings.png</file>
   </qresource>
   <qresource prefix="dashboard">
+    <file>smallLoader.gif</file>
     <file>movieBand.png</file>
     <file>dashboard.png</file>
   </qresource>

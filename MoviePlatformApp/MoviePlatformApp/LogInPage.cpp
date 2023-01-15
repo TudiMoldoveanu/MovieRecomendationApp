@@ -45,7 +45,7 @@ void LogInPage::on_logInButton_clicked()
     std::string username = ui.userLineEdit->text().toStdString();
     std::string  password = ui.passLineEdit->text().toStdString();
 
-    if (username == "" | password == "")
+    if (username == "" || password == "")
     {
         QMessageBox::warning(this, "Warning!", "Please fill the empty fields!");  
     }

@@ -7,6 +7,8 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	: QMainWindow(parent)
 {
 	uiDashboard.setupUi(this);
+	uiDashboard.loaderLabel->setVisible(false);
+	uiDashboard.pageLoaderLabel->setVisible(false);
 	m_randomNumber = randomIndex();
 	m_movieIndex = k_paginateNr + m_randomNumber;
 	m_allMovies = database->getAll<Movie>();
@@ -16,6 +18,7 @@ MovieDashboard::MovieDashboard(QWidget* parent)
 	connect(uiDashboard.tableView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(dashboardMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	connect(uiDashboard.wishlistTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(wishlistMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	connect(uiDashboard.watchedTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(watchedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
+	connect(uiDashboard.recommendTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(recommendedMovieDoubleClick(const QModelIndex&)), Qt::QueuedConnection);
 	//check if user clicked at a tab
 	connect(uiDashboard.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabSelected()));
 	setMovieDashboardData(m_randomNumber, m_randomNumber + k_paginateNr);
@@ -86,13 +89,17 @@ void MovieDashboard::setRecommendedMoviesData()
 {
 	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
 	std::vector<int> watchedMovieIds = database->getSavedMovies<UserWatched>(loggedUser->getId());
+
+	if (wishlistedMovieIds.size() + watchedMovieIds.size() == 0)
+		return;
+	
 	//create an instance of Recommendation Engine
 	RecomendationEngine recEngine(watchedMovieIds, wishlistedMovieIds);
 	recEngine.setMovieGenresMap();
-	std::set<int> recommendedMoviesIds = recEngine.getSimilarMovies();
+	m_recommendedMoviesIds = recEngine.getSimilarMovies();
 	
 	int count = 0;
-	for (const auto& recommendedMovieId : recommendedMoviesIds) {
+	for (const auto& recommendedMovieId : m_recommendedMoviesIds) {
 		QPixmap moviePoster = posterManager.getMoviePoster(recommendedMovieId, "154");
 		QList<QString> movieInfo = infoManager.getMovieInfo(recommendedMovieId);
 
@@ -201,6 +208,23 @@ void MovieDashboard::wishlistMovieDoubleClick(const QModelIndex& index)
 	uiDashboard.watchedTable->setEnabled(true);
 }
 
+void MovieDashboard::recommendedMovieDoubleClick(const QModelIndex& index)
+{
+	uiDashboard.recommendTable->setEnabled(false);
+
+	int selectedMovieId =  *std::next(m_recommendedMoviesIds.begin(), index.column());
+
+	MovieView* movieView = new MovieView(selectedMovieId, this);
+	Movie movie = database->getById<Movie>(selectedMovieId);
+
+	QList<QString> movieInfo = infoManager.getMovieInfo(selectedMovieId);
+	QPixmap moviePoster = posterManager.getMoviePoster(selectedMovieId, "200");
+
+	movieView->setMovieView();
+	movieView->setVisible(true);
+	uiDashboard.recommendTable->setEnabled(true);
+}
+
 void MovieDashboard::watchedMovieDoubleClick(const QModelIndex& index)
 {
 	uiDashboard.watchedTable->setEnabled(false);
@@ -232,23 +256,77 @@ void MovieDashboard::tabSelected()
 
 void MovieDashboard::on_nextPage_clicked()
 {
+	uiDashboard.nextPage->setEnabled(false);
+	uiDashboard.nextPage->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+	uiDashboard.previousPage->setEnabled(false);
+	uiDashboard.previousPage->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+
+	QMovie* loaderMovie = new QMovie("smallLoader.gif");
+	uiDashboard.pageLoaderLabel->setMovie(loaderMovie);
+	uiDashboard.pageLoaderLabel->show();
+	loaderMovie->start();
+
 	k_currentPage++;
 	k_rows = 0;
 	m_searchMovies.clear();
 	setMovieDashboardData(m_movieIndex, m_movieIndex + k_paginateNr);
 	m_movieIndex += k_paginateNr;
+
+	uiDashboard.nextPage->setEnabled(true);
+	uiDashboard.nextPage->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
+	uiDashboard.previousPage->setEnabled(true);
+	uiDashboard.previousPage->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
+
+	// stop loading
+	uiDashboard.pageLoaderLabel->setVisible(false);
+	loaderMovie->stop();
 }
 
 void MovieDashboard::on_previousPage_clicked()
 {
 	if (m_movieIndex < k_paginateNr)
+	{
+		uiDashboard.previousPage->setEnabled(false);
+		uiDashboard.previousPage->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
 		return;
+	}
+
+	uiDashboard.previousPage->setEnabled(false);
+	uiDashboard.previousPage->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+	uiDashboard.nextPage->setEnabled(false);
+	uiDashboard.nextPage->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+
+	QMovie* loaderMovie = new QMovie("smallLoader.gif");
+	uiDashboard.pageLoaderLabel->setMovie(loaderMovie);
+	uiDashboard.pageLoaderLabel->show();
+	loaderMovie->start();
 
 	k_currentPage--;
 	k_rows = 0;
 	m_searchMovies.clear();
 	m_movieIndex -= k_paginateNr;
 	setMovieDashboardData(m_movieIndex - k_paginateNr, m_movieIndex);
+
+	uiDashboard.previousPage->setEnabled(true);
+	uiDashboard.previousPage->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
+	uiDashboard.nextPage->setEnabled(true);
+	uiDashboard.nextPage->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
+
+	// stop loading
+	uiDashboard.pageLoaderLabel->setVisible(false);
+	loaderMovie->stop();
 }
 
 void MovieDashboard::on_settingsButton_clicked()
@@ -262,7 +340,26 @@ void MovieDashboard::on_settingsButton_clicked()
 
 void MovieDashboard::on_searchButton_clicked()
 {
+	uiDashboard.searchButton->setEnabled(false);
+	uiDashboard.searchButton->setStyleSheet("background-color: rgba(255, 255, 255, 50);");
+
 	std::string searchTitle = uiDashboard.searchBox->text().toStdString();
+
+	if (searchTitle.size() <= 1)
+	{
+		uiDashboard.searchButton->setEnabled(true);
+		uiDashboard.searchButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+			"{\n"
+			"border-radius:10px;\n"
+			"}"));
+		return;
+	}
+
+	QMovie* loaderMovie = new QMovie("smallLoader.gif");
+	uiDashboard.loaderLabel->setMovie(loaderMovie);
+	uiDashboard.loaderLabel->show();
+	loaderMovie->start();
+
 	std::ranges::transform(searchTitle, searchTitle.begin(), ::toupper);
 	int nrOfMoviesFound = 0;
 
@@ -284,6 +381,15 @@ void MovieDashboard::on_searchButton_clicked()
 	}
 
 	assignDataToTable(uiDashboard.tableView, m_dashboardTableData);
+	// stop loading
+	uiDashboard.loaderLabel->setVisible(false);
+	loaderMovie->stop();
+	// reset the button afterwards
+	uiDashboard.searchButton->setEnabled(true);
+	uiDashboard.searchButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+		"{\n"
+		"border-radius:10px;\n"
+		"}"));
 }
 
 int MovieDashboard::randomIndex()
