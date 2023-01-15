@@ -42,7 +42,7 @@ void PreferencesPage::movieClick(const QModelIndex& index)
         {
             if (movie.getId() == movieId)
             {
-                m_selectedMovies.emplace_back(movie);
+                m_selectedMovies.push_back(movie);
                 break;
             }
         }

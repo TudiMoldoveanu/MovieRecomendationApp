@@ -68,6 +68,38 @@ double jaccardSimilarity(const std::string& s1, const std::string& s2) {
 	return (double)size / (set1.size() + set2.size() - size);
 }
 
+std::vector<int> MovieDashboard::getPreferencesRecommendations(std::vector<Movie> prefMovies)
+{
+	std::vector<int> recommendations;
+	std::vector<std::string> selected_descriptions;
+
+	for (auto& selected_movie : prefMovies)
+	{
+		auto description = selected_movie.getDescription();
+		if (description)
+			selected_descriptions.push_back(*description);
+	}
+
+	for (auto& movie : m_allMovies)
+	{
+		auto movie_description = movie.getDescription();
+		if (movie_description)
+		{
+			for (auto& selected_description : selected_descriptions)
+			{
+				double jaccard_similarity = jaccardSimilarity(selected_description, *movie_description);
+
+				if (jaccard_similarity > 0.5)
+				{
+					recommendations.emplace_back(movie.getId());
+					break;
+				}
+			}
+		}
+	}
+	return recommendations;
+}
+
 void MovieDashboard::setRecommendedMoviesData()
 {
 	std::vector<int> wishlistedMovieIds = database->getSavedMovies<UserWishlist>(loggedUser->getId());
