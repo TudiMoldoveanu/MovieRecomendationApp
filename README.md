@@ -4,7 +4,7 @@
   <img src="https://iili.io/HnbXZQa.png" alt="accessibility text">
 </p>
 
-<a href="https://youtu.be/Ev-hy9ANwqY>Demo Video</a>
+<a href="https://youtu.be/Ev-hy9ANwqY">Demo Video</a>
 
 A full stack desktop application of Movie Recommendation where you can create an account and based on your preferences and other users having similar preferences, you will be able to choose from a diversity of recommended movies.
 
